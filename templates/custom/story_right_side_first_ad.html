@@ -1,0 +1,26 @@
+ <div class=" col-md-2 col-sm-3 col-csl-3  uk-text-center hide-xs " 
+ style='background-color: white;height: 500px;float: right;'>
+<!--<h4 class="display-6" class="uk-box-shadow-small"><span class="fas fa-ad"></span></h4> -->
+        
+
+<div class="uk-box-shadow-small uk-border-rounded" style="height: 95%;">
+
+
+          <div class="uk-align-center recent trending uk-text-center right-side-ad-cont" style=" padding: 0;margin: 0;" uk-slideshow="autoplay: true;autoplay-interval: 10000">
+            <ul class="uk-slideshow-items uk-grid-small" style="height: 100% !important;text-align:center;margin: 0;padding: 0 !important;">
+              {% for ad in ads %}
+              <li class="col-md-12 col-sm-12 col-xs-12 " style="height: 100% !important;padding-right: 0px;padding-left: 0px;">
+                <div class="col-md-12" style="height: 100% !important; padding: 0;"> 
+                  <a href="{{ad.link}}"><img class="card-img" src="{{ad.desktop_image_64}}" alt="" style="border-radius: 5px;width: 95%;height: 100%;"></a>
+               
+                </div>
+            
+              </li>
+              {% endfor %}
+    
+    
+            </ul>
+           
+          </div>
+          </div>
+  </div>

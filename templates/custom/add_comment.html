@@ -1,0 +1,71 @@
+<!-- End breadcrumb -->
+<section id="" class="col-cmd-7 col-cmd-offset-4-e col-csm-7 col-csl-8 col-css-14 col-csx-14 col-csxx-14 col-csxx-x-14 col-csxx-xx-14"
+    style="padding: 10px;">
+
+    <div class="col-cmd-14">
+
+        <div class="col-cmd-14">
+
+            <!-- start blog comment -->
+
+            <div class="col-cmd-14">
+                <div class="mu-comments-area uk-margin-remove" style="overflow: hidden;" >
+
+                    <div class="comments uk-margin-remove" id="commentscontainerouter">
+                        <ul class="commentlist uk-margin-remove" id="commentscontainer">
+                        </ul>
+                        <!-- comments pagination -->
+           <div class="col-cmd-14 uk-text-center" id="{{comment.comment_id}}commentactions">
+            <a class="uk-button-default uk-button uk-border-pill dark-mode more-comments" id="more-comments" href="javascript:void(0);" data-page="1" style="">
+                <span class="fa fa-plus fa-c-medium uk-margin-small-right"></span><span>MORE</span>
+              </a>            
+            </div>
+            <div class="col-cmd-14">
+                <div style="padding-bottom: 50px;" id="commentbox">
+                    <form class="uk-form-horizontal" action="{% url 'add_comment' %}" method="POST" id="commentform"
+                        enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="uk-inline uk-padding-small uk-padding-remove-vertical"
+                            style="display: flex;background-color: transparent;box-shadow: none;">
+                            <textarea class="uk-input col-cmd-12 uk-border-rounded" id="id_comment" name="comment"
+                                placeholder="comment..." style="max-height:100px;min-height: 30px;"></textarea>
+                            <input class="uk-input col-cmd-12" type="hidden" id="id_comment_id" name="comment_id"
+                                placeholder="comment..." style="border-radius: 50px;height: 30px;">
+                            <input class="uk-input col-cmd-12" type="hidden" id="id_episode_id" name="episode_id"
+                                placeholder="comment..." value="{{episode.episode_id}}"
+                                style="border-radius: 50px;height: 30px;">
+                            <input class="uk-input col-cmd-12" type="hidden" id="id_story_id" name="story_id"
+                                placeholder="comment..." value="{{episode.story.story_id}}"
+                                style="border-radius: 50px;height: 30px;">
+                            <input class="uk-input col-cmd-12" type="hidden" id="id_commenter_id" name="commenter_id"
+                                placeholder="comment..." value="{{currentuser.user_id}}"
+                                style="border-radius: 50px;height: 30px;">
+
+                            <button class="uk-padding-remove uk-button " type="submit">
+                                <span class="fa fa-send fa-c-medium uk-padding-small"></span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+                    </div>
+                </div>
+            </div>
+
+ 
+            <!-- end blog comment -->
+            <!-- start respond form -->
+
+            
+
+            <!-- end respond form -->
+        </div>
+
+
+    </div>
+
+</section>

@@ -1,0 +1,48 @@
+<div class="card uk-padding-small uk-margin-remove-top uk-animation-slide-top uk-margin-small" id=""
+    style="box-shadow: none;">
+    <div class="uk-text-bold p-1">
+        {{members | length}} Members
+    </div>
+    <div class="card-body uk-margin-remove uk-padding-small text-center">
+        {% if members %}
+        {% for member in members %}
+        <div class="card uk-padding-small m-0  uk-text-left shadow-sm border"
+            style="width: 100%;display: inline-block;">
+            <!-- <i class="material-icons uk-position-top-right bg-dark uk-border-circle uk-padding-xsmall"
+                style="color: white;font-size: 12px;">shopping_bag</i> -->
+            <div class="card-body" style="padding: 5px;">
+                <div class="col-csxx-x-14" style="font-size: 12px;">
+                    <div class="col-csxx-x-14  col-cmd-5-e">
+                        <p class="" style="font-weight: bold;font-size: 14px;">
+                            {{member.last_name}} {{member.first_name}}</p>
+                    </div>
+                    <div class="col-csxx-x-14  col-cmd-5-e">
+                        <p class="card-text" style="font-size: 12px;"><i class="fa fa-envelope mr-1"></i>
+                                {{member.email_addres}} </p>
+
+                    </div>
+                    <div class="col-csxx-x-14  col-cmd-3-e">
+                        <p class="card-text" style="font-size: 12px;"><i class="fa fa-phone mr-1"></i>
+                                {{member.phone_no}} </p>
+
+                    </div>
+                    
+
+                </div>
+
+            </div>
+            <div class=" uk-position-top-right pr-3 pt-1">
+                <a class="rounded-circle p-1 uk-position-relative " href="{% url 'admin_member_page' userid=member.member_no %}"
+                 >
+                  <i class="icon plus circle uk-position-center uk-margin-remove text-dark"></i>
+                </a>
+              </div>
+        </div>
+
+        {% endfor %}
+        {% else %}
+<p class="text-danger text-bold">No Member Found</p>
+
+        {% endif %}
+    </div>
+</div>

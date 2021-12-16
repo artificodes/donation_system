@@ -1,0 +1,687 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en" class="bg-transparent">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+  {% if settings.logo_icon %}
+  <link rel="icon" href="{{settings.logo_icon.url}}">
+  {% endif %}
+  <title>{{title}}</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  {% block style %}
+  <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}" />
+  {% endblock %}
+
+  <!-- <link rel="stylesheet" href="{% static 'base/boomerang/assets/css/theme.css' %}"> -->
+  <!--  <link rel="stylesheet" href="{% static 'base/countdown/css/jQuery.countdownTimer.css' %}">-->
+  <link rel="stylesheet" href="{% static 'base/inputcounter/css/handle-counter.min.css' %}">
+  <link rel="stylesheet" href="{% static 'base/imagepreview/css/jpreview.css' %}">
+  <link rel="stylesheet" href="{% static 'base/formvalidation/js/jquery.validity.css' %}">
+  <link rel="stylesheet" href="{% static 'base/country/dist/css/bootstrap-select-country.min.css' %} ">
+
+  <!-- <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.mind1f1.css' %}">-->
+  <!-- <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.minb68f.css' %}"> -->
+
+  <!-- <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.minf27d.css' %}">  -->
+  <!-- <link rel="stylesheet" href="{% static 'base/searchselect/css/jquery-customselect-1.9.1.css' %}">    -->
+  <link rel="stylesheet" href="{% static 'base/uikit/css/uikit.css' %}">
+
+  <!-- <link rel="stylesheet" href="{% static 'base/semantic/semantic.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'base/qrc/js/src/reset.css' %}"> -->
+
+  <!-- <link rel="stylesheet" href="{% static 'base/qrc/js/src/styles.css' %}"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+  <link rel="stylesheet" href="{% static 'base/semantic/semantic.css' %}">
+  <link rel="stylesheet" href="{% static 'base/videothumbnails/jquery.youtubevideo.css' %}">
+  <link rel="stylesheet" href="{% static 'base/videomodal/modal-video.min.css' %}">
+  <link rel="stylesheet" href="{% static 'base/argon/vendor/nucleo/css/nucleo.css' %}">
+  <link rel="stylesheet" href="{% static 'base/argon/css/nucleo-svg.css' %}">
+  <link rel="stylesheet" href="{% static 'base/argon/css/argon.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'base/argon/css/argon-design-system.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'base/custom/custom.css' %}">
+
+
+  <link rel="stylesheet" href="{% static 'base/custom/custom.min.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans">
+  <link rel="stylesheet" href="{% static 'base/countrycodes/css/intlTelInput.css' %}">
+
+  {% include 'base/scripts.html' %}
+  <script src="{% static 'base/qrc/js/src/webcam.js' %}"></script>
+
+  <script src="{% static 'base/qrc/js/grid.js' %}"></script>
+  <script src="{% static 'base/qrc/js/version.js' %}"></script>
+  <script src="{% static 'base/qrc/js/detector.js' %}"></script>
+  <script src="{% static 'base/qrc/js/formatinf.js' %}"></script>
+  <script src="{% static 'base/qrc/js/errorlevel.js' %}"></script>
+  <script src="{% static 'base/qrc/js/bitmat.js' %}"></script>
+  <script src="{% static 'base/qrc/js/datablock.js' %}"></script>
+  <script src="{% static 'base/qrc/js/bmparser.js' %}"></script>
+  <script src="{% static 'base/qrc/js/datamask.js' %}"></script>
+  <script src="{% static 'base/qrc/js/rsdecoder.js' %}"></script>
+  <script src="{% static 'base/qrc/js/gf256poly.js' %}"></script>
+  <script src="{% static 'base/qrc/js/gf256.js' %}"></script>
+  <script src="{% static 'base/qrc/js/decoder.js' %}"></script>
+  <script src="{% static 'base/qrc/js/qrcode.js' %}"></script>
+  <script src="{% static 'base/qrc/js/findpat.js' %}"></script>
+  <script src="{% static 'base/qrc/js/alignpat.js' %}"></script>
+  <script src="{% static 'base/qrc/js/databr.js' %}"></script>
+  <script src="{% static 'base/qrc/js/src/effects.js' %}"></script>
+
+  <script type="text/javascript">
+
+    window.CSRF_TOKEN = "{{csrf_token}}";
+  </script>
+</head>
+
+<body style="min-width: 100%;background-image: url('{{settings.background_image.url}}');background-size: cover;background-attachment: fixed;" class="bg-white p-0 position-relative text-left">
+  <div id="top">
+
+  </div>
+
+
+
+  <div class="uk-overlay uk-height-viewport " uk-cover id="loader-cover"
+    style="z-index: 1030;background-color: black;opacity: 0.8;position: fixed;display: none;width: 100%;">
+    <div class='ui active uk-position-center loader loading big uk-border-circle uk-box-shadow-small uk-padding-small'
+      style='position: fixed !important;'>
+      <img src="{{settings.logo_loader.url}}" class="logo-loader " alt="">
+    </div>
+  </div>
+
+
+
+
+  <div class="text-center">
+    <div class="uk-display-inline-block col-csxx-x-14" style="width: 100%;max-width: 1500px;">
+      <div id="major"
+        class="position-relative uk-display-inline-block col-cmd-8 float-none p-0 pb-1 bg-transparent col-csxx-x-14"
+        style="">
+        <div class=" text-left p-1" style="position: sticky;top: -57px;z-index: 5;">
+          {% include 'base/pnavbar2.html' %}
+          <div class="float-right mt--5" style="position: sticky;top:10px">
+            <a class="btn btn-light rounded-circle uk-margin-small-right uk-margin-remove-top bg-lighter border-0 shadow-none"
+              style="width: 35px !important;height: 35px !important;" uk-toggle="target: #offcanvas-nav-secondary"
+              style="" uk-tooltip='Notifications'>
+
+              <i class="fa fa-bell uk-position-center" style="font-size: medium;"></i>
+              {% if notificationscount > 0 %}
+              <span class="uk-position-top-right text-white rounded-circle bg-red mt--1 mr--1 p-0"
+                style="height: 17px;width: 17px;font-size: 9px;border: 1.5px solid white;">
+
+                <span class="uk-position-center">
+                  {% if notificationscount > 9 %}
+                  9+
+                  {% else %}
+                  {{notificationscount}}
+                  {% endif %}
+                </span>
+              </span>
+              {% endif %}
+            </a>
+
+            <a class="btn btn-light rounded-circle uk-margin-small-right uk-margin-remove-top bg-lighter border-0 shadow-none"
+              style="width: 35px !important;height: 35px !important;">
+              <i class="fa fa-user m-0 uk-position-center" style="font-size: medium;"></i></a>
+            <div uk-dropdown="mode:click;pos:bottom-right"
+              class="rounded-0 p-0 shadow-none bg-transparent border-0 uk-text-left"
+              style="min-width: max-content; max-width: max-content;">
+              <div
+                class="card rounded-0 mt-3 bg-white mb-0 uk-box-shadow-medium border-0 ml-3 text-center uk-display-inline-block"
+                style="width: 100%;">
+
+                <div class="card-body pl-2 pr-2 pt-1 pb-1 text-center">
+                  <div class="position-relative uk-display-inline-block" style="width: max-content;">
+                    <div
+                      class="uk-border-circle bg-transparent uk-display-inline-block mt-1 overflow-hidden p-1 border position-relative"
+                      style="height: 80px;width: 80px;border: 4px solid white;">
+                      {% if partner.photo %}
+                      <img src="{{partner.photo.url}}" alt="" style="width: 100%;display: inline-block;height: 100%;"
+                        class="rounded-circle">
+                      {% else %}
+                      <span class="text-dark uk-position-center h1" style="font-size: 30px;">
+                        {{partner.first_name.0}}
+                      </span>
+                      {% endif %}
+                    </div>
+                    <button onclick="requestContentModal('{% url 'partner_change_photo' %}','get')"
+                      class="btn btn-sm btn-white rounded-circle uk-position-bottom-right border shadow-none bg-white mb-3 mr--2"><i
+                        class="fa fa-camera"></i></button>
+
+                  </div>
+
+                  <div class="uk-padding-small text-sm position-relative mt-3" style="font-weight: bold;max-width: 240px;">
+                    {% if partner.account_type == 'I' %}
+                    {% if partner.gender == 'M' %}
+                    Mr.
+                    {% elif partner.gender == 'F' %}
+                    {% if partner.marital_status == 'S' %} Miss {% else %} Mrs. {% endif %}
+                    {% endif %}
+                    {{partner.first_name}} {{partner.last_name}}
+
+                    {% elif partner.account_type == 'Cr' %}
+                    {{partner.company_name}}
+
+                    {% elif partner.account_type == 'S' %}
+                    {{partner.first_name}} {{partner.last_name}}
+                    {% elif partner.account_type == 'C' %}
+                  {{partner.last_name}} and {{partner.spouse_name}}
+                    {% endif %}
+                    <div class="uk-position-top-right mt--3">
+                       <div
+                      class=" text-capitalize p-1 rounded-pill pl-2 pr-2 bg-primary text-white mt-1 uk-display-inline-block"
+                      style="width: max-content;font-size:8px;">
+                      {% if partner.account_type == 'I' %} Individual {% elif partner.account_type == 'C' %} Couple
+                      {% elif partner.account_type == 'Cr' %} Corporate {% elif partner.account_type == 'S' %} Sponsor
+                      {% endif %}
+                    </div>
+                    </div>
+                   
+                  </div>
+                </div>
+                <div class="text-left mt-0 p-0">
+                  <ul class="nav flex-column m-0 p-0">
+            
+                    <li class="nav-item p-0 m-0 text-left">
+                      <a class="nav-link  rounded-0 shadow-none pl-4 text-left p-3 m-0 to-top main-content-redirect text-sm bg-whiteer"
+                        href="{% url 'partner_my_profile' %}" style="line-height: 1;">
+                        <i class="fa fa-user mb-1 mr-3" style="font-size: small;"></i> View profile</a>
+                    </li>
+                   
+      
+                    <li class="nav-item p-0 m-0 text-left">
+                      <a class="nav-link rounded-0 shadow-none p-3 pl-4 text-left m-0 to-top text-sm main-content-redirect tab-btn bg-whiteer"
+                        href="{% url 'partner_account_logout' %}" style="line-height: 1;">
+                        <i class="fa fa-sign-out-alt mb-1 mr-2" style="font-size: small;"></i> Sign out</a>
+                    </li>
+      
+                  </ul>
+      
+                </div>
+                <!-- <div class="uk-text-center mt-0 p-2 border-top">
+                  <a href="{% url 'partner_my_profile' %}"
+                    class="main-content-redirect btn btn-secondary rounded-pill m-0 pl-4 pr-4 mt-2 shadow-none">View
+                    profile</a>
+                  <br>
+                  <button class="btn btn-secondary rounded-pill signout m-0 shadow-none pr-4 pl-4 mt-2"
+                    contenturl="{% url 'partner_account_logout' %}">Sign out</button>
+                </div> -->
+
+              </div>
+              <!-- <ul class="uk-nav uk-dropdown-nav ">
+                <li class="uk-active"><a href="{% url 'partner_my_profile' %}" class="main-content-redirect">Profile</a>
+                </li>
+               
+                <li class="uk-nav-divider"></li>
+                <li><a class="signout" contenturl="{% url 'partner_account_logout' %}">Logout</a></li>
+            </ul> -->
+            </div>
+
+          </div>
+          <div class=" h1 pl-2 bg-white rounded-sm uk-width-1-1 mb-2 p-2 mt-1"><b>{{page}}</b></div>
+
+        </div>
+
+        <div id="" class="position-relative bg-transparent p-1 rounded-sm overflow-hidden" style="z-index: 2;">
+          {% block content%}
+
+
+          {% endblock %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="offcanvas-nav-primary" class="uk-offcanvas" uk-offcanvas="overlay: false;mode:slide;bg-close:false">
+    <div class="uk-height-viewport uk-offcanvas-bar p-0 uk-flex uk-flex-column border-0
+      bg-gradient-success uk-offcanvas-bar-animation">
+      <div class="card m-1 mt-0 bg-transparent" style="box-shadow: none;">
+        <div class="card-body p-0">
+
+          <!-- <div class="uk-text-center uk-padding-remove" style="width: 100px;">
+            <img src="{{settings.logo.url}}" alt="" style="width: 50px">
+          </div> -->
+          <button
+            class="uk-offcanvas-close uk-button uk-button-default uk-position-top-right uk-margin-small uk-padding-small"><i
+              class="fa fa-arrow-left  uk-padding-small" style="font-size:medium;"></i></button>
+        </div>
+      </div>
+      <div class="card mt-2 bg-transparent mb-0 shadow-none text-left uk-display-inline-block" style="width: 100%;">
+
+        <div class="card-body pl-2 pr-2 pt-1 pb-1 text-left">
+          <div class="uk-text-left uk-padding-remove" style="">
+            <a href="https://dominionpartnersglobal.com" target="_blank"><img src="{{settings.logo.url}}" alt="" 
+              style="width: 100px"></a>   
+             </div>
+          <div class="position-relative text-center mt-4" style="">
+            <div
+              class="uk-border-circle  bg-transparent uk-display-inline-block mt-1 overflow-hidden p-1 border position-relative"
+              style="height: 80px;width: 80px;border: 4px solid white;">
+              {% if partner.photo %}
+              <img src="{{partner.photo.url}}" alt="" style="width: 100%;display: inline-block;height: 100%;"
+                class="rounded-circle">
+              {% else %}
+              <span class="text-dark uk-position-center h1" style="font-size: 30px;">
+                {{partner.first_name.0}}
+              </span>
+              {% endif %}
+            </div>
+            <!-- <button  onclick="requestContentModal('{% url 'partner_change_photo' %}','get')"
+          class="btn btn-sm btn-white rounded-circle uk-position-bottom-right border shadow-none bg-white mb-3 mr--2"><i class="fa fa-camera"></i></button> -->
+          <div class="uk-padding-small">
+            <p class="text-center uk-text-bold">  {% if partner.account_type == 'I' %}
+              {% if partner.gender == 'M' %}
+              Mr.
+              {% elif partner.gender == 'F' %}
+              {% if partner.marital_status == 'S' %} Miss {% else %} Mrs. {% endif %}
+              {% endif %}
+              {{partner.first_name}} {{partner.last_name}}
+  
+              {% elif partner.account_type == 'Cr' %}
+              {{partner.company_name}}
+  
+              {% elif partner.account_type == 'S' %}
+              {{partner.first_name}} {{partner.last_name}}
+              {% elif partner.account_type == 'C' %}
+              {{partner.first_name}} and {{partner.spouse_name}}
+              {% endif %}</p>
+          
+            <!-- <div class=" text-capitalize p-1 border rounded-pill pl-2 pr-2 bg-gradient-success text-white mt-1 uk-display-inline-block" 
+            style="width: max-content;font-size:9px;">                     
+                {% if partner.account_type == 'I' %} Individual {% elif partner.account_type == 'C' %} Couple 
+                {% elif partner.account_type == 'Cr' %} Corporate {% elif partner.account_type == 'S' %} Sponsor   {% endif %}
+             </div> -->
+          </div>
+          </div>
+
+        </div>
+        <!-- <div class="uk-text-center mt-0 p-2 border-top border-bottom">
+          <a href="{% url 'partner_my_profile' %}"
+            class="main-content-redirect btn btn-outline-light bg-white rounded-pill m-0 pl-4 pr-4 mt-2 shadow-none">View profile</a>
+       <br>
+        <button class="btn btn-secondary rounded-pill signout m-0 shadow-none pr-4 pl-4 mt-2"
+            contenturl="{% url 'partner_account_logout' %}">Sign out</button> 
+          </div> -->
+
+      </div>
+
+      <ul class="uk-nav uk-nav-primary uk-nav-left border-top  bg-transparent mt-2">
+        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_dashboard' %}"
+            style="font-size: 14px;"
+            class="main-content-redirect uk-padding-small  ">
+            <span class="p-3 pl-4 pr-4  position-relative rounded-sm default text-white">
+              <i class="fa fa-th-large uk-position-center "></i></span>
+            <span class="p-1">Dashboard</span></a></li>
+        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_my_payments' %}"
+            style="font-size: 14px;"
+            class="main-content-redirect  uk-padding-small ">
+            <span class="p-3 pl-4 pr-4 position-relative rounded-sm indigo text-white">
+              <i class="fa fa-history uk-position-center "></i></span>
+            <span class="p-1"> My Payments</span></a>
+        </li>
+        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_announcements' %}"
+            style="font-size: 14px;"
+            class="main-content-redirect  uk-padding-small ">
+            <span class="p-3 pl-4 pr-4 position-relative rounded-sm teal text-white"><i
+                class="fa fa-bullhorn uk-position-center "></i></span>
+            <span class="p-1">Annoucements</span></a></li>
+
+        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_events' %}"
+            style="font-size: 14px;"
+            class="main-content-redirect  uk-padding-small">
+            <span class="p-3 pl-4 pr-4  rounded-sm cyan text-white position-relative"><i
+                class="fa fa-calendar-day uk-position-center"></i></span>
+            <span class="p-1"> Events</span></a></li>
+        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_support' %}"
+            style="font-size: 14px;"
+            class="main-content-redirect  uk-padding-small ">
+            <span class="p-3 pl-4 pr-4 rounded-sm danger text-white position-relative"><i
+                class="ni ni-support-16 uk-position-center" style=""></i></span>
+            <span class="p-1">Support</span> </a></li>
+      </ul>
+
+    </div>
+  </div>
+
+  {% include 'partners/information_desk.html' %}
+
+  <div id="response-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body ">
+      <button class="uk-modal-close-default" uk-close></button>
+      <h2 class="uk-modal-title">Message</h2>
+      <p class="modal-message"> </p>
+
+    </div>
+  </div>
+
+
+  {% include 'base/modals.html' %}
+
+
+
+  <script>
+
+    {
+      (function ($) { //Most read async
+        $('.delete-content').on('click', function (event) {
+          event.preventDefault();
+          var link = $(this);
+          var removableelement = link.attr('removableelement')
+
+          $.ajax({
+            beforeSend: function () {
+              $(removableelement).removeClass('uk-animation-fade')
+
+              $(removableelement).addClass('uk-animation-fade')
+
+            },
+            complete: function () {
+
+            },
+            type: 'get',
+            url: link.attr('contenturl'),
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              // if there are still more pages to load,
+              // add 1 to the "Load More Posts" link's page data attribute
+              // else hide the link
+              // append html to the posts div
+              //$('.uk-modal-header-title').empty()
+
+              //$('.uk-modal-header-title').append(link.attr('inner-html'));
+              if (response.done) {
+                $(removableelement).addClass('uk-animation-fade')
+                $(removableelement).remove()
+
+                if (response.content) {
+                  $('#main-container').removeClass('uk-animation-fade')
+
+                  $('#main-container').addClass('uk-animation-fade')
+                  $('#main-container').empty()
+                  $('#main-container').append(response.content)
+
+
+                  if (response.message) {
+                    UIkit.notification.closeAll()
+                    UIkit.notification(response.message)
+                  }
+                }
+              }
+              else {
+                UIkit.notification.closeAll()
+                UIkit.notification(response.message)
+
+              }
+
+            },
+            error: function (xhr, status, error) {
+              alert('there was an error')
+            }
+          });
+        });
+      }(jQuery))
+    };
+
+
+  </script>
+  <script>
+    UIkit.offcanvas($('#offcanvas-nav'));
+
+    function flip() {
+      $('.logo-loader')
+        .transition('pulse')
+    }
+
+    setInterval(flip, 1000)
+
+
+    {
+      (function ($) { //Most read async
+        $(window).ready(function () {
+          // $('#page-ready-cover').addClass('uk-transition-fade uk-transition-slow')
+          // $('#page-ready-cover').transition('fade')
+          ;
+
+        })
+      }(jQuery))
+    };
+
+  </script>
+
+
+
+  <script>
+    $('.demo').youtubeVideo({
+
+      // custom layout
+      layout: {
+        wrap: $('<div />', { class: 'ytb-video-wrap' }),
+        container: $('<div />', { class: 'ytb-video-container' }),
+        iframe: $('<iframe />', { class: 'ytb-video-iframe' }),
+        button: $('<div />', { class: 'ytb-video-play-button' })
+          .append('<svg viewBox="0 0 68 48"><path class="ytb-video-play-button-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fill-opacity="0.8"></path><path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>'),
+      },
+
+      /*
+        56.25 - 16:9
+        75.25 - 4:3
+        80.25 - 5:4
+        100 - 1:1
+      */
+      aspectRatio: 56.25,
+
+      /* 'default' - 120x90
+        'mqdefault' - 320x180
+        'hqdefault' - 480x360
+        'sddefault' - 640x480
+        'maxresdefault' - 1280x720
+        'http://...' - custom image
+      */
+      cover: 'hqdefault',
+
+      // custom parameters
+      parametrs: 'autoplay=0&autohide=1',
+
+      // play event
+      playEvent: 'click',
+
+
+      // or 'button'
+      playMode: 'block',
+
+      // or 'playlist'
+      type: 'video',
+
+      // Youtube API
+      api: '',
+
+      // displays the duration of the video
+      // requires Youtube API
+      duration: false,
+
+      // displays the video title
+      // requires Youtube API
+      title: true,
+
+      // displays the video description
+      // requires Youtube API
+      description: false
+
+    });
+
+
+    {
+      (function ($) {
+        $('.ytb-video-play-button,.ytb-video-container').on('click', function (event) {
+
+          var button = $(this)
+          var carousel = button.closest('#othervideos')
+          UIkit.slider(carousel).stopAutoplay();
+
+
+        }
+
+        )
+      }(jQuery))
+    };
+
+
+    $(".demo").modalVideo({
+      channel: 'youtube',
+      youtube: {
+        autoplay: 1,
+        cc_load_policy: 1,
+        color: null,
+        controls: 1,
+        disablekb: 0,
+        enablejsapi: 0,
+        end: null,
+        fs: 1,
+        h1: null,
+        iv_load_policy: 1,
+        list: null,
+        listType: null,
+        loop: 0,
+        modestbranding: null,
+        origin: null,
+        playlist: null,
+        playsinline: null,
+        rel: 0,
+        showinfo: 1,
+        start: 0,
+        wmode: 'transparent',
+        theme: 'dark'
+      },
+      ratio: '16:9',
+      vimeo: {
+        api: false,
+        autopause: true,
+        autoplay: true,
+        byline: true,
+        callback: null,
+        color: null,
+        height: null,
+        loop: false,
+        maxheight: null,
+        maxwidth: null,
+        muted: false,
+        player_id: null,
+        portrait: true,
+        title: true,
+        width: null,
+        xhtml: false
+      },
+    });
+
+  </script>
+  <script>
+
+    {
+      (function ($) {
+        var pageStatus = null;
+        var progress = null;
+        var animationInterval = 33;
+
+        window.document.addEventListener("readystatechange", function () {
+          if (document.readyState == "complete") {
+            pageStatus = "complete";
+          }
+          else {
+            progress++
+
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+        }, false);
+
+
+        function updateProgress() {
+          if (pageStatus == "complete") {
+            $('#progress').progress({
+              percent: 100
+            });
+            setTimeout(function () {
+              $('#page-ready-cover').addClass('uk-transition-fade uk-transition-slow')
+              $('#page-ready-cover').transition('fade')
+              // UIkit.offcanvas($('#offcanvas-nav-primary')).show()
+            }, 700);
+          }
+          else {
+            if (progress == null) {
+              progress = 1;
+            }
+
+            progress = progress + 1;
+            if (progress >= 0 && progress <= 30) {
+              animationInterval += 1;
+              $('#progress').progress({
+                percent: progress
+              });
+            }
+            else if (progress > 30 && progress <= 60) {
+              animationInterval += 2;
+              $('#progress').progress({
+                percent: progress
+              });
+            }
+            else if (progress > 60 && progress <= 80) {
+              animationInterval += 3;
+              $('#progress').progress({
+                percent: progress
+              });
+            }
+            else if (progress > 80 && progress <= 90) {
+              animationInterval += 4;
+              $('#progress').progress({
+                percent: progress
+              });
+            }
+            else if (progress > 90 && progress <= 95) {
+              animationInterval += 80;
+              $('#progress').progress({
+                percent: progress
+              });
+            }
+            else if (progress > 95 && progress <= 99) {
+              animationInterval += 150;
+              document.getElementById("pageLoader").innerHTML = progress;
+            }
+            else if (progress >= 100) {
+              $('#progress').progress({
+                percent: progress
+              });
+            }
+            setTimeout(updateProgress, animationInterval);
+          }
+        }
+
+        var intervalObject_1 = setInterval(function () {
+          var element = document.querySelector("body");
+
+          if (element != undefined) {
+            clearInterval(intervalObject_1);
+
+            updateProgress();
+          }
+        }, 50);
+
+      }(jQuery))
+    }
+
+  </script>
+
+</body>
+
+</html>

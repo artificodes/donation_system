@@ -1,0 +1,444 @@
+{% extends "base/abase.html" %}
+{% load static %}
+{% block content %}
+
+
+<div id="main-container" class=" mt-1 bg-white shadow-lg rounded-sm ">
+  <div class="col-csxx-14 p-2 text-center border-bottom bg-white">
+    <div class="uk-display-inline-block ">
+      <form class=" form-inline mr-sm-3" id="payment-search" method="POST">
+        {% csrf_token %}
+        <div class="form-group mb-0 p-1">
+          <div class="input-group input-group-alternative input-group-merge border rounded-pill shadow-sm p-1">
+            <div class="input-group-prepend rounded-pill">
+              <span class="input-group-text rounded-pill p-2"><i class="fas fa-search"></i></span>
+            </div>
+            <input class="form-control p-0 rounded-pill p-1" name="query" style="height: max-content;" placeholder="Search payment"
+              type="text">
+          </div>
+        </div>
+
+
+      </form>
+    </div>
+
+    <div class="uk-display-inline-block">
+      <a  class="bg-white uk-icon-button rounded-circle m-0 shadow-none  p-2 position-relative"  style="height: 30px;width: 30px;">
+        <i class="fa fa-sliders-h text-default"></i></a>
+      <div uk-dropdown='pos:bottom-right;mode:click'
+        class="p-0 bg-transparent shadow-none">
+        <div class="border p-0 overflow-hidden bg-white pb-2 mt-2 shadow-sm rounded-md">
+
+        <ul class="uk-nav uk-dropdown-nav text-left">
+          <li class="">
+            <div class="form-group p-1 m-0">
+              <div class="input-group-prepend mr-2">
+                  <span class="p-0 uk-text-bold mt-1">From</span>
+                </div>
+                <div style="width: 100%;"
+                class="input-group input-group-alternative border  p-1 shadow-sm  border-light rounded-0 p-1 shadow-sm">
+                
+                <input type="date" placeholder="Payment start date" style="height:max-content"
+                  class="form-control date-range  p-1 from" name="start_date" required />
+              </div>
+            </div>
+            <div class="form-group p-1 m-0">
+               <div class="input-group-prepend mr-2">
+                  <span class="uk-text-bold mt-1 p-0">To</i></span>
+                </div>
+                <div style="width: 100%;"
+                class="input-group uk-width-1-1@s input-group-alternative p-1 shadow-sm border border-light rounded-0  p-1 shadow-sm">
+               
+                <input type="date" placeholder="Payment end date" style="height:max-content"
+                  class="form-control p-1 date-range to" name="end_date" required />
+              </div>
+            </div>
+          </li>
+          <li class=" p-0 dynamic-content ">
+            <a class="dropdown-item action-btn p-2 rounded-0"
+              onclick="requestDynamicContent('{% url 'admin_sort_payments' param='month' %}','get','#search-results')">
+              <span>This month</span>
+            </a>
+
+
+          </li>
+
+          <li class=" p-0 ">
+            <a class="dropdown-item p-2 dynamic-content rounded-0"
+            onclick="requestDynamicContent('{% url 'admin_sort_payments' param='year' %}','get','#search-results')">
+            <span>This Year</span>
+          </a>
+
+
+          </li>
+        
+        </ul>
+        </div>
+      </div>
+    </div>
+    <div class="uk-display-inline-block">
+
+      <a class=" bg-white uk-icon-button rounded-circle m-0 shadow-none  p-2 position-relative" style="height: 30px;width: 30px;">
+        <i class="fa fa-download text-darker uk-position-center"></i>
+      </a>
+      <div uk-dropdown='pos:bottom-right;mode:click'
+        class="p-0 bg-transparent shadow-none">
+        <div class="border p-2 overflow-hidden bg-white pb-2 mt-2 shadow-sm rounded-md">
+
+      <form class="" action="{% url 'admin_download_payments' %}" method="POST">
+        {% csrf_token %}
+
+<ul class="uk-nav uk-dropdown-nav text-left">
+        <li>
+          <div class="form-group mb-3 text-left">
+            <p class="uk-text-bold m-0">Download Format</p>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="radio" name="format" id="format1" value="pdf"
+                    required >
+                <label class="custom-control-label " for="format1">PDF</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="radio" name="format" id="format2" value="excel"
+                    required checked>
+                <label class="custom-control-label " for="format2">EXCEL</label>
+            </div>
+        </div>
+        </li>
+        <li>
+          <div class="form-group mb-3 text-left">
+            <p class="uk-text-bold m-0">Select Period</p>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="radio" name="period" id="period1" value="month"
+                     >
+                <label class="custom-control-label " for="period1">This Month</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input class="custom-control-input" type="radio" name="period" id="period2" value="year"
+                     >
+                <label class="custom-control-label " for="period2">This Year</label>
+            </div>
+        </div>
+        </li>
+        <li class="">
+          <div class="form-group p-1 m-0">
+            <div class="input-group-prepend mr-2">
+                <span class="p-0 uk-text-bold mt-1">From</span>
+              </div>
+              <div style="width: 100%;"
+              class="input-group input-group-alternative border  p-1 shadow-sm  border-light rounded-0 p-1 shadow-sm">
+              
+              <input type="date" placeholder="Payment start date" style="height:max-content"
+                class="form-control date-range  p-1 from" name="from" />
+            </div>
+          </div>
+          <div class="form-group p-1 m-0">
+             <div class="input-group-prepend mr-2">
+                <span class="uk-text-bold mt-1 p-0">To</i></span>
+              </div>
+              <div style="width: 100%;"
+              class="input-group uk-width-1-1@s input-group-alternative p-1 shadow-sm border border-light rounded-0  p-1 shadow-sm">
+             
+              <input type="date" placeholder="Payment end date" style="height:max-content"
+                class="form-control p-1 date-range to" name="to"  />
+            </div>
+          </div>
+        </li>
+
+      </ul>
+      <button class="btn btn-primary m-0 mt-2 btn-sm" type="submit">Download</button>
+    </form>
+    </div>
+    </div>
+
+      <a class="bg-white uk-icon-button rounded-circle m-0 shadow-none  p-2 position-relative"  style="height: 30px;width: 30px;"
+        onclick="requestContentModal(' {% url 'admin_create_payment' action='Exit' %}','get')">
+        <i class="fa fa-plus text-darker"></i> </a>
+
+    </div>
+
+
+  </div>
+  <div class="col-csxx-14 mt-1 hide" id="search-results-container">
+    <div class="bg-white p-2">
+      <div class="">
+       <div class=" pl-3 pr-3 bg-translucent-success uk-display-inline-block uk-text-center text-white rounded-pill p-1 border-0"
+      style="width: max-content;">
+     Search results
+    </div>
+    <button class="btn bg-lighter text-darker shadow-none rounded-pill float-right btn-sm hide-content" 
+    content="#search-results-container">Clear result</button>       
+      </div>
+
+    <div class="card-body position-relative p-0 " style="min-height: 100px;">
+  
+    <div class="mt-2" id="search-results">
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="col-csxx-14 mt-1 ">
+    <div class="bg-white p-2">
+      <div class=" pl-3 pr-3 bg-gradient-secondary uk-text-center text-darker uk-text-bold rounded-pill p-1 border-0"
+      style="width: max-content;">
+     Overview
+    </div>
+    <div class="card-body position-relative p-2 " style="min-height: 100px;">
+  
+    <div class="mt-2 p-2" id="members_payments_analysis">
+  
+      <div
+        class='ui active uk-position-center loader small loading m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+      </div>
+      <div class="text-center">
+              <p class="uk-text-bold mt-7 text-sm">Fetching overview. Kindly wait</p>
+
+      </div>
+
+    </div>
+    </div>
+  
+  </div>
+  <div class="mt-1 bg-white p-1 position-relative" style="min-height: 150px;" id="payments">
+      <div class="uk-position-center mt--5 p-3 text-center">
+          <div
+          class='ui active  loader loading m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+        </div>      
+        <p class="uk-text-bold mt-7 text-sm">Loading payments. Kindly wait</p>
+
+          </div>
+    
+   
+  </div>
+  </div>
+
+</div>
+
+
+
+
+
+<script>
+
+  
+jQuery(document).ready(function () {
+          $.ajax({
+            beforeSend: function () {
+  
+            },
+            complete: function () {
+            },
+            type: 'get',
+            url: '{% url 'admin_members_payments_analysis' userid='all' %}',
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              // if there are still more pages to load,
+              // add 1 to the "Load More Posts" link's page data attribute
+              // else hide the link
+              // append html to the posts div
+              //$('.uk-modal-header-title').empty()
+  
+              //$('.uk-modal-header-title').append(link.attr('inner-html'));
+              if (response.content) {
+                $('#members_payments_analysis').empty()
+
+                $('#members_payments_analysis').append(response.content);
+              }
+    
+  
+            },
+            error: function (xhr, status, error) {
+            //   alert('there was an error')
+            }
+          });
+        });
+    
+  jQuery(document).ready(function () {
+           $.ajax({
+             beforeSend: function () {
+   
+             },
+             complete: function () {
+             },
+             type: 'get',
+             url: '{% url 'admin_all_payments' %}',
+             data: {
+               'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+             },
+             success: function (response) {
+
+               if (response.content) {
+                 $('#payments').empty()
+ 
+                 $('#payments').append(response.content);
+               }
+     
+   
+             },
+             error: function (xhr, status, error) {
+               alert('there was an error')
+             }
+           });
+         })
+
+  </script> 
+
+<script>
+$(window).on('scroll', function () {
+        $('#load-more').removeClass('hide')
+        if ($('#load-more').visible()) {
+    if ($('#load-more').attr('next-page')) {
+        
+        
+            $.ajax({
+                beforeSend: function () {
+                        $('#load-more').remove()
+
+                },
+                complete: function () {
+
+                },
+                type: 'get',
+                url: '{% url 'admin_recent_payments' %}',
+                data: {
+                    'csrfmiddlewaretoken': window.CSRF_TOKEN,
+                    'page': $('#load-more').attr('next-page') // from index.html
+                },
+                success: function (response) {
+
+                    if (response.content) {
+                        $('#recent_remittances').append(response.content)
+
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('there was an error')
+                }
+            });
+        }
+
+  }
+})
+
+</script>
+<script>
+
+$('#payment-search').on('change', function () {
+        // event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        $.ajax({
+            beforeSend: function () {
+                showLoadingBar()
+            },
+            complete: function () {
+                hideLoadingBar()
+
+            },
+            url: '{% url "admin_payment_search" %}',
+            type: request_method,
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function (response) {
+
+                if (response.content) {
+                    $('#search-results').removeClass('uk-animation-fade')
+
+                    $('#search-results').addClass('uk-animation-fade')
+                    $('#search-results').empty()
+                    $('#search-results').append(response.content)
+                    $('#search-results-container').show()
+                }
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+
+    })
+    
+    
+$('.download-payment-btn').on('click', function (event) {
+    var element = $(this)
+        $.ajax({
+      beforeSend: function () {
+        $('#loader-cover').show()
+      },
+      complete: function () {
+        $('#loader-cover').hide()
+
+      },
+      url: '',
+      type: 'post',
+      data: {
+        'param': element.attr('param'), 'file_type': $('.file_type').val(), 'csrfmiddlewaretoken': window.CSRF_TOKEN,
+      },
+      success: function (response) {
+        if (response.content) {
+          $('#search_results').removeClass('uk-animation-fade')
+
+          $('#search_results').addClass('uk-animation-fade')
+          $('#search_results').empty()
+          $('#search_results').append(response.content)
+
+        }
+      },
+      error: function (xhr, status, error) {
+        UIkit.notification.closeAll()
+        UIkit.notification('Operation not successful. Check your internet connection',)
+      }
+    });
+ 
+    
+ 
+  })
+
+
+  $('.date-range').on('input', function (event) {
+    var element = $(this)
+    if($('.from').val() == '' || $('.to').val() ==''  ){
+
+    }
+    else{
+        $.ajax({
+      beforeSend: function () {
+        $('#loader-cover').show()
+      },
+      complete: function () {
+        $('#loader-cover').hide()
+
+      },
+      url: '{% url 'admin_sort_payments_from_dates' %}',
+      type: 'post',
+      data: {
+        'from': $('.from').val(), 'to': $('.to').val(), 'csrfmiddlewaretoken': window.CSRF_TOKEN,
+      },
+      success: function (response) {
+        if (response.content) {
+          $('#search_results').removeClass('uk-animation-fade')
+
+          $('#search_results').addClass('uk-animation-fade')
+          $('#search_results').empty()
+          $('#search_results').append(response.content)
+
+        }
+      },
+      error: function (xhr, status, error) {
+        UIkit.notification.closeAll()
+        UIkit.notification('Operation not successful. Check your internet connection',)
+      }
+    });
+ 
+    }
+ 
+  })
+
+
+</script>
+{% endblock content %}

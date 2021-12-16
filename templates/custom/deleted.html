@@ -1,0 +1,87 @@
+{% if story.has_episodes %}
+              <div uk-slider class="uk-align-center trending col-md-offset-0 recent trending uk-text-center"
+                id="activity" style="margin: 0;width: 80%; margin-left: 10%;display: inline-block;">
+                <ul class="uk-slider-items uk-grid-small" style="text-align:center;margin: 0;padding: 0 !important;">
+                  {% for episode in trendingstoriesepisodes %}
+                  {% if episode.story.story_id == story.story_id  %}
+                  {% if episode in readepisodes %}
+                  <li class="col-md-2 col-csx-2 col-csxx-3 " style="padding: 2px;">
+                    <span class="fa fa-eye uk-position-top-center" style="z-index: 1; color: white;"></span>
+                    <div class="card story col-md-12" style="height: 50px !important;">
+                      <!--<img class="card-img story" src="{{episode.image_64}}" alt="">-->
+                      <div class="card-img-overlay story uk-align-center"
+                        onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+                        <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+                        <div class="bottom-text col-md-12 uk-position-center" style="padding: 1px;top: 30% ;">
+                          <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                          <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                 
+
+                  {% elif episode.episode == 1 %}
+                   <li class="col-md-2 col-csx-2 col-csxx-3 " style="padding: 2px;">
+                    <span class="fa fa-play-circle uk-position-top-center" style="z-index: 1; color: white;"></span>
+
+                    <div class="card story col-md-12" style="height: 50px !important;">
+                      <!--<img class="card-img story" src="{{episode.image_64}}" alt="">-->
+                      <div class="card-img-overlay story uk-align-center"
+                        onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+                        <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+                        <div class="bottom-text col-md-12 uk-position-center" style="padding: 1px;top: 30% ;">
+                          <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                          <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+
+                  {% elif episode in nextepisodes %}
+                  <li class="col-md-2 col-csx-2 col-csxx-3 " style="padding: 2px;">
+                    <span class="fa fa-play-circle uk-position-top-center" style="z-index: 1; color: white;"></span>
+
+                    <div class="card story col-md-12" style="height: 50px !important;">
+                      <!--<img class="card-img story" src="{{episode.image_64}}" alt="">-->
+                      <div class="card-img-overlay story uk-align-center"
+                        onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+                        <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+                        <div class="bottom-text col-md-12 uk-position-center" style="padding: 1px;top: 30% ;">
+                          <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                          <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  {% else %}
+                  <li class="col-md-2 col-csx-2 col-csxx-3 uk-disabled  " style="padding: 2px;">
+                    <div class="card story col-md-12" style="height: 50px !important;">
+                      <!--<img class="card-img story" src="{{episode.image_64}}" alt="">-->
+                      <div class="card-img-overlay story uk-align-center">
+                                                <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+                        <div class="bottom-text col-md-12 uk-position-center" style="padding: 1px;top: 30% ;">
+                          <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                          <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+
+
+                </ul>
+                <a class="uk-position-bottom-left uk-position-small  fas fa-book-open slider-dot slider-dot-left"
+                  href="#" uk-slider-item="previous" style="left: 3px;bottom: 5%;"></a>
+                <a class="uk-position-bottom-right uk-position-small  fas fa-book-open slide-dot slider-dot-right"
+                  href="#" uk-slider-item="next" style="right: 3px;bottom: 5%;"></a>
+              </div>
+              {% endif %}

@@ -1,0 +1,40 @@
+{% if pendingpayments.count > 0 %}
+<div class="col-csxx-14 p-2">
+    <div class="card uk-padding-small uk-margin-remove-top uk-animation-slide-top uk-margin-small" id=""
+        style="box-shadow: none;">
+        <div class=" card-header uk-margin-remove bg-gradient-warning uk-text-center text-white uk-text-bold rounded-lg p-2"
+            style="">
+            Updated Required
+        </div>
+        <div class="card-body uk-margin-remove uk-padding-small">
+            {% for pendingpayment in pendingpayments %}
+
+            <div class="card uk-padding-small m-0  uk-text-left shadow-sm border col-cmd-3-e" style="">
+
+                <div class="card-body text-center" style="padding: 5px;">
+                    <div class="col-csxx-x-14" style="font-size: 10px;">
+                        <div class="col-csxx-x-14">
+                            <p class="" style="font-weight: bold;font-size: 11px;"><span
+                                    style="font-weight: bold;font-size: 11px;">Amount:</span> NGN
+                                {{pendingpayment.formatted_amount}}</p>
+                        </div>
+                        <div class="col-csxx-x-14">
+                            <p class="card-text" style="font-size: 10px;"><span
+                                    style="font-weight: bold;font-size: 10px;">Date/Time:</span>
+                                {{pendingpayment.date_time_added}}
+                            </p>
+
+                        </div>
+
+                    </div>
+                    <button class="btn bg-gradient-success text-white rounded-pill mt-2"
+                        onclick="requestContentModal(' {% url 'admin_update_payment' paymentid=pendingpayment.paymentid  %}')">
+                        <i class="icon sync"></i>Update</button>
+
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}

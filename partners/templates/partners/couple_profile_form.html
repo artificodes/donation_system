@@ -1,0 +1,126 @@
+
+            <div class="card-body p-0">
+                <div class="uk-text-bold p-2">
+                    COUPLE PROFILE
+                </div>
+                <div class="card m-0 shadow-none">
+
+                    <div class="card-body p-0">
+                        {% include 'partners/personal_data.html' %}
+
+                    {% include 'partners/gender.html' %}
+                     
+                    {% include 'partners/marital_status.html' %}
+                    <div class="p-1">
+                        <div class="uk-inline mt-4" style="width: 100%;">
+                            <div class="position-relative">
+                                 <input class="uk-input previewimage form-control p-3 password  rounded-md position-relative "
+                           name="photo" data-jpreview-container="#preview-container" style="z-index: 2;"
+                                 type="file">
+                            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 mt--4 bg-white text-dark" style="z-index: 3;font-size: 12px;">
+                                Profile picture
+                            </span>
+                            </div>
+                           
+                      
+                            <div id="preview-container" 
+                                class="jpreview-container uk-padding-small rounded-circle"
+                                style="background-position: center;min-height: 100px; max-height: 200px;max-width: 200px; float: none;
+                                background-image: url('{% if partner.photo %} {{partner.photo.url}} {% endif  %}');background-repeat: no-repeat; background-size: contain;">
+                            </div>
+                        </div>
+                    </div>
+              
+                      <div class="bg-secondary p-2 text-left text-darker mb-3">
+                        <div class="">
+                            <i class="fa fa-user-friends"></i>
+                            <span class="p-1">
+                                Spouse Details
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-1">
+                        <div class="uk-inline" style="width: 100%;">
+                        <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+                            id="spouse_name" type="text" name="spouse_name"   value="{{partner.spouse_name}}" required>
+                        <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+                            Name
+                        </span>
+                    </div>
+ 
+                    
+    <div class="uk-inline mt-4" style="width: 100%;">
+        <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+            id="spouse_dob" type="date" name="spouse_dob"  value="{{partner.spouse_dob|date:'Y-m-d'}}" required>
+        <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 mt--4 bg-white" style="z-index: 2;font-size: 12px;">
+            Date of birth
+        </span>
+    </div>
+
+                    
+<div class="uk-inline mt-4" style="width: 100%;">
+    <div class="input-group m-0">
+
+        <span class="position-relative col-csxx-x-4 col-csxx-xx-7  col-csxx-6 pr-1 uk-child-width-1-1" style="z-index: 2;height: max-content;z-index: 4;">
+            <input type="tel" required class="rounded-md form-control pt-3 pb-3" name="call_code" id="phone_id"
+                style="width: 100%;" value="{% if partner.call_code %}{{partner.call_code}} {% else %}+234{% endif %}">
+        </span>
+
+
+        <div class="position-relative col-csxx-x-10 col-csxx-11 col-csxx-xx-7 col-csxx-8">
+            <input class=" form-control p-3 password  rounded-md position-relative" style="z-index: 2;" id="spouse_phone"
+                type="tel" name="spouse_phone" required value="{{partner.spouse_phone}}">
+            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                style="z-index: 1;font-size: 12px;">
+                spouse phone number
+            </span>
+        </div>
+
+    </div>
+
+</div>
+<div class="uk-inline mt-4" style="width: 100%;">
+    <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+        id="spouse_email" type="text" name="spouse_email"   value="{{partner.spouse_email}}" required>
+    <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+        Spouse email
+    </span>
+</div>
+                    </div>
+                   
+                
+                    <!-- <div class="form-group mb-3">
+                        <div
+                            class="input-group input-group-merge input-group-alternative border rounded-md p-1 shadow-sm border rounded-md p-1 shadow-sm">
+                            <div class="input-group-prepend">
+
+                                <span class=" input-group-text">
+                                    Spouse gender:
+                                </span>
+                            </div>
+                            <div class="col-csxx-x-14">
+                                <select class="ui fluid dropdown" data-style="btn btn-link" name="spouse_gender" id="gender_id"
+                                    class="form-control" required>
+                                    <option value="{{partner.spouse_gender}}" selected="selected">
+                                        {% if partner.spouse_gender %}
+                                        {{partner.spouse_gender}} {% else %} select {% endif %} </option>
+                                    <option value='male'>Male</option>
+                                    <option value='female'>Female</option>
+
+                                </select>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+                {% include 'partners/contact_details.html' %}
+
+                {% include 'partners/other_details.html' %}
+
+                <div class="uk-text-center">
+                    <button class="btn btn-primary uk-border-pill" type="submit">Save</button>
+                </div>
+            </div>
+        </div>
+        </div>
+    

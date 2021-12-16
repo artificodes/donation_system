@@ -1,0 +1,84 @@
+{% extends "base/ubase.html" %}
+{% load static %}
+{% block content %}
+
+<div class="mt-1  uk-display-inline-block col-csxx-14 uk-text-center overflow-hidden" id=""
+    style="box-shadow: none;float: none;">
+
+    <div class="card card-login uk-animation-slide-top shadow-none rounded-0 m-0" id="other_support">
+        <form id="profileform" class="form" method="POST" enctype="multipart/form-data"
+            action="{% url 'partner_update_profile' %}" style=" min-height: max-content; max-height: max-content;">
+
+            {% csrf_token %}
+            <input type="hidden" name="next" id="" value="{{next}}">
+
+            {% if partner.account_type == 'I' %}
+            {% include 'partners/individual_profile_form.html' %}
+            {% elif partner.account_type == 'Cr' %}
+            {% include 'partners/corporate_profile_form.html' %}
+
+            {% elif partner.account_type == 'S' %}
+            {% include 'partners/sponsor_profile_form.html' %}
+            {% elif partner.account_type == 'C' %}
+            {% include 'partners/couple_profile_form.html' %}
+            {% endif %}
+            <div class="uk-text-center">
+                <button class="btn btn-primary uk-border-pill" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    $("#profileform").submit(function (event) {
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        $.ajax({
+            beforeSend: function () {
+                showLoadingBar()
+            },
+            complete: function () {
+                hideLoadingBar()
+
+            },
+            url: post_url,
+            type: request_method,
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function (response) {
+                if (response.modal_message) {
+                    messageModal(response.modal_message, response.heading)
+
+                }
+
+                if (response.modal_content) {
+                    contentModal(response.modal_content, response.heading)
+
+                }
+                if (response.message) {
+                    UIkit.notification.closeAll()
+                    UIkit.notification(response.message)
+                }
+                window.location = response.next_url
+
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+    $('.previewimage').jPreview();
+
+    $('.ui.dropdown').dropdown()
+
+
+
+</script>
+{% endblock content %}

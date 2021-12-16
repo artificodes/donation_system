@@ -1,0 +1,52 @@
+      <!--
+        Home Slider
+        ==================================== -->
+		
+		<section id="slider" style='height:70% !important;max-height: 70%;'>
+			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style='height:100%;max-height:100%'>
+			
+				<!-- Indicators bullet -->
+				<ol class="carousel-indicators">
+					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+					<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				</ol>
+				<!-- End Indicators bullet -->				
+				
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner" role="listbox"style='height:100%;max-height:100%'>
+					
+					<!-- single slide -->
+					{% for slide in slides  %}
+					<div class="item {{slide.active_state}}" style="background-image: url({{slide.image_64}});height:100%">
+						<div class="carousel-caption">
+							<h2 data-wow-duration="700ms" data-wow-delay="500ms" class="wow bounceInDown animated">Meet<span> Brandi</span>!</h2>
+							<h3 data-wow-duration="1000ms" class="wow slideInLeft animated"><span class="color">/creative</span> one page template.</h3>
+							<p data-wow-duration="1000ms" class="wow slideInRight animated">We are a team of professionals</p>
+							
+							<ul class="social-links text-center">
+								<li><a href=""><i class="fa fa-twitter fa-lg"></i></a></li>
+								<li><a href=""><i class="fa fa-facebook fa-lg"></i></a></li>
+								<li><a href=""><i class="fa fa-google-plus fa-lg"></i></a></li>
+								<li><a href=""><i class="fa fa-dribbble fa-lg"></i></a></li>
+							</ul>
+
+					</div>
+					<!-- end single slide -->
+					{% endfor %}
+					
+				</div>
+				<!-- End Wrapper for slides -->
+				
+			</div>
+									</div>			<div class="card-img-overlay" style="background-image: url({{slideoverlay.image_64}});height:100%;"></div>
+
+		</section>
+		
+        <!--
+        End Home SliderEnd
+        ==================================== -->
+		
+        <!--
+        Features
+        ==================================== -->
+		

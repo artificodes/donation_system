@@ -1,0 +1,83 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+  <title>Document</title>
+
+  <style>
+      {% include 'static/argon/css/argon.css' %}
+      {% include 'static/custom/custom.min.css' %}
+
+  </style>
+</head>
+
+<body
+  style="" class="bg-white">
+  <div class="pl-3">
+    <span class="" style="font-size: 10px;">Generated: {% now "SHORT_DATETIME_FORMAT" %}</span>
+     
+   </div>
+  <div class="card bg-white m-1 mt-0" style="box-shadow: none;">
+    <div class="card-body">
+
+      <div class="uk-text-center uk-padding-remove" style="width: 100px;">
+        <img src="{{logo}}" alt="" style="width: 100px;">
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="card bg-white shadow-none">
+    <!-- <div class="card-header text-center text-uppercase">
+PAYMENTS FOR {{allObject.period}}
+    </div> -->
+  <div class="card-body">
+    <div class="table-responsive">
+        <!-- Projects table -->
+        <table class="table align-items-left table-flush">
+
+            <thead class="thead-light text-darker">
+                <tr>
+                    <th class="text-darker text-left p-2">Last Name</th>
+                    <th class="text-darker text-left p-2">First Name</th>
+                    <th class="text-darker text-left p-2">Phone Number</th>
+                    <th class="text-darker text-left p-2">Email Address</th>
+                    <!-- <th class="text-darker  ">Residential Address</th>
+                    <th class="text-darker  ">Account</th>
+                    <th class="text-darker  ">Gender</th> -->
+                      
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in allObject.members %}
+                <tr id="" class="p-0 text-darker">
+                    <td class="p-1 pl-2">
+                        {{member.user.last_name}}         
+                    </td>
+                    
+                    <td class="p-1">
+                        {{member.user.first_name}}         
+                    </td>
+                    <td class="p-1">
+                        {{member.phone_number}}         
+                    </td>
+                    <td class="p-1">
+                        {{member.user.email}}         
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>  
+</div>
+</body>
+</html>

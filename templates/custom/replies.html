@@ -1,0 +1,45 @@
+{% for reply in replies %}
+<li class="uk-padding-remove" style='max-width:max-content;margin: 10px;'>
+<div class="media" >
+<div class="media-left">
+    <img alt="img" src="{{currentuser.photo.url}}"
+        class="media-object news-img uk-border-circle"
+        style=" height: 40px;width: 40px;margin: 0;margin-right: 5px;">
+</div>
+<div class="media-body uk-border-rounded uk-padding-small" style="width: max-content;">
+    <h5 class="author-name  uk-padding-small uk-padding-remove-left" style="width: max-content;position: relative;font-weight:bold"> {% if reply.commenter_nick_name %} {{reply.commenter_nick_name}} {% else %} {{reply.commenter_full_name}} {% endif %}
+
+        {% if reply.commenter_id == episode.story.user_id %} 
+        <span class="fa fa-dot-circle fa-c-small uk-position-top-right" style="color: green;"></span>
+        {% endif %}
+    </h5>
+        <p style="font-size: 12px;">{{reply.comment}}</p>
+        <p style="font-size: 12px;" id="{{reply.reply_id}}time">
+        <script>
+replyTimeCalculator('{{reply.reply_id}}time',{{reply.date_commented.year}},{{reply.date_commented.month}}-1,{{reply.date_commented.day}},{{reply.time_commented.hour}},{{reply.time_commented.minute}},{{reply.time_commented.second}})
+        </script>
+        </p>
+
+
+          
+<div style="display: flex;">        
+<span class="uk-padding-small " href="#">
+<a class="fa fa-thumbs-up fa-c-medium " style="margin: 0;color: green;" href="{% url 'replylike' reply_id=reply.reply_id %}"></a>
+    <span class=" uk-text-center" style="padding: 1px; color:black;font-size: 11px;font-weight: bold;">{{reply.likes}}</span>
+</span>  
+
+<span class="uk-padding-small ">
+<a class="fa fa-thumbs-down fa-c-medium"
+    style="margin: 0;color: red;" href="{% url 'replydislike' reply_id=reply.reply_id %}"></a>
+    <span class=" uk-text-center uk-padding-small" style="padding: 1px; color:black;font-size: 11px;font-weight: bold;">
+{{reply.dislikes}}</span>
+</span>       
+                               
+</div>  
+
+
+</div>
+</div>
+                                 </li>
+                                      
+                                        {% endfor %}

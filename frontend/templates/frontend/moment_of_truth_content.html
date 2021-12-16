@@ -1,0 +1,52 @@
+<div style="width: 100%;">
+    <div style=" display: flex;flex-wrap: wrap;justify-content: center;min-width: 100%;">
+
+        {% for tv in tvs %}
+        <div class="card uk-margin-small col-cmd-4-e col-csxx-14 col-csx-10 col-css-7 col-csm-5-e" style="box-shadow: none;">
+            <div class="card-body uk-padding-medium">
+                <div class="card uk-margin-remove uk-box-shadow-medium">
+                    <div class="card-body uk-padding-small">
+                        <div class="ui move right reveal  ">
+                            <div class="visible content uk-border-rounded" style="width: 100%;">
+                                <img src="{{tv.station_logo.url}}" class="ui image uk-border-rounded"
+                                    style="width: 100%; min-height: 100%;max-height:100%;">
+                            </div>
+                            <div class="hidden content uk-border-rounded" style="width: 100%;">
+                                <img src="{{tv.station_logo.url}}" class="ui image"
+                                    style="width: 100%; min-height: 100%;max-height:100%;">
+                                <div class="uk-overlay uk-position-center uk-border-rounded uk-padding-small"
+                                    style="width: 100%; min-height: 100%;max-height:100%; background-color:rgb(0, 0, 0);">
+                                    <p class="text-white uk-text-lead"
+                                        style="text-transform: uppercase; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                                        {{tv.broadcast_day}}s | <span style="color: gold;">{{tv.broadcast_time}}</span></p>
+                                        <p class="uk-margin-remove uk-text-large text-white">Showing This Week</p>
+                                        <div class="uk-divider-small uk-margin-remove"></div>
+                                        <p class="text-white uk-text-middle uk-text-bold"
+                                        style="">
+                                        {{tv.short_description}}</p>
+                                    <div class=" bg-transparent uk-text-center container-fluid "
+                                        style="display: inline-block;">
+
+
+                                        <!-- <a href="{% url 'account_login' %}" target="_blank"
+                                            class="btn {% cycle 'btn-rose' 'bg-primary' %} btn-round btn-block"
+                                            style="width: max-content;display: inline-block;border-radius: 0;">
+                                            <i class="icon video"></i> WATCH
+                                            {{tv.title|truncatechars:20}} 
+                                        </a> -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,218 @@
+{% autoescape off %}
+<div id="offcanvas-nav-signup" class="uk-offcanvas " uk-offcanvas="flip:true;overlay: true;mode:reveal;" style="">
+
+    <div class="uk-margin-remove-last-child uk-height-viewport uk-offcanvas-bar uk-flex uk-flex-column uk-padding-remove 
+        bg-white  uk-offcanvas-bar-animation uk-offcanvas-slide shadow-lg" style="overflow-y: auto;">
+
+        {% load i18n %}
+        <div
+        class="uk-modal-header text-darker p-3 h2 text-capitalize border-0 text-left pl-2 position-relative" style="">
+        <a class="uk-offcanvas-close m-0 mt-3 uk-position-center-left bg-transparent" style="width: max-content;">
+            <i class="material-icons" style="font-size: xx-large;">chevron_right</i></a>
+    </div>
+    <div class="text-center mt--3">
+        <img src="{{settings.logo.url}}" class="card-img-top m-0" alt="" style="width:50px;display: inline-block;">
+        <p class="text-primary h3 mt-3">Sign up</p>
+
+    </div>
+
+        <div id="signup-error" class="text-sm uk-text-bold text-center">
+
+        </div>
+        <form class="form" id="signupform" method="POST" action="{% url 'new_account_signup' %}" style="">
+
+            {% csrf_token %}
+            {% if form.errors %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Ooops!</strong>
+                {{form.errors}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+
+            <div class="card-body">
+                <div class="uk-inline mt-2" style="width: 100%;">
+
+                    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-user"></i></span> -->
+                    <input class="uk-input form-control p-3 rounded-md position-relative border border-light text-dark"
+                        style="z-index: 2;" id="first_name" type="text" name="first_name" required>
+                    <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                        style="z-index: 1;font-size: 12px;">
+                        First Name
+                    </span>
+                </div>
+
+                <div class="uk-inline mt-4" style="width: 100%;">
+
+                    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-user"></i></span> -->
+                    <input class="uk-input form-control p-3   rounded-md position-relative border border-light text-dark "
+                        style="z-index: 2;" id="last_name" type="text" name="last_name" required>
+                    <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                        style="z-index: 1;font-size: 12px;">
+                        Last Name
+                    </span>
+                </div>
+
+
+                <div class="uk-inline mt-4" style="width: 100%;">
+
+                    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
+                    <input class="uk-input form-control p-3 rounded-md position-relative border border-light text-dark "
+                        style="z-index: 2;" id="secretpin" type="text" name="email">
+                    <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                        style="z-index: 1;font-size: 12px;">
+                        Email - Recommended but optional
+                    </span>
+                </div>
+
+                <div class="uk-inline mt-4" style="width: 100%;">
+
+                    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-user-shield"></i></span> -->
+                    <input class="uk-input form-control p-3   rounded-md position-relative border border-light text-dark "
+                        style="z-index: 2;" id="username" type="text" name="username" required>
+                    <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                        style="z-index: 1;font-size: 12px;">
+                        Username
+                    </span>
+                </div>
+
+
+                <div class="uk-inline mt-4" style="width: 100%;">
+
+                    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-lock"></i></span> -->
+                    <input class="uk-input form-control p-3 pr-5 password   rounded-md position-relative border border-light text-dark "
+                        style="z-index: 2;" id="password" type="password" name="password" required>
+
+                    <span class="uk-position-center-right mr-2" style="z-index: 2;">
+                        <i class="fa fa-eye reveal-password " ></i>
+                    </span>
+                    <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                        style="z-index: 1;font-size: 12px;">
+                        Password
+                    </span>
+                </div>
+
+
+
+
+
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+            </div>
+            <div class="mt-1 text-center bg-white">
+                <button class="btn btn-success" type="submit"
+                    style="">
+                    {% trans "Sign Up" %} </button>
+            </div>
+
+            {% if socialaccount_providers %}
+            <p>{% blocktrans with site.name as site_name %} <a href="{{ signup_url }}">sign up</a>
+                {% endblocktrans %}</p>
+
+            <div class="socialaccount_ballot">
+
+                <ul class="socialaccount_providers">
+                    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                </ul>
+
+                <div class="login-or">{% trans 'or' %}</div>
+
+            </div>
+
+            {% include "socialaccount/snippets/login_extra.html" %}
+
+            {% else %}
+
+
+            {% endif %}
+
+        </form>
+
+
+    </div>
+</div>
+<script>
+    {
+        (function ($) { //Most read async
+            $('.reveal-password').on('click', function (event) {
+                var iconEl = $(this)
+                if ($('.password').attr('type') == 'password') {
+                    $('.password').attr('type', 'text')
+                    iconEl.removeClass('fa-eye')
+                    iconEl.addClass('fa-eye-slash')
+
+                }
+                else {
+                    $('.password').attr('type', 'password')
+                    iconEl.removeClass('fa-eye-slash')
+                    iconEl.addClass('fa-eye')
+
+                }
+            }
+            )
+        }
+            (jQuery))
+    }
+
+    $("#signupform").submit(function (event) {
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        $.ajax({
+            beforeSend: function () {
+                showLoadingBar()
+            },
+            complete: function () {
+                hideLoadingBar()
+            },
+            url: post_url,
+            type: request_method,
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function (response) {
+                if (response.invalid) {
+
+
+                    if (response.modal_notification) {
+                        $('#signup-error').empty()
+                            $('#signup-error').append(response.modal_notification)
+                            $('#signup-error').show()
+                            setTimeout(() => $('#signup-error').hide(), 3000)
+
+                    }
+                }
+                else if (response.logged_in) {
+                    window.location = '{% url 'partner_dashboard' %}'
+
+                }
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+    {
+        (function ($) { //Most read async
+            $('.form-check.form-check-radio').on('click', function () {
+                $('.form-check.form-check-radio').attr('style', 'background-color:white !important;color:black !important')
+                $('.form-check.form-check-radio').removeClass('uk-animation-fade')
+                $(this).attr('style', 'background-color:rgb(5, 51, 94) !important;color:white !important')
+                $(this).addClass('uk-animation-fade')
+
+            });
+        }(jQuery))
+    };
+
+</script>
+
+{% endautoescape %}

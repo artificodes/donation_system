@@ -1,0 +1,16 @@
+<div class="card m-0 border-bottom border-top  shadow-none rounded-0">
+    <div class="card-body p-2">
+        <div class=" text-capitalize">
+          <span class="pr-2" style="font-weight: bold;">Account:</span>                     
+          {% if partner.account_type == 'I' %} Individual {% elif partner.account_type == 'C' %} Couple 
+          {% elif partner.account_type == 'Cr' %} Corporate {% elif partner.account_type == 'S' %} Sponsor   {% endif %}
+        </div>
+        {% if request.user.is_superuser %}
+        <a href="{% url 'admin_select_account_type' userid=partner.member_no %}"
+        class="btn-danger btn-sm rounded-pill uk-position-center-right mr-2 main-content-redirect">Change</a>
+        {% else %}
+        <a href="{% url 'partner_select_account_type' %}"
+         class="btn-danger btn-sm rounded-pill uk-position-center-right mr-2 main-content-redirect">Change</a>
+         {% endif %}
+    </div>
+</div>

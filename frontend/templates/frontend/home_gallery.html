@@ -1,0 +1,69 @@
+<div class="col-csxx-14 uk-margin-large-top">
+    <div class="main main-raised uk-margin-medium-bottom uk-box-shadow-medium">
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col-md-8 ml-auto mr-auto uk-padding-small">
+                    <div class="uk-text-center">
+                        <div class="bg-primary uk-margin-small-top uk-padding-medium"
+                            style="width:max-content;display:inline-block;color: white;">
+                            GALLERY
+                        </div>
+                    </div>
+                    <div class="uk-divider-small uk-margin-remove"></div>
+                
+                    <h4 class="description uk-margin-small-bottom">Here are some pictures from the activities of
+                        Dominion Partners Global</h4>
+                </div>
+            </div>
+            <div class="row uk-padding-small">
+                <div class="uk-position-relative uk-visible-toggle uk-light" style="" tabindex="-1"
+                    uk-slider="ratio: false;animation:scale;autoplay:true;autoplay-interval: 6000;pause-on-hover: true">
+                    <div class="" uk-lightbox="animation: scale" style="height: 100%;">
+
+                        <ul class="uk-slider-items">
+                            {% for image in gallery %}
+                            <li
+                                class="col-cmd-4-e col-csxx-12 col-csx-10 col-css-7 col-csm-5-e uk-padding-small scale-up-card">
+                                <div class="card uk-box-shadow-medium " style="overflow: hidden;">
+                                    <a class="uk-inline uk-box-shadow-small uk-border-rounded"
+                                        href="{{image.image.url}}" data-caption="{{image.image.title}}"
+                                        style="max-height: inherit;min-width: 100%">
+                                        <img src="{{image.image.url}}" alt="" class="card-image" style="">
+                                    </a>
+                                    <div class="uk-overlay uk-overlay-default uk-position-bottom uk-padding-medium">
+                                        <p>{{image.title}}</p>
+                                    </div>
+
+                                </div>
+
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+                    <a class=" uk-position-center-left uk-position-small uk-hidden-hover uk-border-circle btn-rose btn"
+                        href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-border-circle bg-primary"
+                        href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+
+                    <!-- {% for image in gallery %}
+                    <div class="rounded col-csxx-14 {% cycle  'col-csx-7' 'col-csx-7' 'col-csx-7' 'col-csx-7' 'col-csx-7' 'col-csx-7' 'col-cmd-14'%} {% cycle  'col-cmd-4-e' 'col-cmd-4-e' 'col-cmd-4-e' 'col-cmd-4-e' 'col-cmd-5-e' 'col-cmd-5-e' 'col-cmd-5-e'%} uk-padding-small uk-margin-small-top uk-margin-small-bottom"
+                        style="display: inline-block; {% cycle 'max-height:180px;overflow: hidden;' 'max-height:180px;overflow: hidden;' 'max-height:180px;overflow: hidden;' 'max-height:180px;overflow: hidden;' '' '' ''  %} ">
+                        <a class="uk-inline uk-box-shadow-small uk-border-rounded" href="{{image.image.url}}"
+                            data-caption="{{image.image.title}}" style="max-height: inherit;min-width: 100%">
+
+                            <img class="img-raised rounded img-fluid" alt="{{image.image.title}}"
+                                src="{{image.image.url}}" style="max-height: inherit;width: 100%;">
+
+                        </a>
+                    </div>
+                    {% endfor %} -->
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

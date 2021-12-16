@@ -1,0 +1,20 @@
+<div class="uk-text-center" style="width: 100%;margin-top: -30px;">
+
+{% for cardarticle in homecardarticles %}
+<div class="main main-raised uk-box-shadow-small col-cmd-4-e col-csx-13 col-css-6 col-csm-5 col-csxx-13 " style="background-color: transparent !important;float: none; display: inline-block;">
+  <div class="card uk-margin-remove"
+    style="overflow: hidden;box-shadow: none;background-color: rgba(255, 255, 255, 1) !important;">
+    <div class="bg-primary uk-padding-medium uk-text-center"
+      style="color: white;font-family: arial black">
+      {{cardarticle.title}}
+    </div>
+    <div class="card-body" style="background-color: white;">
+      <p class="card-text">{{cardarticle.short_description|truncatechars:100}}</p>
+      <a href="{{cardarticle.link}}" class="btn btn-secondary uk-border-pill">More on {{cardarticle.title}} <i
+          class="material-icons uk-padding-small" style="color:orangered">play_arrow</i></a>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+</div>

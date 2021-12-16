@@ -1,0 +1,131 @@
+
+            <div class="card-body p-0">
+                <div class="uk-text-bold p-2">
+                    CORPORATE PROFILE UPDATE
+                </div>
+                <div class="card m-0 shadow-none">
+
+                    <div class="card-body p-0">
+                        <div class="bg-secondary p-2 text-left text-darker mb-3">
+                            <div class="">
+                                <i class="fa fa-info-circle "></i>
+                                <span class="p-1">
+                                    Company Profile
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-1">
+                        <div class="uk-inline" style="width: 100%;">
+                            <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+                                id="company_name" type="text" name="company_name"  value="{{partner.company_name}}" required>
+                            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+                                Company's name
+                            </span>
+                        </div>
+</div>
+                        <div class="p-1">
+                            <div class="uk-inline mt-4" style="width: 100%;">
+                                <div class="position-relative">
+                                     <input class="uk-input previewimage form-control p-3 password  rounded-md position-relative "
+                               name="photo" data-jpreview-container="#preview-container" style="z-index: 2;"
+                                     type="file">
+                                <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 mt--4 bg-white text-dark" style="z-index: 3;font-size: 12px;">
+                                    Profile picture
+                                </span>
+                                </div>
+                               
+                          
+                                <div id="preview-container" 
+                                    class="jpreview-container uk-padding-small rounded-circle"
+                                    style="background-position: center;min-height: 100px; max-height: 200px;max-width: 200px; float: none;
+                                    background-image: url('{% if partner.photo %} {{partner.photo.url}} {% endif  %}');background-repeat: no-repeat; background-size: contain;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-1">
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-md p-1 shadow-sm border rounded-md p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text p-0">
+                                        Sector:
+                                    </span>
+                                </div>
+                                <div class="col-csxx-x-14">
+                                    <div class="ui form">
+                                        <div class="field">
+                                            <select class="ui search dropdown" name='sector'>
+                                                <option value="{{partner.sector}}" selected>{%  if partner.sector %}{{partner.sector} {% else %} Select sector {% endif  %}</option>
+                                                
+                                                <option value="education">Education</option>
+                                                <option value="manufacturing">manufacturing</option>
+                                                <option value="branding">Branding</option>
+                                                <option value="digital marketing">Digital Marketer</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <!-- <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-md p-1 shadow-sm border rounded-md p-1 shadow-sm">
+                                <div class="input-group-prepend">
+
+                                    <span class=" input-group-text p-0">
+                                        <i class="material-icons">phone</i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control height-mx p-2" required name="phone_number"
+                                    id="phone_id" placeholder="Active Phone number"
+                                    value="{{partner.phone_number}}">
+                            </div>
+                        </div> -->
+                      
+                        {% include 'partners/contact_details.html' %}
+
+
+                        <div class="bg-secondary p-2 text-left text-darker mb-3">
+                            <div class="">
+                                <i class="fa fa-user-check"></i>
+                                <span class="p-1">
+                                    Contact Person
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-1">
+
+                        <div class="uk-inline" style="width: 100%;">
+                            <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+                                id="contact_person_full_name" type="text" name="contact_person_full_name"  value="{{partner.contact_person_full_name}}" required>
+                            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+                                Full name
+                            </span>
+                        </div>
+                        <div class="uk-inline mt-4" style="width: 100%;">
+                            <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+                                id="contact_person_phone_number" type="text" name="contact_person_phone_number"  value="{{partner.contact_person_phone_number}}" required>
+                            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+                                Phone number
+                            </span>
+                        </div>
+
+                        <div class="uk-inline mt-4 mb-3" style="width: 100%;">
+                            <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+                                id="contact_person_email" type="text" name="contact_person_email"  
+                                value="{{partner.contact_person_email}}" required>
+                            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+                                Email
+                            </span>
+                        </div>
+                  </div>
+                      
+{% include 'partners/other_details.html' %}
+
+                     
+                    </div>
+                </div>
+            </div>

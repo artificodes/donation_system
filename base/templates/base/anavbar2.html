@@ -1,0 +1,81 @@
+{% if request.user.is_authenticated %}
+
+<div class="p-2 container-fluid bg-white"
+    style="display: inline-block;z-index: 3;" id="top">
+
+    <div class="uk-flex-inline ml-2">
+        <div class="uk-text-center uk-padding-remove" style="">
+            <img src="{{settings.logo.url}}" alt="" style="width: 30px">
+          </div>
+    <a class="uk-icon-button "  uk-toggle="target: #offcanvas-nav-primary"
+        style="box-shadow: none;z-index: 3;top: 0;">
+        <i class="fa fa-bars uk-text-bold text-darker" style=""></i></a>    
+    </div>
+</div>
+
+<div class="col-csxx-x-14 text-center fixed-top hide top-0" id='progress-container' style="margin-top:0px;z-index: 3;">
+    <div class="ui tiny col-csxx-x-14 float-none rounded-0 active progress shadow-none uk-display-inline-block"
+        style="border: none;height: 3px;" id="progress">
+       
+             <div class="bar rounded-0" style="border-radius: 0 !important;background-color: silver !important;"></div>
+    </div>
+</div>
+
+<script>
+
+    // {
+    //     (function ($) { //Most read async
+    //         $('.signout').on('click', function () {
+
+    //             logout()
+    //         });
+    //     }(jQuery))
+    // };
+    // var loggedOut = false
+
+    // function logout() {
+    //     $.ajax({
+
+    //         beforeSend: function () {
+    //             $('#loader-cover').show()
+    //         },
+    //         complete: function () {
+    //             $('#loader-cover').hide()
+    //         },
+    //         type: 'get',
+    //         url: "{% url 'partner_account_logout' %}",
+    //         data: {
+    //             'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+    //         },
+    //         success: function (response) {
+    //             window.location = '{% url 'partner_dashboard' %}'
+
+    //             loggedOut = true
+    //         },
+    //         error: function (xhr, status, error) {
+    //             alert('there was an error')
+    //         }
+    //     });
+    // };
+
+
+    // function callIdle() {
+    //     if (loggedOut == true) {
+
+    //     }
+    //     else {
+    //         logout()
+
+    //     }
+    // }
+
+
+    // $(document).idle({
+    //     onIdle: function () {
+    //         callIdle()
+    //     },
+
+    //     idle: 10000,
+    // })
+</script>
+{% endif %}

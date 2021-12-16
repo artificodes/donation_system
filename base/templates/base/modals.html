@@ -1,0 +1,919 @@
+<div class="uk-overlay uk-height-viewport " uk-cover id="loader-cover"
+  style="z-index: 1030;background-color: black;opacity: 0.8;position: fixed;display: none;width: 100%;">
+  <div class='ui active uk-position-center loader loading big uk-border-circle uk-box-shadow-small uk-padding-small'
+    style='position: fixed !important;'>
+    <img src="http://localhost:8000{{settings.logo_loader.url}}" class="logo-loader " alt="">
+  </div>
+</div>
+
+</div>
+<div id="message-modal" class="uk-flex-top top-0 uk-modal" uk-modal>
+  <div
+    class="uk-modal-dialog uk-modal-body  uk-margin-auto-vertical uk-animation-slide-top-small  rounded-lg overflow-hidden overflow-hidden shadow-none border">
+    <!-- <div class="uk-modal-header bg-secondary text-dark p-2 h3 text-uppercase text-center" id="content-modal-header"></div> -->
+    <a class="uk-modal-close-default uk-icon-button uk-position-top-right mr-1 mt-1 border-0">
+      <i class="material-icons text-dark uk-text-default">close</i></a>
+
+    <div id="message-modal-body" class="card shadow-none text-center p-2"></div>
+  </div>
+</div>
+
+<div id="notification-box" class="top-0 bg-transparent uk-modal" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body  uk-animation-slide-top-small overflow-hidden rounded-sm shadow-sm border"
+    style="width: max-content;">
+    <a class="uk-modal-close-default uk-icon-button uk-position-top-right mr-1 mt-1 border-0">
+      <i class="material-icons text-dark" style="font-size: 18px;">close</i></a>
+
+    <div id="notification-box-body" class="card shadow-none text-center p-1" style="width: max-content;"></div>
+  </div>
+</div>
+
+<div id="content-modal" class="uk-flex-top top-0 uk-modal content-modal" uk-modal>
+<div class="fixed-top bg-white border-bottom mobile-el hide">
+      <div class="uk-modal-header  text-darker rounded-pill text-darker pr-3 pl-3 p-1 h3 m-1 
+      text-capitalize text-left border-0 h2 content-modal-header" style="width: max-content;max-width: 100%;">
+      </div>
+      <a class="modal-close uk-text-bold uk-position-center-right mr-2 mt-0
+     bg-transparent border-0"><i class="material-icons">close</i></a>
+    </div>      
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical rounded-lg overflow-hidden  p-0" style=" max-width: 100% !important;">
+      <div class="fixed-top bg-white border-bottom desktop-el">
+        <div class="uk-modal-header  text-darker rounded-pill text-darker pr-3 pl-3 p-1 h3 m-1 
+        text-capitalize text-left border-0 h2 content-modal-header" style="width: max-content;max-width: 100%;">
+        </div>
+        <a class="modal-close uk-text-bold uk-position-center-right mr-2 mt-0
+       bg-transparent border-0"><i class="material-icons">close</i></a>
+      </div> 
+    
+
+    <div id="content-modal-body" class="card shadow-none text-center p-2 mt-5 m-0"></div>
+  </div>
+</div>
+
+<div id="full-content-modal" class="uk-modal-full top-0 uk-modal bg-white" uk-modal style="">
+    <div class="uk-position-relative">
+      <div class="uk-modal-header bg-white text-darker h2 text-capitalize border-0 text-left pl-2"
+        id="full-content-modal-header"></div>
+      <a class="uk-modal-close-default uk-text-bold uk-position-center-right
+     bg-transparent border-0"><i class="material-icons">close</i></a>
+    </div>  <div class="uk-modal-dialog bg-white" >
+
+    <div class="text-center">
+      <div class="uk-display-inline-block col-csxx-x-14" style="width: 100%;max-width: 1500px;">
+        <div class="position-relative uk-display-inline-block col-cmd-8 float-none p-0 col-csxx-x-14" style="">
+
+          <div class="modal-body container-fluid uk-text-center p-0" id="full-content-modal-body">
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<div id="confirm-modal" class="uk-flex-top top-0" uk-modal=''>
+  <div class="uk-modal-dialog uk-margin-auto-vertical rounded-md text-center p-5">
+    <div id="confirm-modal-inner">
+
+    </div>
+    <div class="mt-2 position-relative">
+      <button class="btn bg-white text-blue mt-2  rounded-pill pl-3 pr-3 mr-0 ml-0 shadow-none uk-display-inline-block" id="yes"
+        contenturl=''><i class="fa fa-check-circle mr-1"></i> Yes</button>
+      <a class="btn bg-white text-danger mt-2 rounded-pill pl-3 pr-3  mr-0 ml-0 shadow-none uk-modal-close-default uk-display-inline-block" style="top: auto;right: auto;"><i class="fa fa-times-circle mr-1"></i>
+        No</a>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+  var contentObject = {}
+  var loader = "<div class='ui active loader loading small m-0 uk-border-circle uk-box-shadow-small uk-padding-small uk-position-center'></div>"
+
+  
+   $('.load-content').beacon({
+     enteronce:true,
+     onenter: function (el) {
+       var contentElement = $(el)
+       if (contentObject[contentElement.attr('id')] && !contentElement.attr('reload')) {
+       $('#'+contentElement.attr('id')).empty();
+       $('#'+contentElement.attr('id')).append(contentObject[contentElement.attr('id')]['body']);
+     }
+     else{
+       $.ajax({
+         beforeSend: function () {
+           contentElement.append(loader)
+         },
+         complete: function () {
+         },
+         type: 'get',
+         url: contentElement.attr('contenturl'),
+         data: {
+           'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+         },
+         success: function (response) {
+ 
+           if (response.content) {
+             $(el).empty()
+ 
+             $(el).append(response.content);
+           }
+ 
+           contentObject[contentElement.attr('id')] = {}
+           contentObject[contentElement.attr('id')]['body'] = response.content
+ 
+ 
+         },
+         error: function (xhr, status, error) {
+           //   alert('there was an error')
+         }
+       });
+     }
+     }
+   });
+ 
+ 
+ 
+ </script>
+
+
+<script>
+
+
+  // if ("{{message}}" != '') {
+  //   notificationModal('{{message}}')
+
+  // }
+
+  var navigationList = []
+  var navigationObject = {}
+  //   $(window).load(function(){
+  //   $('body').backDetect(function(){
+  //     alert("Look forward to the future, not the past!");
+  //   });
+  // });
+  //   $(window).on("navigate", function (event, data) {
+  //   var direction = data.state.direction;
+  //   if (direction == 'back') {
+  //     alert('back')
+  //     $.ajax({
+  //             beforeSend: function () {
+
+  //               showLoadingBar()
+  //             },
+  //             complete: function () {
+  //               hideLoadingBar()
+
+  //             },
+  //             type: 'get',
+  //             url: navigationList[-1],
+  //             data: {
+  //               'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+  //             },
+  //             success: function (response) {
+  //               // if there are still more pages to load,
+  //               // add 1 to the "Load More Posts" link's page data attribute
+  //               // else hide the link
+  //               // append html to the posts div
+  //               //$('.content-modal-header-title').empty()
+
+  //               //$('.content-modal-header-title').append(link.attr('inner-html'));
+  //               if (response.content) {
+  //                 navigationList.pop()
+  //                 $('#tabcontent').removeClass('uk-animation-fade')
+
+  //           $('#tabcontent').addClass('uk-animation-fade')
+  //           $('#tabcontent').empty()
+  //           $('.tab-pane').hide()
+  //           $('#tabcontent').show()
+  //               }
+
+
+  //             },
+  //             error: function (xhr, status, error) {
+  //               alert('there was an error')
+  //             }
+  //           });
+
+  //   }
+  //   if (direction == 'forward') {
+  //     // do something else
+  //   }
+  // }(jQuery));
+
+//   $('.uk-modal').on('beforehide', function () {
+//     $('.content-modal').removeClass('custom-modal-slide-bottom')
+
+// $('.content-modal').addClass('custom-modal-slide-top')
+//   })
+
+  function closeModal() {
+
+//     try {
+//       $('.content-modal').removeClass('custom-modal-slide-bottom')
+
+// $('.content-modal').addClass('custom-modal-slide-top')
+//       UIkit.modal($('.content-modal.uk-open')).hide();
+
+//     } catch (TypeError) {
+
+//     }
+  }
+
+
+  {
+    (function ($) {
+      $('.modal-close').on('click', function () {
+        setTimeout( UIkit.modal($('.content-modal.uk-open')).hide,350)            //
+        $('.content-modal').removeClass('custom-modal-slide-bottom')
+
+        $('.content-modal').addClass('custom-modal-slide-top')
+
+      })
+    }
+      (jQuery))
+  };
+
+  function showLoadingBar() {
+    try {
+      clearInterval(intervalObject_1);
+
+    } catch (ReferenceError) {
+
+    }
+
+    $('#progress-container').show()
+    try {
+      clearInterval(intervalObject_1);
+
+    } catch (ReferenceError) {
+
+    }
+    pageStatus = null;
+    progress = null;
+    animationInterval = 33;
+    function updateProgress() {
+      if (progress == null) {
+        progress = 1;
+      }
+
+      progress = progress + 1;
+      if (progress >= 0 && progress <= 30) {
+
+        animationInterval += 1;
+        $('#progress').progress({
+          percent: progress
+        });
+      }
+      else if (progress > 30 && progress <= 60) {
+        animationInterval += 2;
+        $('#progress').progress({
+          percent: progress
+        });
+      }
+      else if (progress > 60 && progress <= 80) {
+        $('.progress').addClass('bg-darker')
+
+        animationInterval += 3;
+        $('#progress').progress({
+          percent: progress
+        });
+      }
+      else if (progress > 80 && progress <= 90) {
+        $('.progress').addClass('bg-darker')
+
+        animationInterval += 4;
+        $('#progress').progress({
+          percent: progress
+        });
+      }
+      else if (progress > 90 && progress <= 95) {
+        animationInterval += 80;
+        $('#progress').progress({
+          percent: progress
+        });
+      }
+      else if (progress > 95 && progress <= 99) {
+        animationInterval += 150;
+        document.getElementById("pageLoader").innerHTML = progress;
+      }
+      else if (progress >= 100) {
+        $('#progress').progress({
+          percent: progress
+        });
+      }
+      setTimeout(updateProgress, animationInterval);
+
+    }
+    intervalObject_1 = setInterval(function () {
+      element = document.querySelector("body");
+
+      if (element != undefined) {
+        clearInterval(intervalObject_1);
+
+        updateProgress();
+      }
+    }, 50);
+  }
+
+  function hideLoadingBar() {
+    clearInterval(intervalObject_1);
+    progress = 100
+    $('#progress').progress({
+      percent: progress
+    });
+    $('#progress-container').hide()
+    $('.progress').addClass('bg-yello')
+
+    progress = 0
+  }
+  {
+    (function ($) { //Most read async
+      $('.tab-content-btn').on('click', function (event) {
+        try {
+          clearInterval(cameraShots)
+          scanner.stop()
+        } catch (ReferenceError) {
+          try {
+            clearInterval(cameraShots)
+            scanner.stop()
+          } catch (ReferenceError) {
+
+          }
+        }
+        // try {
+        //             clearInterval(qrCodeInterval)
+        //             Webcam.reset()
+        //         } catch (ReferenceError) {
+        //             try {
+        //             clearInterval(qrCodeInterval)
+        //             Webcam.reset()
+        //         } catch (ReferenceError) {
+
+        //         }
+        //         }
+        var link = $(this);
+        var elementID = link.attr('href')
+        navigationList.push[link.attr('contenturl')]
+        $.ajax({
+          beforeSend: function () {
+            showLoadingBar()
+          },
+          complete: function () {
+            hideLoadingBar()
+          },
+          type: 'get',
+          url: link.attr('contenturl'),
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (response) {
+
+            if (response.content) {
+              navigationObject[elementID] = response.content
+              $('#tabcontent').removeClass('uk-animation-fade')
+
+              $('#tabcontent').addClass('uk-animation-fade')
+              $('#tabcontent').empty()
+              $('.tab-pane').hide()
+              $('.nav-link').removeClass('active')
+              $('#tabcontent').append(response.content)
+              $(link).addClass('active')
+              $('#tabcontent').show()
+            }
+            if (response.modal_message) {
+              messageModal(response.modal_message)
+
+            }
+            if (response.modal_notification) {
+              notificationModal(response.modal_notification)
+
+            }
+
+            if (response.modal_content) {
+              contentModal(response.modal_content, response.heading)
+
+            }
+            if (response.message) {
+              UIkit.notification.closeAll()
+              UIkit.notification(response.message)
+            }
+
+
+          },
+          error: function (xhr, status, error) {
+            alert('there was an error')
+          }
+        });
+      });
+    }(jQuery))
+  };
+
+  {
+    (function ($) { //Most read async
+      $('.coming-soon').on('click', function (event) {
+
+        notificationModal('Coming Soon')
+
+
+      });
+    }(jQuery))
+  };
+
+  {
+    (function ($) { //Most read async
+      $('.signout').on('click', function (event) {
+        var link = $(this);
+
+        $.ajax({
+          beforeSend: function () {
+            showLoadingBar()
+          },
+          complete: function () {
+            hideLoadingBar()
+
+          },
+          type: 'get',
+          url: link.attr('contenturl'),
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (response) {
+
+            if (response.url) {
+              window.location = response.url
+
+            }
+            else {
+              window.location = '{% url 'partner_dashboard' %}'
+            }
+          },
+          error: function (xhr, status, error) {
+            alert('there was an error')
+          }
+        });
+
+
+      });
+    }(jQuery))
+  };
+
+  {
+    (function ($) {
+      $('.hide-content').on('click', function () {
+
+        var button = $(this);
+        $(button.attr('content')).removeClass('uk-animation-fade')
+        $(button.attr('content')).addClass('uk-animation-fade')
+        $(button.attr('content')).hide()
+
+      });
+    }(jQuery))
+  };
+
+  {
+    (function ($) {
+      $('.main-content-redirect').on('click', function () {
+
+        var link = $(this);
+
+        $.ajax({
+          beforeSend: function () {
+
+            showLoadingBar()
+          },
+          complete: function () {
+            hideLoadingBar()
+          },
+          type: 'get',
+          url: link.attr('contenturl'),
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (response) {
+            // if there are still more pages to load,
+            // add 1 to the "Load More Posts" link's page data attribute
+            // else hide the link
+            // append html to the posts div
+            //$('.content-modal-header-title').empty()
+
+            //$('.content-modal-header-title').append(link.attr('inner-html'));
+            if (response.content) {
+              window.location - '#top'
+              $('#tab-header').empty()
+              $('#tab-header').append(response.header);
+              $('#inner-container').empty();
+              $('#inner-container').append(response.content);
+
+            }
+
+            if (response.message) {
+              $('#notification-modal-inner').empty()
+              $('#notification-modal-inner').append(response.message)
+              $('.content-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+              UIkit.modal($('#notification-modal')).show();
+            }
+
+
+          },
+        });
+      });
+    }(jQuery))
+  };
+
+
+  {
+    (function ($) {
+      $('.remove').on('click', function () {
+
+        var link = $(this);
+
+        $.ajax({
+          beforeSend: function () {
+
+            showLoadingBar()
+          },
+          complete: function () {
+            hideLoadingBar()
+          },
+          type: 'get',
+          url: link.attr('contenturl'),
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (response) {
+
+
+            if (response.message) {
+              $('#confirm-modal-inner').empty()
+              $('#confirm-modal-inner').append(response.message)
+
+              UIkit.modal($('#confirm-modal')).show();
+            }
+            if (response.removeurl) {
+              $('#yes').attr('contenturl', response.removeurl)
+              $('#yes').attr('target', link.attr('target'))
+            }
+
+
+
+
+          },
+        });
+      });
+    }(jQuery))
+  };
+
+  {
+    (function ($) {
+      $('#yes').on('click', function () {
+
+        var link = $(this);
+
+        $.ajax({
+          beforeSend: function () {
+
+            showLoadingBar()
+          },
+          complete: function () {
+            hideLoadingBar()
+          },
+          type: 'post',
+          url: link.attr('contenturl'),
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (response) {
+
+            if (response.content) {
+              window.location = '#top'
+              UIkit.modal($('#confirm-modal')).hide();
+
+              $(link.attr('target')).empty()
+              $(link.attr('target')).append(response.content);
+
+            }
+
+            if (response.message) {
+              $('#confirm-modal-inner').append(response.message)
+
+            }
+
+
+          },
+        });
+      });
+    }(jQuery))
+  };
+
+  function requestTabContent(contentUrl, action = 'post') {
+    var link = $(this);
+    $.ajax({
+      beforeSend: function () {
+        showLoadingBar()
+      },
+      complete: function () {
+        hideLoadingBar()
+      },
+      type: action,
+      url: contentUrl,
+      data: {
+        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+      },
+      success: function (response) {
+
+        if (response.content) {
+          $('#tabcontent').removeClass('uk-animation-fade')
+
+          $('#tabcontent').addClass('uk-animation-fade')
+          $('#tabcontent').empty()
+          $('#tabcontent').append(response.content)
+
+        }
+        if (response.modal_message) {
+          messageModal(response.modal_message)
+
+        }
+        if (response.modal_notification) {
+          notificationModal(response.modal_notification)
+
+        }
+
+        if (response.modal_content) {
+          contentModal(response.modal_content, response.heading)
+
+        }
+        if (response.message) {
+          UIkit.notification.closeAll()
+          UIkit.notification(response.message)
+        }
+
+      },
+      error: function (xhr, status, error) {
+        alert('there was an error')
+      }
+    });
+  }
+
+
+  function requestDynamicContent(contentUrl, action = 'post',dynamicEl) {
+    $.ajax({
+      beforeSend: function () {
+
+        showLoadingBar()
+      },
+      complete: function () {
+        hideLoadingBar()
+
+      },
+      type: action,
+      url: contentUrl,
+      data: {
+        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+      },
+      success: function (response) {
+        if (response.content) {
+          $(dynamicEl).removeClass('uk-animation-fade')
+
+          $(dynamicEl).addClass('uk-animation-fade')
+          $(dynamicEl).empty()
+          $(dynamicEl).append(response.content)
+          $(dynamicEl+'-container').show()
+
+
+        }
+
+      },
+      error: function (xhr, status, error) {
+        alert('there was an error')
+      }
+    });
+  }
+
+
+  function requestContentModal(contentUrl, action = 'post', updateable = '') {
+
+    $.ajax({
+      beforeSend: function () {
+        $('.content-modal').removeClass('custom-modal-slide-top')
+
+        $('.content-modal').addClass('custom-modal-slide-bottom')
+        showLoadingBar()
+
+      },
+      complete: function () {
+        hideLoadingBar()
+
+      },
+      type: action,
+      url: contentUrl,
+      data: {
+        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+      },
+      success: function (response) {
+        if (response.content) {
+          $('#tabcontent').removeClass('uk-animation-fade')
+
+          $('#tabcontent').addClass('uk-animation-fade')
+          $('#tabcontent').empty()
+          $('#tabcontent').append(response.content)
+
+        }
+        
+        closeModal()
+        $('.content-modal').removeClass('custom-modal-slide-top')
+
+        $('.content-modal').addClass('custom-modal-slide-bottom')
+        if (response.modal_message) {
+          messageModal(response.modal_message, response.heading)
+
+        }
+        if (response.updatecontent) {
+          $(updateable).removeClass('uk-animation-fade')
+
+          $(updateable).addClass('uk-animation-fade')
+          $(updateable).empty()
+          $(updateable).append(response.updatecontent)
+        }
+
+        if (response.full_modal) {
+          fullcontentModal(response.full_modal, response.heading)
+
+        }
+        if (response.modal_notification) {
+          notificationModal(response.modal_notification)
+
+        }
+
+        if (response.modal_content) {
+          contentModal(response.modal_content, response.heading)
+
+        }
+        if (response.message) {
+          UIkit.notification.closeAll()
+          UIkit.notification(response.message)
+        }
+        if (response.logout) {
+          setTimeout(logout, 5000)
+        }
+
+        // UIkit.modal($('.content-modal.uk-open')).hide();
+
+        // $('.content-modal.uk-close').removeClass('uk-transition-slide-bottom')
+
+      },
+      error: function (xhr, status, error) {
+        alert('there was an error')
+      }
+    });
+  }
+
+  function contentModal(body, heading) {
+    $('.content-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+    $('#content-modal-body').empty()
+    $('.content-modal-header').empty()
+    $('#content-modal-body').append(body)
+    $('.content-modal-header').append(heading)
+
+    UIkit.modal($('#content-modal')).show();
+  }
+
+  function messageModal(body) {
+    $('.content-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+    $('#message-modal-body').empty()
+    // $('#message-modal-header').empty()
+    $('#message-modal-body').append(body)
+    // $('#message-modal-header').append(heading)
+
+    UIkit.modal($('#message-modal')).show();
+  }
+
+  function notificationModal(body) {
+    $('.content-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+    $('#notification-box-body').empty()
+    // $('#message-modal-header').empty()
+    $('#notification-box-body').append(body)
+    // $('#message-modal-header').append(heading)
+    UIkit.modal($('#notification-box')).show();
+    setTimeout(() => UIkit.modal($('#notification-box')).hide(), 3000)
+  }
+
+  function fullcontentModal(body, heading) {
+    $('.content-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+    $('#full-content-modal-body').empty()
+    $('#full-content-modal-header').empty()
+    $('#full-content-modal-body').append(body)
+    $('#full-content-modal-header').append(heading)
+
+    UIkit.modal($('#full-content-modal')).show();
+  }
+
+  function logout() {
+    $.ajax({
+
+      beforeSend: function () {
+
+        showLoadingBar()
+      },
+      complete: function () {
+        hideLoadingBar()
+      },
+      type: 'get',
+      url: "{% url 'account_logout' %}",
+      data: {
+        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+      },
+      success: function (response) {
+        window.location = '{% url 'account_login' %}'
+        loggedOut = true
+      },
+      error: function (xhr, status, error) {
+        alert('there was an error')
+      }
+    });
+  };
+  var loggedOut = false
+
+
+</script>
+<script>
+  $('#offcanvas-nav-primary').on('beforehide', function () {
+    // alert('hidden')
+    $('#major').css('transition-duration','0.5s')
+    $('#major').css('transform-origin','left')
+
+    $('#major').css('transition-timing-function','0.5s','cubic-bezier(0.175, 0.885, 0.32, 1.275)')
+    // $('#major').css('transform', "translateX(" + '-' + $('.uk-offcanvas-bar').css('width') + ')')
+      $('#major').css('margin-left', '0px')
+   
+  });
+
+  $('#offcanvas-nav-primary').on('beforeshow', function () {
+    $('#major').css('transition-duration','0.5s')
+    $('#major').css('transform-origin','right')
+    $('#major').css('transition-timing-function','cubic-bezier(0.175, 0.885, 0.32, 1.275)')
+    if (jQuery(window).width() < 600) {
+      $('#major').css('margin-left', '0px')
+    }
+    else {
+      $('#major').css('margin-left', $('.uk-offcanvas-bar').css('width'))
+    }
+    // $('#major').css('transform', "translateX(" + $('.uk-offcanvas-bar').css('width') + ')')
+
+  });
+
+  jQuery(document).ready(function () {
+    if (jQuery(window).width() < 600) {
+      UIkit.offcanvas($('#offcanvas-nav-primary')).hide();
+      $('#major').css('margin-left', '0px')
+      $('.content-modal').addClass('uk-modal-full')
+      $('.content-modal .uk-modal-dialog').removeClass('uk-margin-auto-vertical')
+      $('.content-modal .uk-modal-dialog').removeClass('rounded-lg')
+      $('.content-modal').addClass('bg-white')
+      $('.mobile-el').removeClass('hide')
+      $('.desktop-el').addClass('hide')
+
+    }
+    else {
+      UIkit.offcanvas($('#offcanvas-nav-primary')).show();
+      $('#major').css('margin-left', $('.uk-offcanvas-bar').css('width'))
+      $('.content-modal').removeClass('uk-modal-full')
+      $('.content-modal .uk-modal-dialog').addClass('uk-margin-auto-vertical')
+      $('.content-modal .uk-modal-dialog').addClass('rounded-lg')
+      $('.content-modal').removeClass('bg-white')
+      $('.desktop-el').removeClass('hide')
+      $('.mobile-el').addClass('hide')
+
+    }
+  });
+
+
+  jQuery(window).resize(function () {
+    if (jQuery(window).width() < 600) {
+      UIkit.offcanvas($('#offcanvas-nav-primary')).hide();
+      $('#major').css('margin-left', '0px')
+      $('.content-modal').addClass('uk-modal-full')
+      $('.content-modal .uk-modal-dialog').removeClass('uk-margin-auto-vertical')
+      $('.content-modal .uk-modal-dialog').removeClass('rounded-lg')
+      $('.content-modal').addClass('bg-white')
+      $('.mobile').removeClass('hide')
+    }
+    else {
+      UIkit.offcanvas($('#offcanvas-nav-primary')).show();
+    
+      $('#major').css('margin-left', $('.uk-offcanvas-bar').css('width'))
+      $('.content-modal').removeClass('uk-modal-full')
+      $('.content-modal .uk-modal-dialog').addClass('uk-margin-auto-vertical')
+      $('.content-modal .uk-modal-dialog').addClass('rounded-lg')
+      $('.content-modal').removeClass('bg-white')
+      $('.desktop').addClass('hide')
+
+    }
+  });
+
+
+
+</script>

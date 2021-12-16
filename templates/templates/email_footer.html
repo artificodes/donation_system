@@ -1,0 +1,18 @@
+<div style="padding: 10px;margin-top: 30px;background-color: rgb(4, 11, 34);">
+    <div style="text-align: left; margin-bottom: 5px;color: white;font-size: 9px;">
+        <p style="font-weight: bold;">For more information please contact us on:</p>
+        <p><span style="font-weight: bold;">Email:</span> <span style="text-decoration: none;color: gray;">info@dominionpartnersglobal.com </span> </p>
+        <p><span style="font-weight: bold;">Whatsapp:</span> 08028857834 </p>
+
+    </div>
+    <div style="text-align: left;">
+        {% for social in socials %}
+        <a href="{{social.link}}" style="text-decoration: none;">
+            <span style="padding: 5px;">
+                <img src="cid:{{social.name}}" style="width: 20px;border-radius: 50px;">
+            </span>
+        </a>
+        {% endfor %}
+    </div>
+    
+</div>

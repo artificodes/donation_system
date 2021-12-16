@@ -1,0 +1,434 @@
+{% extends "base/abase.html" %}
+{% load static %}
+{% block content %}
+
+<div class="mt-9">
+    <div class="uk-border-circle bg-indigo uk-position-top-center"
+        style="height: 70px;width: 70px;margin-top: -20px;border: 4px solid white;">
+        <i class="fa fa-user-edit fa-2x uk-position-center" style="color: white;">
+        </i>
+
+    </div>
+
+    <div class="p-2 mt-6 uk-animation-slide-top uk-display-inline-block col-csxx-14 uk-text-center" id="" style="">
+        <div class="card card-login uk-padding-small shadow-none" id="other_support">
+
+            <form id="profileform" class="form" method="POST" action="{% url 'admin_update_member_profile' userid=partner.userid %}"
+                style=" min-height: max-content; max-height: max-content;">
+        
+                {% csrf_token %}
+        
+                <div class="card-body">
+        
+                    <div class="card uk-margin-small-top shadow-none">
+                      
+                        <div class="card-body uk-margin-large-bottom">
+                            <div class="rounded-pill bg-purple p-2 text-left text-white mb-3">
+                                <div class="">
+                                    <i class="fa fa-info-circle " style="color: white;"></i>
+                                    <span class="p-1">
+                                        Personal Data
+                                    </span>
+                                </div>
+                            </div>
+        
+                            <div class="form-group mb-3">
+                                <div
+                                    class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text uk-text-bold">
+                                            <!-- <i class="material-icons">face</i>  -->
+                                            First name
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" required name="first_name" id="first_name_id"
+                                        placeholder="Your First name" value="{{partner.user.first_name}}">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div
+                                    class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text uk-text-bold">
+                                            Last name
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" required name="last_name" id="last_name_id"
+                                        placeholder="Your Last name" value="{{partner.user.last_name}}">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div
+                                    class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="icon calendar alternate"></i> Date of Birth
+                                        </span>
+                                    </div>
+                                    <input type="date" class="form-control" required name="dob" id="dob_id"
+                                        placeholder="Date of birth" value="{{partner.date_of_birth|date:'Y-m-d'}}">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <div
+                                    class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                    <div class="input-group-prepend">
+        
+                                        <span class=" input-group-text">
+                                            Gender:
+                                        </span>
+                                    </div>
+                                    <div class="col-csxx-x-14">
+                                        <select class="ui fluid dropdown" data-style="btn btn-link" name="gender" id="gender_id"
+                                            class="form-control" required>
+                                            <option value="{{partner.gender}}" selected="selected">
+                                                {% if partner.gender %}
+                                                {{partner.gender}} {% else %} select {% endif %} </option>
+                                            <option value='Male'>Male</option>
+                                            <option value='Female'>Female</option>
+        
+                                        </select>
+                                    </div>
+        
+                                </div>
+                            </div>
+        
+                            <div class="form-group mb-3">
+                                <div
+                                    class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                    <div class="input-group-prepend">
+        
+                                        <span class=" input-group-text">
+                                            Material Status:
+                                        </span>
+                                    </div>
+                                    <div class="col-csxx-x-14">
+                                        <select class="ui fluid dropdown" data-style="btn btn-link" name="marriage"
+                                            id="marriage_id" class="form-control" required>
+                                            <option value="{{partner.marital_status}}" selected="selected">
+                                                {% if partner.marital_status %} {{partner.marital_status}} {% else %} select
+                                                {% endif %}
+                                            </option>
+                                            <option value='Single'>Single</option>
+                                            <option value='Married'>Married</option>
+                                            <option value='Divorced'>Divorced</option>
+                                            <option value='Widowed'>Widowed</option>
+        
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+        
+                      
+        
+                        <div class="rounded-pill bg-purple p-2 text-left text-white mb-3">
+                            <div class="">
+                                <i class="fa fa-address-book " style="color: white;"></i>
+                                <span class="p-1">
+                                    Contact Details
+                                </span>
+                            </div>
+                        </div>
+        
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+        
+                                    <span class=" input-group-text">
+                                    <i class="material-icons">email</i>
+                                </span>
+                            </div>
+                            <input type="email" class="form-control" required name="email" id="email_id" placeholder="Email"
+                                value="{{partner.user.email}}">
+                        </div>
+                        </div>
+        
+        
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+        
+                                    <span class=" input-group-text">
+                                    <i class="material-icons">phone</i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control" required name="phone" id="phone_id"
+                                placeholder="Phone number" value="{{partner.phone_number}}">
+                        </div>
+                        </div>
+        
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    Number:
+                                </div>
+                            
+                            <input type="number" class="form-control col-csxx-x-14" name="street_number" required
+                                value="{{partner.street_number}}" id="id_street_number">
+                        </div>
+                        </div>
+                      
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    Street:
+                                </span>
+                            </div>
+                            <input type="text" class="form-control col-csxx-x-14" name="street" required id="id_street"
+                                value="{{partner.street}}">
+                        </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    Landmark:
+                                </span>
+                            </div>
+                            <input type="text" placeholder="e.g Hospitals, Schools, Petrol Stating, Churches"
+                                class="form-control col-csxx-x-14" name="landmark" required id="id_landmark"
+                                value="{{partner.landmark}}">
+                        </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    Nearest Bus-stop:
+                                </span>
+                            </div>
+                            <input type="text" placeholder="e.g Hospitals, Schools, Petrol Stating, Churches"
+                                class="form-control col-csxx-x-14" name="busstop" required id="id_busstop"
+                                value="{{partner.nearest_bus_stop}}">
+                        </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    City:
+                                    </span>
+                            </div>
+                            <input type="text" class="form-control col-csxx-x-14" name="city" required id="id_city"
+                                value="{{partner.city}}">
+                        </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    State:
+                                    </span>
+                            </div>
+                            <div class="col-csxx-x-14">
+                                <select class="ui fluid search dropdown" data-style="btn btn-link" name="state" id="state"
+                                    class="form-control" required>
+                                    <option value="{{partner.state}}" selected="selected">{{partner.state}}</option>
+                                    <option value='Abia'>Abia</option>
+                                    <option value='Adamawa'>Adamawa</option>
+                                    <option value='AkwaIbom'>AkwaIbom</option>
+                                    <option value='Anambra'>Anambra</option>
+                                    <option value='Bauchi'>Bauchi</option>
+                                    <option value='Bayelsa'>Bayelsa</option>
+                                    <option value='Benue'>Benue</option>
+                                    <option value='Borno'>Borno</option>
+                                    <option value='Cross River'>Cross River</option>
+                                    <option value='Delta'>Delta</option>
+                                    <option value='Ebonyi'>Ebonyi</option>
+                                    <option value='Edo'>Edo</option>
+                                    <option value='Ekiti'>Ekiti</option>
+                                    <option value='Enugu'>Enugu</option>
+                                    <option value='Gombe'>Gombe</option>
+                                    <option value='Imo'>Imo</option>
+                                    <option value='Jigawa'>Jigawa</option>
+                                    <option value='Kaduna'>Kaduna</option>
+                                    <option value='Kano'>Kano</option>
+                                    <option value='Katsina'>Katsina</option>
+                                    <option value='Kebbi'>Kebbi</option>
+                                    <option value='Kogi'>Kogi</option>
+                                    <option value='Kwara'>Kwara</option>
+                                    <option value='Lagos'>Lagos</option>
+                                    <option value='Nasarawa'>Nasarawa</option>
+                                    <option value='Niger'>Niger</option>
+                                    <option value='Ogun'>Ogun</option>
+                                    <option value='Ondo'>Ondo</option>
+                                    <option value='Osun'>Osun</option>
+                                    <option value='Oyo'>Oyo</option>
+                                    <option value='Plateau'>Plateau</option>
+                                    <option value='Rivers'>Rivers</option>
+                                    <option value='Sokoto'>Sokoto</option>
+                                    <option value='Taraba'>Taraba</option>
+                                    <option value='Yobe'>Yobe</option>
+                                    <option value='Zamfara'>Zamafara</option>
+                                    <option value='Abuja'>Abuja</option>
+                                </select>
+                            </div>
+        
+                        </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    LGA:
+                                    </span>
+                            </div>
+                            <div class="col-csxx-x-14">
+                                <select class="ui fluid search dropdown" data-style="btn btn-link" name="lga" id="lga"
+                                    class="form-control" required>
+                                    <option value="{{partner.lga}}" selected="selected">{{partner.lga}}</option>
+                                </select>
+                            </div>
+        
+                        </div>
+                        </div>
+        
+                        <div class="rounded-pill bg-purple p-2 text-left text-white mb-3">
+                            <div class="">
+                                <i class="fa fa-plus-circle " style="color: white;"></i>
+                                <span class="p-1">
+                                   Other Details
+                                </span>
+                            </div>
+                        </div>
+                            <div class="form-group mb-3 text-left">
+                                <p class=" "> Are you a member of Citadel Global Community Church?</p>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input  class="custom-control-input" type="radio" name="cgcc" id="cgcc1"
+                                    value="yes" required {% if partner.is_cgcc_member %} checked {% endif %}>
+                                  <label class="custom-control-label " for="cgcc1">Yes</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input  class="custom-control-input" type="radio" name="cgcc" id="cgcc2"
+                                    value="no" 
+                                    required {% if partner.is_cgcc_member %} {% else %} checked {% endif %}>
+                                  <label class="custom-control-label " for="cgcc2">No</label>
+                                </div>
+                              </div>
+        
+                              
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    Monthly Support
+                                </span>
+                            </div>
+                            <input type="number" class="form-control" required name="monthly_support" id="monthly_support_id"
+                                placeholder="monthly support" value="{{partner.monthly_support}}">
+                        </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <div
+                                class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                    Currency:
+                                </div>
+                            
+                            <div class="col-csxx-x-14">
+                                <select class="ui fluid dropdown" data-style="btn btn-link" name="currency" id="currency_id"
+                                    class="form-control" required>
+                                    <option value="{{partner.currency}}" selected="selected">
+                                        {% if partner.currency %} {{partner.currency}} {% else %} select {% endif %}
+                                    </option>
+                                    <option value='naira'>Naira (₦)</option>
+                                    <option value='dollar'>Dollar ($)</option>
+                                </select>
+                            </div>
+                        </div>
+                        </div>
+        
+                        <div class="uk-text-center">
+                            <button class="btn btn-primary rounded-pill" type="submit"><i class="fa fa-user-edit"></i> Update</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </form>
+        
+        </div>
+        
+        
+        
+       
+    </div>
+</div>
+
+
+ 
+<script>
+    $("#profileform").submit(function (event) {
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var partner_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        $.ajax({
+            beforeSend: function () {
+                $('#loader-cover').show()
+            },
+            complete: function () {
+
+            },
+            url: post_url,
+            type: partner_method,
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function (response) {
+                window.location = "#top"
+              
+                if (response.done) {
+
+                    $('#notification-modal-inner').empty()
+                    $('#notification-modal-inner').append(response.successcontent)
+                    $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+                    UIkit.modal($('#notification-modal')).show();
+                    if (response.modal_message) {
+              messageModal(response.modal_message, response.heading)
+
+            }
+
+            if (response.modal_content) {
+              contentModal(response.modal_content, response.heading)
+
+            }
+                }
+
+                if (response.content) {
+                    window.location = "#top"
+                    $('#inner-container').empty()
+                    $('#inner-container').append(response.content)
+                    $('#tab-header').empty()
+                    $('#tab-header').append(response.header)
+                    $('#loader-cover').hide()
+                }
+
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+    $('.ui.dropdown').dropdown()
+
+    {% include 'custom/lga.js' %}
+
+</script>
+{% endblock content %}

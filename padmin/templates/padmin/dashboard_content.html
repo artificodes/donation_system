@@ -1,0 +1,107 @@
+<!-- <div class="uk-border-circle bg-indigo uk-position-top-center"
+  style="height: 70px;width: 70px;margin-top: -20px;border: 4px solid white;">
+  <i class="material-icons uk-position-center" style="color: white;">
+    home</i>
+
+</div> -->
+<div class="p-2 uk-animation-slide-top uk-display-inline-block uk-width-1-1 uk-text-center bg-white" id=""
+  style="box-shadow: none;float: none;">
+  <div class=" pl-3 pr-3 bg-gradient-secondary uk-text-center text-darker uk-text-bold rounded-pill p-1 border-0"
+  style="width: max-content;">
+  Actions
+  </div>
+  <div class="text-center mt-2">
+    <div class="uk-margin-small uk-animation-slide-top uk-display-inline-block col-csxx-14 uk-text-center" id=""
+      style="box-shadow: none;">
+      <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-2   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
+
+        <a class="btn-white btn   main-content-redirect rounded-md  col-csxx-x-14 pl-1 pr-1"
+          href="{% url 'admin_all_members' %}" >
+          <i class="icon users text-blue large" style=""></i> <br>
+          <span style="" class="text-darker">Members</span>
+        </a>
+      </div>
+      <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-2   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
+
+        <a href="{% url 'admin_payments' %}"
+          class=" text-white btn-white btn pl-1 pr-1  main-content-redirect rounded-md  col-csxx-x-14" contenturl=""
+          >
+          <i class="icon history text-indigo large" style=""></i><br>
+          <span style="" class="text-darker">Payments</span>
+        </a>
+
+      </div>
+      <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-2   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
+
+
+        <a class="btn-white text-white btn   main-content-redirect rounded-md  col-csxx-x-14 pl-1 pr-1" contenturl=""
+           href="{% url 'admin_support' %}">
+          <i class="icon help text-green large" style=""></i><br>
+          <span style="" class="text-darker">Support</span>
+        </a>
+      </div>
+      <!--<div
+        class="col-csx-7  col-css-4-e col-csm-3-e  col-cmd-2   col-csxx-7 col-csxx-x-7  uk-text-center uk-padding-xsmall">
+
+        <a class=" btn bg-gradient-cyan  main-content-redirect col-csxx-14 P-1" href="{% url 'admin_events' %}" type="button">
+          <i class="icon calendar text-white" style=""></i> <br>
+          <span style="">EVENTS</span>
+        </a>
+      </div>
+      <div
+        class="col-csx-7  col-css-4-e col-csm-3-e  col-cmd-2   col-csxx-7 col-csxx-x-7  uk-text-center uk-padding-xsmall">
+
+        <a class="bg-gradient-info text-white btn  main-content-redirect col-csxx-14 P-1"
+          href="{% url 'admin_announcements' %}" type="button">
+          <i class="icon bullhorn text-white" style=""></i><br>
+          <span style="">MEMO</span>
+        </a>
+      </div>
+      <div
+        class="col-csx-7  col-css-4-e col-csm-3-e  col-cmd-2   col-csxx-7 col-csxx-x-7  uk-text-center uk-padding-xsmall">
+
+        <a class="bg-gradient-red text-white btn  main-content-redirect col-csxx-14" href="{% url 'admin_videos' %}"
+          type="button">
+          <i class="icon video text-white" style=""></i> <br>
+          <span style="">VIDEOS</span>
+        </a>
+      </div>
+      <div
+        class="col-csx-7  col-css-4-e col-csm-3-e  col-cmd-2   col-csxx-7 col-csxx-x-7   uk-text-center uk-padding-xsmall">
+
+
+        <a class="bg-gradient-green text-white btn  main-content-redirect col-csxx-14 P-1 " contenturl=""
+          type="button">
+          <i class="icon book text-white" style=""></i><br>
+          <span style="">BOOKS</span>
+    </a>
+      </div>
+
+      <div
+        class="col-csx-7  col-css-4-e col-csm-3-e  col-cmd-2   col-csxx-7 col-csxx-x-7  uk-text-center uk-padding-xsmall">
+
+        <a class="bg-gradient-default text-white btn  main-content-redirect col-csxx-14 P-1" contenturl=""
+          type="button">
+          <i class="fa fa-blog" style=""></i><br>
+          <span style="">BLOGS</span>
+    </a>
+      </div>-->
+
+    </div>
+  </div>
+</div>
+
+
+<div class="card uk-animation-slide-top p-1 mt-1 rounded-0 m-0 pb-4" id="" style="box-shadow: none;">
+  <div class=" card-header text-sm uk-margin-remove bg-gradient-secondary uk-text-center text-darker uk-text-bold 
+  rounded-pill p-2 border-0" style="width: max-content;">
+      Recent Remittances
+  </div>
+  <div class="card-body uk-margin-remove uk-padding-small pt-2" id="recent_remittances">
+
+{% include 'padmin/recent_remittances.html' %}
+</div>
+</div>
+
+
+

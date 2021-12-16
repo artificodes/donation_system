@@ -1,0 +1,227 @@
+{% if randomrecommendedcontents %}
+
+<div class="col-md-5 col-sm-2 col-csm-4 col-css-12 col-csl-5 uk-padding-small uk-text-center c-position-fixed c-position-right"
+  style='margin-top:60px;background-color: white;float: right;height: 100%;'>
+  <h4 class="display-6 col-md-12 "
+    style=" padding: 5px;color: white;background-image: linear-gradient(to right, rgb({{color.primary_rgb}}),rgb({{color.primary_rgba}}));">
+    RECOMMENDED</h4>
+  <div class='col-md-12 uk-text-center uk-padding-small'
+    style='margin-top:0px;height: 85%; overflow-y: auto;position: absolute;top: 40px;right: 0;'>
+    {% for content in randomrecommendedcontents %}
+    {% if content.content_type == 'story' %}
+    <div class="col-md-6 col-csm-12 col-csl-6 col-csx-6 col-css-4-e uk-text-left"
+      style="margin-top:20x !important;background-color: white;padding: 5px;float: {% cycle 'right' 'right' 'left' 'left' %};">
+
+      {% if content in newstories %} <a href="#" class="badge badge-pill badge-success"
+        style="font-size: 10px; font-weight: bold; position: absolute;right: 0;z-index: 2;background-color: rgb({{color.primary_rgb}});padding: 5px;padding-top: 8px; border-radius: 50%;width: 25px;height: 25px;">new</a>
+      {% endif %}
+      <div class=" fh5co-recent-work uk-box-shadow-small uk-padding-remove-horizontal uk-text-center uk-border-rounded"
+        style='padding-top:0px;background-color: white;padding-bottom: 0;'>
+
+        <div class="container-fluid recent trending" id="activity">
+
+
+          <div class=" col-md-12 col-xs-12 trending" style="text-align: center;padding: 0px;">
+
+            <div class="card story trending col-xs-12" style="height: 100px;">
+              <img class="card-img story" src="{{content.image.url}}" alt="">
+              <div class="card-img-overlay story" onclick='window.location = "{% url 'readstory' slug=content.slug %}"'>
+                <a href="#"><span class='fa fa-heart heart'></span></a>
+                <div class="bottom-text uk-position-center">
+                  <h5 class="card-title">{{content.title}}</h5>
+                  <p class="card-text">{{content.insight}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12 col-csx-3 col-css-12 uk-text-left" style="font-weight: bold;">
+              <span class="">{{content.category.title}}</span>
+              <span class="tooltip-container fa fa-info-circle" style="float: right;margin-top: 3px;"
+                uk-tooltip="{{content.about | truncatechars:150 }}"></span>
+
+            </div>
+            <div class=" col-xs-12" style="padding: 2px;border-radius: 0;padding: 0;">
+              <div class="uk-padding-small uk-padding-remove-horizontal uk-text-left uk-border-rounded"
+                style="margin: 0px;box-sizing: border-box;">
+                <div class="uk-text-center col-xs-12 uk-padding-remove">
+                  <div class="col-xs-6 uk-padding-remove"><span class="fas fa-book-open "></span> <span>
+                      {{content.number_of_episodes}}</span></div>
+                  <div class="col-xs-6 uk-padding-remove"><span class="fas fa-book-reader"></span> <span>
+                      {{content.number_of_views}}</span></div>
+
+                </div>
+
+                <div class="blogpost-footer-author-section col-xs-12" style="display: inline-block; ">
+
+                  <div class="col-xs-12" style="padding:0;">
+                    <div class="blogpost-footer-author uk-align-left col-xs-12" style="text-align: left !important;">
+                      <div class='col-xs-12'> <img class="avatar" src="{{content.library_logo.url}}" alt="" />
+                        {% if content.library_id in subscribedlibrariesid %}
+                        <span class="fa fa-check-circle-o"
+                          style="margin: 0;margin-top: 5px; float: right;color: rgb({{color.primary_rgb}}) !important;"></span>
+
+                        {% else %}
+                        <a href="{% url 'library_subscribe' libid=content.library_id %}" class="fa fa-plus-circle"
+                          style="margin:5px;margin-bottom:0;margin-top: 5px;float: right;color: black;"></a>
+
+                        {% endif %}</div>
+
+                      <div class="author col-xs-12" style="margin-right: 20px;">{{content.library_name}}</div>
+
+
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+
+      {% if content.has_episodes %}
+      <div uk-slider class="uk-align-center trending col-md-offset-0 recent trending uk-text-center" id="activity"
+        style="margin: 0;width: 80%; margin-left: 10%;display: inline-block;">
+        <ul class="uk-slider-items uk-grid-small" style="text-align:center;margin: 0;padding: 0 !important;">
+          {% for episode in recommendedepisodes %}
+          {% if episode.story.story_id == content.story_id  %}
+          {% if episode in readepisodes %}
+          <li class="col-md-2 col-csx-2 col-csxx-3 " style="padding: 2px;">
+            <span class="fa fa-eye uk-position-top-center" style="z-index: 1; color: white;"></span>
+            <div class="card story col-md-12" style="height: 50px !important;">
+              <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+              <div class="card-img-overlay story uk-align-center"
+                onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+                <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+                <div class="bottom-text col-md-12 uk-position-center" style="padding: 1px;top: 30% ;">
+                  <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                  <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+         
+
+          {% elif episode.episode == 1 %}
+           <li class="col-md-2 col-csx-2 col-csxx-3 " style="padding: 2px;">
+            <span class="fa fa-play-circle uk-position-top-center" style="z-index: 1; color: white;"></span>
+
+            <div class="card story col-md-12" style="height: 50px !important;">
+              <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+              <div class="card-img-overlay story uk-align-center"
+                onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+                <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+                <div class="bottom-text col-md-12 uk-position-center" style="padding: 1px;top: 30% ;">
+                  <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                  <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+
+
+          {% elif episode in nextepisodes %}
+          <li class="col-md-2 col-csx-2 col-csxx-3 " style="padding: 2px;">
+            <span class="fa fa-play-circle uk-position-top-center" style="z-index: 1; color: white;"></span>
+
+            <div class="card story col-md-12" style="height: 50px !important;">
+              <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+              <div class="card-img-overlay story uk-align-center"
+                onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+                <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+                <div class="bottom-text col-md-12 uk-position-center" style="padding: 1px;top: 30% ;">
+                  <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                  <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          {% else %}
+          <li class="col-md-2 col-csx-2 col-csxx-3 uk-disabled  " style="padding: 2px;">
+            <div class="card story col-md-12" style="height: 50px !important;">
+              <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+              <div class="card-img-overlay story uk-align-center">
+                                        <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+                <div class="bottom-text col-md-12 uk-position-center" style="padding: 1px;top: 30% ;">
+                  <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                  <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </li>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+
+
+        </ul>
+        <a class="uk-position-bottom-left uk-position-small  fas fa-book-open slider-dot slider-dot-left" href="#"
+          uk-slider-item="previous" style="left: 3px;bottom: 5%;"></a>
+        <a class="uk-position-bottom-right uk-position-small  fas fa-book-open slide-dot slider-dot-right" href="#"
+          uk-slider-item="next" style="right: 3px;bottom: 5%;"></a>
+      </div>
+      {% endif %}
+
+    </div>
+    {% elif content.content_type == 'library' %}
+
+    <div class="col-md-6 col-csm-12 col-csl-6 col-csx-6 col-css-4-e"
+      style="margin: 0px;box-sizing: border-box;padding: 5px !important;margin-top:0px; cursor: pointer;float: {% cycle 'left' 'left' 'right' 'right' %};"
+      onclick='window.location = "{% url 'viewlibrary' libid=content.library_id %}"'>
+      <div
+        class="col-xs-12 col-sm-12 col-md-12   uk-box-shadow-small  uk-border-rounded uk-padding-small uk-padding-remove-horizontal"
+        style="padding-top: 30px !important;overflow: visible;margin-top: 30px;">
+        <a href="#" class="uk-position-top-center" style="font-weight: bold;top: -20px; z-index: 5; ">
+          <img class="avatar" src="{{content.logo.url}}" alt="" style="border-radius: 50%;width: 50px;height: 50px;" />
+        </a>
+        <div class="col-xs-12" style="text-align: center;">
+
+          <span class="author" style="font-weight:bold;text-transform: uppercase;">{{content.name}}</span>
+
+        </div>
+        <div class="uk-text-center col-xs-12 uk-padding-remove">
+          <div class="col-xs-4 uk-padding-remove"> <span class="fas fa-book " style=""></span>
+            <span>{{content.number_of_stories}}</span></div>
+          <div class="col-xs-4 uk-padding-remove"><span class="fas fa-book-open "></span> <span>
+              {{content.number_of_episodes}}</span></div>
+          <div class="col-xs-4 uk-padding-remove"><span class="fas fa-users"></span> <span>
+              {{content.number_of_subscribers}}</span></div>
+
+        </div>
+
+        <div class="blogpost-footer-author-section col-xs-12 " style="display: inline-block;padding: 5px !important;">
+          <div class="col-xs-12 uk-padding-remove" style="font-weight: bold;">
+            {{content.category.title}}
+            {% if currentuser in content.subscribers.all %}
+            <li class="fa fa-check-circle-o"
+              style="display: inline-block;float: right;margin: 0;color: rgb({{color.primary_rgb}}) !important;"></li>
+
+            {% else %}
+            <a href="{% url 'library_subscribe' libid=content.library_id %}" class="fa fa-plus-circle"
+              style="margin:5px;margin-bottom:0;margin-top: 0;float: right;color: black;"></a>
+
+            {% endif %}
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    <div class="col-xs-12 uk-text-center"><span class="fa fa-plus"></span></div>
+  </div>
+</div>
+
+{% endif %}

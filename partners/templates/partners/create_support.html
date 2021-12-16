@@ -1,0 +1,134 @@
+{% load static %}
+
+  <div class="card-body uk-width-1-1@s uk-text-left p-0">
+
+    <form role="form" id='createsupport' enctype="multipart/form-data" class="form uk-padding-small" method="POST"
+      action="{% url 'partner_create_support' %}">
+      {% csrf_token %}
+      <div class="card m-0 shadow-none">
+        <div class="rounded-md uk-text-bold m-0 bg-secondary p-2 text-center">
+
+           Message
+           
+        </div>
+        <div class="card-body p-2"> 
+          <div class="uk-inline mt-1" style="width: 100%;">
+
+            <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-user"></i></span> -->
+            <input class="uk-input form-control p-3  rounded-sm position-relative "
+                style="z-index: 2;" id="subject" type="text" name="subject" required>
+            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                style="z-index: 1;font-size: 12px;">
+                Subject
+            </span>
+        </div>
+        <div class="form-group mt-2">
+          <textarea class="form-control" id="message" rows="3" name="message"></textarea>
+        </div>
+        </div>
+        </div>
+
+
+      <div class="text-center">
+
+        <button type="submit" class="btn btn-primary payment-form-submit" action="exit"> <i class="fa fa-paper-plane mr-2"></i> Send</button>
+      </div>
+    </form>
+
+  </div>
+
+<script src="{% static 'base/tinymce/jquery.tinymce.min.js' %}"></script>
+<script src="{% static 'base/tinymce/tinymce.min.js' %}"></script>
+<script>
+      $('.ui.dropdown').dropdown()
+
+  function isEleven($field) {
+    value = $field.val();
+    if (value.length == 11) {
+      if (isNaN(value)) { return false }
+      else { return true }
+    }
+    else {
+      return false;
+    }
+  }
+
+  function isNotEmpty($field) {
+    value = $field.val();
+    if (value.length > 15) {
+      return true
+    }
+    else {
+      return false;
+    }
+  }
+</script>
+<script>
+  $('.previewimage').jPreview();
+
+</script>
+
+<script>
+
+
+    
+tinymce.init({
+  selector: 'textarea#message',
+  height: 250,
+  menubar: false,
+  plugins: [
+    'advlist autolink lists link image charmap print preview anchor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table paste code help wordcount'
+  ],
+  toolbar: 'undo redo | formatselect | ' +
+    'bold italic backcolor | alignleft aligncenter ' +
+    'alignright alignjustify | bullist numlist outdent indent | ' +
+    'removeformat | help',
+  content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+});
+
+$("#createsupport").submit(function (event) {
+      event.preventDefault(); //prevent default action 
+      tinymceIframe = $('#message_ifr')
+  tinymceContent = tinymceIframe.contents().find("body#tinymce").html()
+  $('textarea#message').val(tinymceContent)
+      var post_url = $(this).attr("action"); //get form action url
+      var request_method = $(this).attr("method"); //get form GET/POST method
+      var form_data = new FormData(this); //Creates new FormData object
+      $.ajax({
+          beforeSend: function () {
+            closeModal()
+              showLoadingBar()
+          },
+          complete: function () {
+              hideLoadingBar()
+
+          },
+          url: post_url,
+          type: request_method,
+          data: form_data,
+          contentType: false,
+          cache: false,
+          processData: false,
+
+          success: function (response) {
+
+              if (response.modal_message) {
+          messageModal(response.modal_message, response.heading)
+
+        }
+        if (response.content) {
+                        $('#load-more').remove()
+                        $('#supports').prepend(response.content)
+                        // alert(response.next_page)
+                    }
+          },
+          error: function (xhr, status, error) {
+              // UIkit.notification.closeAll()
+              // UIkit.notification('Operation not successful. Check your internet connection',)
+          }
+      });
+  });
+
+</script>

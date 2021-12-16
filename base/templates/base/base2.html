@@ -1,0 +1,95 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+
+  {% block style %}
+  <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}" />
+  {% endblock %}
+
+  <link rel="stylesheet" href="{% static 'base/fontawesome/css/fontawesome.min.css' %} ">
+  <!-- <link rel="stylesheet" href="{% static 'base/boomerang/assets/css/theme.css' %}"> -->
+  <!--  <link rel="stylesheet" href="{% static 'base/countdown/css/jQuery.countdownTimer.css' %}">-->
+  <link rel="stylesheet" href="{% static 'base/inputcounter/css/handle-counter.min.css' %}">
+  <link rel="stylesheet" href="{% static 'base/imagepreview/css/jpreview.css' %}">
+  <link rel="stylesheet" href="{% static 'base/formvalidation/js/jquery.validity.css' %}">
+
+  <!-- <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.mind1f1.css' %}">-->
+  <!-- <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.minb68f.css' %}"> -->
+
+  <!-- <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.minf27d.css' %}">  -->
+  <!-- <link rel="stylesheet" href="{% static 'base/searchselect/css/jquery-customselect-1.9.1.css' %}">    -->
+  <link rel="stylesheet" href="{% static 'base/uikit/css/uikit.css' %}">
+
+  <!-- <link rel="stylesheet" href="{% static 'base/semantic/semantic.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'base/qrc/js/src/reset.css' %}"> -->
+
+  <!-- <link rel="stylesheet" href="{% static 'base/qrc/js/src/styles.css' %}"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+  <link rel="stylesheet" href="{% static 'base/semantic/semantic.css' %}">
+  <link rel="stylesheet" href="{% static 'base/videothumbnails/jquery.youtubevideo.css' %}">
+  <link rel="stylesheet" href="{% static 'base/videomodal/modal-video.min.css' %}">
+  <link rel="stylesheet" href="{% static 'base/argon/vendor/nucleo/css/nucleo.css' %}">
+  <link rel="stylesheet" href="{% static 'base/argon/css/nucleo-svg.css' %}">
+  <link rel="stylesheet" href="{% static 'base/argon/css/argon.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'base/argon/css/argon-design-system.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'base/custom/custom.css' %}">
+
+
+  <link rel="stylesheet" href="{% static 'base/custom/custom.min.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans">
+
+  
+  <script type="text/javascript">
+
+    window.CSRF_TOKEN = "{{csrf_token}}";
+  </script>
+    {% include 'base/scripts.html' %}
+
+</head>
+
+<body style="min-width: 100%;">
+
+  <div id="" style="" class="bg-white">
+    <div class="col-csxx-x-14 text-center uk-position-top-center hide" id='progress-container'
+    style="margin-top:-10px;z-index: 3;">
+    <div
+      class="ui tiny col-csxx-x-14 float-none rounded-0 active progress uk-margin-small-top shadow-none uk-display-inline-block"
+      style="border: none;height: 2px;" id="progress">
+      <div class="bar rounded-0"
+        style="border-radius: 0 !important;background-color: rgb(9, 134, 47) !important;"></div>
+    </div>
+  </div>
+    {% block  content%}
+
+
+    {% endblock  %}
+<!--     
+  <div class="uk-overlay uk-height-viewport bg-white " id="page-ready-cover" uk-cover
+    style="z-index: 1031;position: fixed;width: 100%; display: block;">
+    <div class="uk-position-center container-fluid uk-text-center" style="min-width: 100%;">
+      <img src="{{settings.logo.url}}" style="height: 80px;"
+      class="uk-animation-slide-left-medium" alt="">
+      <div class="col-csxx-x-14 text-center">
+        <div class="ui tiny col-csxx-x-10 float-none active progress uk-margin-small-top shadow-none uk-display-inline-block" style="border: none;height: 3px;" id="progress">
+        <div class="bar" style="background-color: blue !important;"></div>
+      </div>
+      </div>
+      
+    </div>
+  </div> -->
+{% include 'base/modals.html' %}
+
+</body>
+
+</html>

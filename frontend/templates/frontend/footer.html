@@ -1,0 +1,61 @@
+  <div class="uk-divider-small uk-margin-remove"></div>
+    <div class="container-fluid bg-white card-header uk-padding-small main-raised uk-margin-remove input-group" 
+    style="background-color: rgb(235, 235, 235) !important;">
+        <div class="col-cmd-2" style="float: none;display: inline-block;">
+            <a class="navbar-brand">
+                <div class="uk-padding-small logo-big">
+                    <img src="{{settings.logo.url}}" class="img-fluid" style="">
+                </div>
+
+            </a>
+        </div>
+        <div class="col-cmd-4"  style="float: none;display: inline-block;">
+            <p class="uk-text-center uk-margin-remove"><i class="fa fa-map-marker-alt"></i></p>
+            <p class="uk-text-center uk-margin-remove">{{settings.address}}</p>
+        </div>
+        <div class="col-cmd-4"  style="float: none;display: inline-block;">
+            <p class="uk-text-center uk-margin-remove"><i class="fa fa-phone-alt"></i></p>
+            <p class="uk-text-center uk-margin-remove">+234-1-291-7743, +234-1-291-7744</p>
+            <p class="uk-text-center uk-margin-remove"><i class="fa fa-envelope"></i></p>
+            <p class="uk-text-center uk-margin-remove">info@dominionpartnersglobal.com</p>
+        </div>
+        <div class="col-cmd-4-e uk-text-center"  style="float: none;display: inline-block;">
+            <p class="uk-text-center uk-margin-remove">
+                {% for social in socials %}
+              <a class="uk-icon-button btn fab fa-{{social.name}}" href="{{social.link}}" style="height: 30px;width: 30px; background-color: {{social.color}};color:white;font-size:13px;" ></a>  
+              {% endfor %}
+            </p>
+ <img src="{{settings.payment_banner.url}}" alt="">          
+        </div>
+        <!-- <nav class="float-left">
+            <ul>
+                <li>
+                    <a href="https://www.creative-tim.com/">
+                        Creative Tim
+                    </a>
+                </li>
+                <li>
+                    <a href="https://creative-tim.com/presentation">
+                        About Us
+                    </a>
+                </li>
+                <li>
+                    <a href="http://blog.creative-tim.com/">
+                        Blog
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.creative-tim.com/license">
+                        Licenses
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="copyright float-right">
+            &copy;
+            <script>
+                document.write(new Date().getFullYear())
+            </script>, made with <i class="material-icons">favorite</i> by
+            <a href="https://www.creative-tim.com/" target="_blank">Creative Tim</a> for a better web.
+        </div> -->
+    </div>

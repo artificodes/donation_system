@@ -1,0 +1,93 @@
+{% if randomcontents %}
+
+<div class="col-md-10 col-sm-9 col-csm-9 col-css-12   uk-padding-small uk-text-left "
+  style='padding-top:0px;background-color: transparent;margin-top: 100px;height:70%;overflow-y: scroll;'>
+  <div class="col-md-12 uk-box-shadow-small uk-border-rounded" style="padding: 0;">
+
+    <div class="container-fluid recent" id="activity">
+      <div class='col-md-12 uk-text-center' style='margin-top:0px;'>
+        {% for story in randomcontents %}
+        {% if story.content_type == 'story' %}
+        <div id="{{content.story_id}}"
+      class="trendingstory col-cmd-2-e col-cmd-l-2-h col-cmd-xl-2 col-csl-2-e col-csm-3-e col-csx-5-e col-csxx-7 col-csxx-xx-7 col-csxx-x-14 col-css-4-e uk-text-left "
+      style='margin-top:0px !important;background-color: white;padding: 5px;height: 200px;margin-bottom: 20px;'>
+    
+      <div class="uk-box-shadow-small uk-padding-remove uk-text-center"
+        style='height: 200px; padding-bottom:10px;background-color: white;padding-bottom: 0;border-radius: 5px !important;overflow: hidden;'>
+    
+        <div class="card col-xs-12 uk-padding-remove uk-margin-remove" id="{{content.story_id}}trending" style="height: 150px;">
+          <script>
+          
+            $.fn.readerStoryContent('{{content.story_id}}randomstory,'{{content.story_id}}','{% url "reader_story_contents" storyid=content.story_id %}')
+          </script>
+         
+        </div>
+    
+        <div class=" col-csxx-xx-14" style="padding: 2px;border-radius: 0;padding: 0;">
+          <div class="uk-padding-remove  col-csxx-14 uk-text-left" style="margin: 0px;box-sizing: border-box;">
+            <div class="uk-text-center col-csxx-14 uk-padding-remove" style="position: relative;">
+              <div class="col-csxx-5-e uk-padding-remove"><span class="fas fa-book-open fas-c-small"></span> <span class="text-sm">
+                  {{content.number_of_episodes}}</span></div>
+              <div class="col-csxx-5-e uk-padding-remove"><span class="fas fa-book-reader fas-c-small"></span> <span class="text-sm">
+                  {{content.number_of_views}}</span>
+              </div>
+    
+              <div class="col-csxx-5-e uk-padding-remove"><span class="fas fa-heart fas-c-small"></span> <span class="text-sm">
+                {{content.hearts}}</span>
+            </div>
+    
+            </div>
+            <div class="col-xs-12 d-inline-block text-truncate uk-text-center uk-padding-remove-vertical"
+              style="max-width: 100%;color:black;padding: 5px;font-weight: bold;font-size: 11px;">{{content.title}}</div>
+          </div>
+    
+        </div>
+    
+      </div>
+    
+    </div>
+        {% elif story.content_type == 'adimage' %}
+        <h4 class="display-6" class="uk-box-shadow-small" style="width: 100%;text-align: center;"><span
+            class="fas fa-ad" style=""></span></h4>
+
+
+
+        <div class=" col-md-12 col-xs-12 trending" style="text-align: center;padding: 0px;">
+          <div class="container-fluid recent" id="activity" style="padding-top: 10px;">
+            <div class="card ad trending col-xs-12 col-sm-12 col-md-12" style="padding: 0;">
+              <a href="{{story.link}}"> <img class="card-img story" src="{{story.mobile_image.url}}" alt=""
+                  style="max-width: 210px;height: auto;"></a>
+
+            </div>
+
+          </div>
+        </div>
+
+        {% elif story.content_type == 'episode' %}
+        <div class=" uk-padding-small col-md-3 col-sm-4 col-xs-12 col-css-4 col-csm-4 col-csx-6" style="padding: 5px !important;float: {% cycle 'right' 'right' 'left' 'left' %};">
+
+        <div
+          class=" fh5co-recent-work uk-box-shadow-small uk-padding-remove-horizontal uk-text-center uk-border-rounded"
+          style='padding-top:0px;background-color: white;padding-bottom: 0;'>
+          <div class=" col-md-12 col-xs-12 trending" style="text-align: center;padding: 0px;">
+            <div class="card story trending col-xs-12" style="padding: 0;height: 180px;">
+              <img class="card-img story" src="{{story.story.image.url}}" alt="">
+              <div class="card-img-overlay story" onclick='window.location = "{% url 'readepisode' slug=story.story.slug episodeid=story.episode_id %}"'>
+                <a href="#"><span class='fa fa-heart heart'></span></a>
+                <div class="bottom-text uk-position-center">
+                  <h5 class="card-title">{{story.title}}</h5>
+                  <p class="card-text">{{story.story.title}} <br> Episode {{story.episode}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endif %}

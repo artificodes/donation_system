@@ -1,0 +1,323 @@
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+
+
+
+{% include 'base/scripts.html' %}
+{% get_providers as socialaccount_providers %}
+<div class="page-header header-filter uk-padding-large"
+  style="background-image: url('{{general.primary_image.url}}'); background-size: cover; background-position: top center;height: 100% !important;">
+
+  <div class="container uk-text-center">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+        <div class="card card-login">
+          <form class="form" id="loginform" method="POST" action="{% url 'account_login' %}">
+          
+            {% csrf_token %}
+
+
+            {% if form.errors %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>Ooops!</strong>
+              {{form.errors}}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endif %}
+            <div class="card-body ">
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">perm_identity</i>
+                  </span>
+                </div>
+                <input type="text" class="form-control" name="login" id="id_login" placeholder="username" autofocus="autofocus">
+              </div>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="material-icons">lock_outline</i>
+                  </span>
+                </div>
+                <input type="password" class="form-control" name="password" placeholder="Password" required=""
+                id="id_password">
+              </div>
+              {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+            </div>
+            <div class="footer text-center">
+              <button class="btn btn-primary" type="submit" style="border-radius: 50px;">{% trans "Sign In" %} </button>
+            </div>
+            
+{% if socialaccount_providers %}
+<p>{% blocktrans with site.name as site_name %} <a href="{{ signup_url }}">sign up</a>
+{% endblocktrans %}</p>
+
+<div class="socialaccount_ballot">
+
+  <ul class="socialaccount_providers">
+    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+  </ul>
+
+  <div class="login-or">{% trans 'or' %}</div>
+
+</div>
+
+{% include "socialaccount/snippets/login_extra.html" %}
+
+{% else %}
+
+<div class="col-csxx-x-14 uk-margin-top">
+ Don't have an account?  <br><a href="{% url 'account_signup' %}" class="btn btn-secondary" style="border-radius: 50px;">sign up</a>
+ 
+</div>
+{% endif %}
+<a class="uk-button uk-button-default uk-margin" href="{% url 'account_reset_password' %}"
+            style="border-radius: 30px;">{% trans "Forgot Password?" %}</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+ 
+
+ $("#loginform").submit(function (event) {
+    event.preventDefault(); //prevent default action 
+    var post_url = $(this).attr("action"); //get form action url
+    var request_method = $(this).attr("method"); //get form GET/POST method
+    var form_data = new FormData(this); //Creates new FormData object
+    $.ajax({
+      beforeSend: function () {
+
+        $('#sickle-main').append(inline_loader_small_center_absolute);
+      },
+      complete: function () {
+        $('#sickle-main').children('.loading').remove()
+      },
+      url: post_url,
+      type: request_method,
+      data: form_data,
+      contentType: false,
+      cache: false,
+      processData: false,
+
+      success: function (response) {
+
+        if (response.logged_in && response.customer) {
+          
+          $.ajax({
+            beforeSend: function () {
+
+              $('#sickle-main').append(inline_loader_small_center);
+
+            },
+            complete: function () {
+              $('#sickle-main').children('.loading').remove()
+            },
+            type: 'get',
+            url: "{% url 'customer_home' %}",
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              $('#sickle-main').empty()
+              $('#sickle-main').append(response.content)
+              if (response.briefly_suspended) {
+                UIkit.modal($('#response-modal')).hide()
+                $('.modal-message').empty()
+                $('.modal-message').append('Your account has been briefly suspended. Kindly wait')
+                UIkit.modal($('#response-modal')).show();
+                $.ajax({
+                  beforeSend: function () {
+
+                    $('#sickle-main').append(inline_loader_small_center);
+
+
+                  },
+                  complete: function () {
+                    $('#sickle-main').children('.loading').remove()
+                  },
+                  type: 'get',
+                  url: "{% url 'briefly_suspended' %}",
+                  data: {
+                    'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                  },
+                  success: function (response) {
+                    $('#sickle-main').empty()
+                    $('#sickle-main').append(response.content)
+
+                  },
+                  error: function (xhr, status, error) {
+                    alert('there was an error')
+                  }
+                });
+
+              }
+
+
+              else if (response.profile_updated) {
+                $('#sickle-main').empty()
+                $('#sickle-main').append(response.content)
+              }
+              else {
+                UIkit.modal($('#response-modal')).hide()
+                $('.modal-message').empty()
+                $('.modal-message').append('Kindly update your profile to enable your account for transactions.')
+                UIkit.modal($('#response-modal')).show();
+                $.ajax({
+                  beforeSend: function () {
+
+                    $('#sickle-main').append(inline_loader_small_center);
+
+
+                  },
+                  complete: function () {
+                    $('#sickle-main').children('.loading').remove()
+                  },
+                  type: 'get',
+                  url: "{% url 'customer_account_contents' %}",
+                  data: {
+                    'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                  },
+                  success: function (response) {
+                    $('.nav-link.active').css({ 'animation-name': 'slowscaledown', 'animation-duration': '0.5s' })
+                    $('#support').empty()
+                    $('#home').empty()
+                    $('#transact').empty()
+                    $('#transactions').empty()
+                    $('#account').empty()
+
+                    $('.tab-pane').removeClass('active show')
+                    $('#account').addClass('active show')
+
+                    $('.nav-link').removeClass('active show')
+                    $('.load-account-contents-box').addClass('active show')
+                    $('.load-account-contents-box').css({ 'animation-name': 'slowscaleup', 'animation-duration': '0.5s' })
+
+                    $('#account').empty()
+
+                    $('#account').append(response.content);
+
+
+                  },
+                  error: function (xhr, status, error) {
+                    alert('there was an error')
+                  }
+                });
+
+              }
+
+
+            },
+            error: function (xhr, status, error) {
+              alert('there was an error')
+            }
+          });
+
+        }
+
+        else if (response.logged_in && response.agent) {
+          $.ajax({
+            beforeSend: function () {
+
+              $('#sickle-main').append(inline_loader_small_center);
+
+            },
+            complete: function () {
+              $('#sickle-main').children('.loading').remove()
+            },
+            type: 'get',
+            url: "{% url 'agent_home' %}",
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              if (response.profile_updated) {
+                $('#sickle-main').empty()
+                $('#sickle-main').append(response.content)
+              }
+              else {
+                UIkit.modal($('#response-modal')).hide()
+                $('.modal-message').empty()
+                $('.modal-message').append('Your account has been activated. Kindly update your profile to enable your account for transactions.')
+                UIkit.modal($('#response-modal')).show();
+
+                $('#sickle-main').empty()
+                $('#sickle-main').append(response.content)
+                $.ajax({
+                  beforeSend: function () {
+
+                    $('#sickle-main').append(inline_loader_small_center);
+
+
+                  },
+                  complete: function () {
+                    $('#sickle-main').children('.loading').remove()
+                  },
+                  type: 'get',
+                  url: "{% url 'customer_account_contents' %}",
+                  data: {
+                    'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                  },
+                  success: function (response) {
+                    $('.nav-link.active').css({ 'animation-name': 'slowscaledown', 'animation-duration': '0.5s' })
+                    $('#support').empty()
+                    $('#home').empty()
+                    $('#transact').empty()
+                    $('#transactions').empty()
+                    $('#account').empty()
+
+                    $('.tab-pane').removeClass('active show')
+                    $('#account').addClass('active show')
+
+                    $('.nav-link').removeClass('active show')
+                    $('.load-account-contents-box').addClass('active show')
+                    $('.load-account-contents-box').css({ 'animation-name': 'slowscaleup', 'animation-duration': '0.5s' })
+
+                    $('#account').empty()
+
+                    $('#account').append(response.content);
+
+
+                  },
+                  error: function (xhr, status, error) {
+                    alert('there was an error')
+                  }
+                });
+
+              }
+
+
+            },
+            error: function (xhr, status, error) {
+              alert('there was an error')
+            }
+          });
+
+        }
+        $('#sickle-main').empty()
+        $('#sickle-main').append(response.content)
+      },
+      error: function (xhr, status, error) {
+        UIkit.notification.closeAll()
+        UIkit.notification('Operation not successful. Check your internet connection',)
+      }
+    });
+  });
+
+
+
+  
+    </script>
+

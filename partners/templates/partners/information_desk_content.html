@@ -1,0 +1,19 @@
+{% autoescape off %}
+<div class="card uk-text-center" style="width: 100%;box-shadow: none;display: inline-block;">
+    {% if content.thumbnail %}
+    <img class="card-img-top col-cmd-7" src="{{content.thumbnail.url}}" rel="nofollow" alt="{{content.title}}" style="float: none;display: inline-block;">
+    {% endif %}
+    <div class="card-body uk-text-left">
+        <div class="input-group" style="font-size: 9px;">
+            <p class="input-group uk-margin-remove" style="width: max-content;color: white;">
+                <span class="uk-padding-remove"></span> </p>
+           <p class="bg-dark uk-margin-remove p-1 rounded-sm" style="width: max-content;color: white;font-size: inherit;">
+            <i class="fa fa-calendar-day mr-2 text-white"
+            style=""></i>  {{content.date_time_added}}</p>            
+        </div>
+      <p class="text-sm">{{content.full_description}}</p>
+    </div>
+  </div>
+  
+  {% endautoescape %}
+ 

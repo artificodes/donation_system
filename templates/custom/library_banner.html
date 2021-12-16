@@ -1,0 +1,100 @@
+<div class="col-cmd-10 col-csl-9 col-csm-11 col-css-14 col-csx-14 col-csxx-14 col-csxx-x-14  uk-padding-remove dark-mode" style="position: relative;height: 30%;margin-top: 0px">
+    <img class="card-img story library_banner_cover_photo" src="{{library.cover_photo.url}}" alt="" style="">
+    <div class=" text-truncate uk-text-center uk-padding-remove-vertical" style="overflow: visible; position: relative; width: 100%;padding: 5px;font-weight: bold;font-size: 12px;height: 100px;">
+      <img src="{{library.logo.url}}" alt="" style='height:80px;width: 80px;top: -20px !important;border: 3px solid white;' class="uk-border-circle uk-position-top-center" >
+     
+    </div>
+
+    <div class="col-csxx-x-14 uk-text-center" style="border: none;">
+        <h3 class="uk-text-primary" style="font-weight: bold;">
+          {{library.name}}{% if library.library_id in subscribedlibrariesid %}
+          <span class="fa fa-check-circle-o"
+            style="margin: 0;margin-top: 5px; color: rgb({{color.primary_rgb}}) !important;"></span>
+  
+          {% endif %}
+        </h3>
+  
+  <div class="col-csxx-x-14 uk-text-center">
+    {% if library.library_id in subscribedlibrariesid %}
+
+      <a contenturl="{% url 'library_unsubscribe' libid=library.library_id %}" class="hollow button success subscribe"
+      style="margin:5px;margin-bottom:0;margin-top: 5px;">Unsubscribe</a>
+    {% else %}
+    <a contenturl="{% url 'library_subscribe' libid=library.library_id %}" class="hollow button success subscribe"
+      style="margin:5px;margin-bottom:0;margin-top: 5px;">Subscribe</a>
+
+    {% endif %}
+  </div>
+      </div>
+
+      <div class="col-csxx-x-14" style="margin-top: 20px;position: relative;">
+
+        <div class="card card-primary uk-border-rounded dark-mode" style="">
+      
+      
+          <div class="card-body ">
+      
+            <div class="row uk-text-center">
+              <div class="col-md-3 col-sm-3 col-csx-3 col-csxx-3 uk-padding-remove">
+                <div class="info-box dark-mode">
+      
+                  <div class="col-xs-12 uk-text-center uk-padding-remove">
+                    <span class="info-box-icon "><i class="fas fa-book fa-1x"></i></span>
+                    <span class="info-box-number">{{library.number_of_stories}}</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-3 col-sm-3 col-csx-3 col-csxx-3 uk-padding-remove">
+                <div class="info-box dark-mode">
+      
+                  <div class="col-xs-12 uk-text-center uk-padding-remove">
+      
+                    <span class="info-box-icon "><i class="fas fa-book-open fa-1x"></i></span>
+      
+      
+                    <span class="info-box-number">{{library.number_of_episodes}}</span></a>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+      
+              <!-- fix for small devices only -->
+              <div class="clearfix hidden-md-up"></div>
+      
+              <div class="col-md-3 col-sm-3  col-csx-3 col-csxx-3 uk-padding-remove">
+                <div class="info-box dark-mode">
+      
+                  <div class="col-xs-12 uk-text-center uk-padding-remove">
+                    <span class="info-box-icon "><i class="fas fa-newspaper fa-1x"></i></span>
+                    <span class="info-box-number">{{library.number_of_scenes}}</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+              <div class="col-md-3 col-sm-3  col-csx-3 col-csxx-3 uk-padding-remove">
+                <div class="info-box dark-mode">
+      
+                  <div class="col-xs-12 uk-text-center uk-padding-remove">
+                    <span class="info-box-icon "><i class="fas fa-users fa-1x"></i></span>
+                    <span class="info-box-number">{{library.number_of_subscribers}}</span>
+                  </div>
+                  <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+              </div>
+              <!-- /.col -->
+            </div>
+      
+      
+          </div>
+        </div>
+      
+      </div>
+</div>

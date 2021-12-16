@@ -1,0 +1,48 @@
+<div class="header mt-1">
+  <div class="card card-stats rounded-0 m-0 shadow-none">
+    <a class=" uk-icon-button bg-info p-5 uk-position-top-right mt-2 mr-2"
+      onclick="requestContentModal('{% url 'admin_member_signup' %}','get')" style="z-index: 2;">
+      <i class="fa fa-plus fa-2x text-white"></i></a>
+
+    <div class="card-body position-relative p-1 " style="min-height: 100px;">
+      <div class=" pl-3 pr-3 bg-gradient-secondary uk-text-center text-darker uk-text-bold rounded-pill p-1 border-0"
+        style="width: max-content;">
+        Overview
+      </div>
+      <div id="members_analysis" class="mt-2 p-0">
+        <div class="uk-position-center p-3 text-center">
+
+        <div
+          class='ui active loader loading small m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+        </div>
+        <p class="uk-text-bold mt-7 text-sm">Loading member overview. Kindly wait</p>
+</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div class="header mt-0 bg-white">
+
+  <div class="card card-stats rounded-0 m-0 shadow-none bg-white">
+    <div class="card-body position-relative p-2 " style="min-height: 100px;">
+<!-- 
+      <div class=" pl-3 pr-3 bg-gradient-secondary uk-text-center text-darker uk-text-bold rounded-pill p-1 border-0"
+        style="width: max-content;">
+        Payments overview
+      </div> -->
+      <div class="mt-2 p-2" id="members_payments_analysis">
+        <div class="uk-position-center p-3 text-center">
+
+        <div
+          class='ui active loader small loading m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+        </div>
+        <p class="uk-text-bold mt-7 text-sm">Loading payment analysis. Kindly wait</p>
+</div>
+      </div>
+    </div>
+  </div>
+</div>

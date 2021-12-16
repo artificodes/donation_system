@@ -1,0 +1,26 @@
+{% extends "base/ubase.html" %}
+{% load static %}
+{% block content %}
+<div class="uk-border-circle bg-indigo uk-position-top-center" style="height: 70px;width: 70px;margin-top: -20px;border: 4px solid white;"  >     
+<i class="material-icons uk-position-center"
+    style="color: white;">
+   videocam </i>
+
+</div>
+
+   <div class="p-2 mt-6 uk-animation-slide-top uk-display-inline-block col-csxx-14 uk-text-center" id="" style="box-shadow: none;float: none;">
+ 
+   <div style="display: flex;flex-wrap: wrap;justify-content: left;min-width: 100%;">
+  {% for video in videos %}
+<div class="col-cmd-5-e col-csxx-14 col-csx-14 col-css-7 col-csm-7 card uk-padding-small box-shadow-remove uk-text-center" style="">
+
+        <iframe height="200" uk-video="autoplay: true,automute:false" style="width: 100%;"
+            src="https://www.youtube.com/embed/{{video.video_id}}" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
+{% endfor %}     
+   </div>
+   </div>
+
+   {% endblock content %}

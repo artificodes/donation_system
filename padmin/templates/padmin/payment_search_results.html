@@ -1,0 +1,55 @@
+<div class="uk-text-bold p-1">
+    {{payments | length}} results
+</div>
+
+<div class="p-1 border rounded-sm">
+    {% for payment in payments %}
+   <div class="card uk-padding-small m-0  uk-text-left shadow-sm border" style="width: 100%;display: inline-block;">
+       <!-- <i class="material-icons uk-position-top-right bg-dark uk-border-circle uk-padding-xsmall"
+                   style="color: white;font-size: 10px;">shopping_bag</i> -->
+       <div class="card-body" style="padding: 5px;">
+           <div class="col-csxx-x-14" style="font-size: 10px;">
+               <div class="col-csxx-x-14">
+                   <p class="" style="font-weight: bold;font-size: 11px;"><span
+                           style="font-weight: bold;font-size: 11px;">Amount:</span> {{payment.currency}}
+                       {% if payment.formatted_amount %}
+                       {{payment.formatted_amount }}
+                       {% else %}
+                       {{payment.amount }}
+                       {% endif %}
+                   </p>
+               </div>
+               <div class="col-csxx-x-14">
+                   <p class="card-text" style="font-size: 10px;">
+                    
+                    {% if payment.payment_month %}
+                    <span
+                           style="font-weight: bold;font-size: 10px;">Month:</span>
+                           {{payment.month_covered|date:'M, Y'}}
+
+                    {% elif payment.months %}
+                    <span
+                    style="font-weight: bold;font-size: 10px;">Months covered:</span>
+                    {{payment.start_date|date:'M, Y'}} - {{payment.end_date|date:'M, Y'}}
+                    {% endif %}
+               </div>
+               <div class="col-csxx-x-14">
+                   <p class="card-text" style="font-size: 10px;"><span
+                           style="font-weight: bold;font-size: 10px;">Date/Time:</span>
+                       {% if payment.date_time_added %}
+                       {{payment.date_time_added}}
+                       {% else %}
+                       {{payment.created_on}}
+                       {% endif %}
+   
+                   </p>
+   
+               </div>
+   
+           </div>
+   
+       </div>
+   </div>
+   
+   {% endfor %}   
+   </div>

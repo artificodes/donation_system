@@ -1,0 +1,35 @@
+<div class="bg-secondary p-2 text-left text-darker mb-3">
+    <div class="">
+        <i class="fa fa-info-circle " style=""></i>
+        <span class="p-1">
+            Personal Data
+        </span>
+    </div>
+</div>
+<div class="p-1">
+    <div class="uk-inline" style="width: 100%;">
+        <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+            id="first_name_id" type="text" name="first_name" value="{{partner.first_name}}" required>
+        <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+            First Name
+        </span>
+    </div>
+
+    <div class="uk-inline mt-4" style="width: 100%;">
+        <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+            id="last_name_id" type="text" name="last_name" value="{{partner.last_name}}" required>
+        <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+            Last Name
+        </span>
+    </div>
+
+    <div class="uk-inline mt-4" style="width: 100%;">
+        <input class="uk-input form-control p-3   rounded-md position-relative " style="z-index: 2;"
+            id="date_of_birth" type="date" name="date_of_birth" value="{{partner.date_of_birth|date:'Y-m-d'}}" required>
+        <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+            Date of birth
+        </span>
+    </div>
+
+
+</div>

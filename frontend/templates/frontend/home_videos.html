@@ -1,0 +1,51 @@
+<div class="container uk-margin-large-top uk-margin-small-bottom">
+
+    <div class="col-cmd-14 col-csm-7 col-csxx-14 uk-text-center">
+        <p class="input-group bg-primary uk-margin-remove uk-padding-small" style="width: max-content;color: white;">
+            <span class="uk-padding-small">LATEST VIDEO</span> <i class="material-icons"
+                style="color: orangered;">local_fire_department</i></p>
+        <div class="uk-divider-small uk-margin-remove-top"></div>
+        <iframe height="480" uk-video="autoplay: true,automute:false" style="width: 100%;"
+            src="https://www.youtube.com/embed/{{latestvideo.video_id}}" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+            <a href="{% url 'videos' %}" class="btn btn-primary uk-border-pill uk-margin-small-top">More Videos <i
+                class="material-icons uk-padding-small" style="color:orangered">play_arrow</i></a>
+    </div>
+    <!-- <div class="col-cmd-9 col-csm-7 col-csxx-14 uk-text-right">
+        <p class="bg-dark input-group uk-margin-remove uk-padding-small " style="width: max-content;color: white;display: inline-block;">
+            <span class="uk-padding-small">OTHER VIDEOS </span>
+        </p>
+        <div class="uk-divider-small uk-margin-remove-top uk-padding-small uk-padding-remove-top"></div>
+
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" id="othervideos"
+            uk-slider="clsActivated: uk-transition-active; center: true;ratio: false;animation:scale;autoplay:true;autoplay-interval: 6000;pause-on-hover: true">
+
+            <ul class="uk-slider-items">
+                {% for video in videos %}
+                <li class="uk-padding-small video col-csxx-12 col-csx-10 col-css-7 col-csm-7 col-cmd-6" style="">
+
+                    <div class="demo" data-ytb-video="{{video.video_id}}" data-video-id='{{video.video_id}}'></div>
+
+                    <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom uk-padding-small"
+                        style="max-height: 50px;">
+                        <h5 class="uk-margin-remove">{{video.title}}</h5>
+                    </div>
+
+                </li>
+                {% endfor %}
+
+            </ul>
+
+            <a class=" uk-position-center-left uk-position-small uk-hidden-hover uk-border-circle btn-rose btn" href="#"
+                uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-border-circle bg-primary" href="#"
+                uk-slidenav-next uk-slider-item="next"></a>
+
+        </div>
+        <a href="{{cardarticle.video_id}}" class="btn btn-primary uk-border-pill uk-margin-small-top">More Videos <i
+                class="material-icons uk-padding-small" style="color:orangered">play_arrow</i></a>
+    </div> -->
+
+</div>
+

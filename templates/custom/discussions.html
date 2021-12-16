@@ -1,0 +1,20 @@
+ <div class=" col-md-3 fh5co-recent-work uk-box-shadow-small uk-padding-remove-horizontal uk-text-center uk-border-rounded" 
+ style='padding-top:10px;background-color: white;padding-bottom: 0 !important;float:right;height: 95%;position: fixed;right: 0;'>
+   <h4 class="display-6" class="uk-box-shadow-small">Discussions</h4> 
+    <div class="col-md-12 recent" id="activity" style="overflow: auto;height: 100%;">
+         
+
+            {% for story in stories %}
+            
+              <div class="card story col-md-12"> <img class="card-img story" src="{{story.image_64}}" alt="">
+                <div class="card-img-overlay story" onclick='window.location = "{% url 'readstory' slug=story.slug %}"'> <a href="#"><span class='fa fa-heart heart'></span></a>
+                  <div class="bottom-text">
+                    <h5 class="card-title">{{story.title}}</h5>
+                    <p class="card-text">{{story.insight}}</p>
+                  </div>
+                </div>
+              </div>
+          
+            {% endfor %}
+    </div>
+  </div>

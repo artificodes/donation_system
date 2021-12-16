@@ -1,0 +1,106 @@
+<div class="bg-secondary p-2 text-left text-darker mb-3">
+    <div class="">
+        <i class="fa fa-address-book " style=""></i>
+        <span class="p-1">
+            Contact Details
+        </span>
+    </div>
+</div>
+<div class="p-1">
+<div class="uk-inline mt-4" style="width: 100%;">
+
+    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
+    <input class="uk-input form-control p-3 password  rounded-md position-relative " style="z-index: 2;" id="email"
+        type="text" name="email" value="{{partner.email_addres}}">
+    <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+        Email (Recommended)
+    </span>
+</div>
+
+
+<div class="uk-inline mt-4" style="width: 100%;">
+    <div class="input-group m-0">
+
+        <span class="position-relative col-csxx-x-4 col-csxx-xx-7  col-csxx-6 pr-1 uk-child-width-1-1" style="z-index: 2;height: max-content;z-index: 4;">
+            <input type="tel" required class="rounded-md form-control pt-3 pb-3" name="call_code" id="phone_id"
+                style="width: 100%;" value="{% if partner.call_code %}{{partner.call_code}} {% else %}+234{% endif %}">
+        </span>
+
+
+        <div class="position-relative col-csxx-x-10 col-csxx-11 col-csxx-xx-7 col-csxx-8">
+            <input class=" form-control p-3 password  rounded-md position-relative" style="z-index: 2;" id="phone_no"
+                type="tel" name="phone_no" required value="{{partner.phone_no}}">
+            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                style="z-index: 1;font-size: 12px;">
+                Phone number
+            </span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="uk-inline mt-4" style="width: 100%;">
+
+    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
+    <input class="uk-input form-control p-3 password  rounded-md position-relative "
+        style="z-index: 2;" id="email" type="text" name="street_number"  value="{{partner.street_number}}" required>
+    <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label"
+        style="z-index: 1;font-size: 12px;">
+        House Number
+    </span>
+</div>
+
+<div class="uk-inline mt-4" style="width: 100%;">
+
+    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
+    <input class="uk-input form-control p-3 password  rounded-md position-relative "
+        style="z-index: 2;" id="street" type="text" name="street"  value="{{partner.street}}" required>
+    <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label"
+        style="z-index: 1;font-size: 12px;">
+        Street
+    </span>
+</div>
+
+
+<div class="uk-inline mt-4" style="width: 100%;">
+
+    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
+    <input class="uk-input form-control p-3 password  rounded-md position-relative "
+        style="z-index: 2;" id="city" type="text" name="city"  value="{{partner.city}}" required>
+    <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label"
+        style="z-index: 1;font-size: 12px;">
+       City
+    </span>
+</div>
+<div class="uk-inline mt-4" style="width: 100%;">
+
+    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
+    <input class="uk-input form-control p-3 password  rounded-md position-relative "
+        style="z-index: 2;" id="city" type="text" name="city_code"  value="{{partner.city_code}}" required>
+    <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label"
+        style="z-index: 1;font-size: 12px;">
+       Postal code
+    </span>
+</div>
+
+<div class="uk-inline mt-4" style="width: 100%;">
+
+    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
+    <input class="uk-input form-control p-3 password  rounded-md position-relative "
+        style="z-index: 2;" id="state" type="text" name="state"  value="{{partner.state}}" required>
+    <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label"
+        style="z-index: 1;font-size: 12px;">
+        State
+    </span>
+</div>
+
+
+{% include 'partners/countries.html' %}
+</div>
+<script>
+    $("#phone_id").intlTelInput({
+
+    });
+</script>

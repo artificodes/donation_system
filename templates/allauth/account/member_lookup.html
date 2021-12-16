@@ -1,0 +1,257 @@
+{% extends "base/base2.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<div class="bg-white uk-height-viewport" style="background-image: url('{{settings.background_image.url}}');background-size: cover;">
+  <div class="page-header header-filter position-relative text-center " style="">
+
+    <div class="card card-login bg-transparent shadow-none mt-4 uk-display-inline-block rounded-md text-center"
+      style="width: 100%;">
+      <div class="card-body p-1">
+        <img src="{{settings.logo.url}}" class="card-img-top m-0" alt="" style="width:100px;display: inline-block;">
+
+
+      </div>
+    </div>
+
+
+  </div>
+  <div class="container uk-text-center position-relative p-0" style="z-index:3">
+
+    <div class="col-lg-4 col-md-6 p-0 float-none uk-display-inline-block">
+      <div class="card card-login bg-default  uk-margin-medium-top shadow-none uk-display-inline-block 
+      rounded-md"
+        style="max-width: 320px;width: 100%;">
+
+        <div id="form-container" class="" style="">
+
+          <form class="form" id="loginform" method="POST" action="{% url 'account_login' %}">
+
+            {% csrf_token %}
+            <div class="card-body p-2">
+              <p class="text-light h1 mt-3">Sign in</p>
+
+              <div class="uk-inline mt-3" style="width: 100%;">
+
+                <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-user"></i></span> -->
+                <input class="uk-input form-control border border-light pt-5 pb-5 pl-3 pr-3 rounded-md position-relative"
+                  style="z-index: 2;" id="secretpin" type="text" placeholder="" name="identifier" required>
+
+
+
+                <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 mt--1 c-label bg-transparent"
+                  style="z-index: 1;font-size: 12px;">
+                  Email or phone
+                </span>
+              </div>
+
+
+
+                <div class=" mt-3 text-center" style="z-index: 3;">
+                  <button class="btn btn-flat btn-primary m-0  pl-3 pr-3 shadow-none" style="" type="submit"><i
+                      class="fa fa-arrow-right mr-2" style="font-size: medium;"></i> Proceed</button>
+                </div>
+
+
+              <div id="error" class="text-danger text-sm text-center">
+
+              </div>
+              <!-- <div class="text-left">
+          <a class="bg-transparent rounded-sm shadow-none uk-text-bold rounded-lg m-0 ml-1 text-primary"
+            style="border-radius: 50px;">Forgot account?</a>
+        </div> -->
+              <input type="hidden" name="next" value="{{redirect_url}}" />
+
+              {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+              {% endif %}
+            </div>
+            <div class="text-center p-2 mt-4">
+              No account?
+              <a uk-toggle="target: #offcanvas-nav-signup"
+                class="bg-transparent rounded-sm shadow-none uk-text-bold rounded-lg m-0 ml-1 text-primary"
+                style="border-radius: 50px;">Sign up</a>
+              <!-- <button class="btn btn-flat rounded-circle uk-icon-button mt--5 btn-primary m-0 shadow-none p-2 pl-3 pr-3 float-right mt--2"
+          type="submit"><i class="fa fa-arrow-right"></i></button> -->
+              <!-- <button class="btn btn-flat btn-primary m-0 shadow-none p-2 pl-3 pr-3 float-right mt--2"
+          type="submit">Proceed</button> -->
+            </div>
+
+            <br> <br>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'allauth/account/signup_canvas.html' %}
+
+<script>
+
+  $("#loginform").submit(function (event) {
+    event.preventDefault(); //prevent default action 
+    var post_url = $(this).attr("action"); //get form action url
+    var request_method = $(this).attr("method"); //get form GET/POST method
+    var form_data = new FormData(this); //Creates new FormData object
+    $.ajax({
+      beforeSend: function () {
+
+        showLoadingBar()
+      },
+      complete: function () {
+        hideLoadingBar()
+
+      },
+      url: post_url,
+      type: request_method,
+      data: form_data,
+      contentType: false,
+      cache: false,
+      processData: false,
+
+      success: function (response) {
+        if (response.form_content) {
+          $('#form-container').empty()
+          $('#form-container').append(response.form_content)
+        }
+        if (response.error) {
+          $('#error').empty()
+          $('#error').append(response.error)
+        }
+        if (response.url) {
+          window.location = response.url
+
+        }
+        if (response.modal_message) {
+          messageModal(response.modal_message, response.heading)
+
+        }
+        if (response.modal_notification) {
+          notificationModal(response.modal_notification)
+
+        }
+
+        if (response.modal_content) {
+          contentModal(response.modal_content, response.heading)
+
+        }
+        if (response.message) {
+          UIkit.notification.closeAll()
+          UIkit.notification(response.message)
+        }
+      },
+
+      error: function (xhr, status, error) {
+        UIkit.notification.closeAll()
+        UIkit.notification('Operation not successful. Check your internet connection',)
+      }
+    });
+  });
+
+
+
+
+</script>
+
+<script>
+
+  {
+    (function ($) {
+      var pageStatus = null;
+      var progress = null;
+      var animationInterval = 33;
+
+      window.document.addEventListener("readystatechange", function () {
+        if (document.readyState == "complete") {
+          pageStatus = "complete";
+        }
+        else {
+          progress++
+
+          $('#progress').progress({
+            percent: progress
+          });
+        }
+      }, false);
+
+
+      function updateProgress() {
+        if (pageStatus == "complete") {
+          $('#progress').progress({
+            percent: 100
+          });
+          setTimeout(function () {
+            $('#page-ready-cover').addClass('uk-transition-fade uk-transition-slow')
+            $('#page-ready-cover').transition('fade')
+          }, 700);
+        }
+        else {
+          if (progress == null) {
+            progress = 1;
+          }
+
+          progress = progress + 1;
+          if (progress >= 0 && progress <= 30) {
+            animationInterval += 1;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 30 && progress <= 60) {
+            animationInterval += 2;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 60 && progress <= 80) {
+            animationInterval += 3;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 80 && progress <= 90) {
+            animationInterval += 4;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 90 && progress <= 95) {
+            animationInterval += 80;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 95 && progress <= 99) {
+            animationInterval += 150;
+            document.getElementById("pageLoader").innerHTML = progress;
+          }
+          else if (progress >= 100) {
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          setTimeout(updateProgress, animationInterval);
+        }
+      }
+
+      var intervalObject_1 = setInterval(function () {
+        var element = document.querySelector("body");
+
+        if (element != undefined) {
+          clearInterval(intervalObject_1);
+
+          updateProgress();
+        }
+      }, 50);
+
+    }(jQuery))
+  }
+
+</script>
+{% endblock %}

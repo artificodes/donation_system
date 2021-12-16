@@ -1,0 +1,59 @@
+{% for result in results %}
+
+{% if result.content_type == 'episode' %}
+
+<a class="col-cmd-14"
+href="{% url 'readepisode' slug=result.story.slug episodeid=result.episode_id %}"
+style="width: 100%;border-radius: 0;">
+<div class="uk-padding-small uk-link uk-text-left col-cmd-14 dark-mode"
+  style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+  <div style='' class="col-csxx-x-2 col-csx-1 uk-padding-remove">
+      <span class='fas fa-book-open fas-c-small'></span>
+
+  </div>
+  <div class="col-csxx-x-12 col-csx-13  uk-padding-remove">
+    <span style="font-weight: bold; "> {{ result.story.title }}</span>
+  </div>
+  <!--<img src="{{result.image}}" alt="" class="rounded" style="width:45px;">-->
+
+</div>
+</a>
+
+{% elif result.content_type == 'story' %}
+
+<a class="col-csxx-x-14" href="{% url 'readstory' storyid=result.story_id %}"
+style="width: 100%;border-radius: 0;">
+<div class="uk-padding-small uk-link uk-text-left col-csxx-x-14 dark-mode"
+  style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+  <div style='' class="col-csxx-x-2 col-csx-1 uk-padding-remove">
+      <span class='fa fa-book'></span>
+
+  </div>
+  <div class="col-csxx-x-12 col-csx-13 uk-padding-remove">
+    <span style="font-weight: bold; ">{{ result.title }}</span>
+  </div>
+  <!--<img src="{{result.image}}" alt="" class="rounded" style="width:45px;">-->
+
+</div>
+</a>
+
+
+{% else %}
+<a class="col-cmd-14" href="{% url 'viewlibrary' libid=result.library_id %}"
+style="width: 100%;border-radius: 0;">
+<div class="uk-padding-small uk-link uk-text-left col-cmd-14 dark-mode"
+  style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+  <div style='' class="col-csxx-x-2 col-csx-1 uk-padding-remove">
+      <span class='fa fa-building'></span>
+
+  </div>
+  <div class="col-csxx-x-12 col-csx-13 uk-padding-remove">
+    <span style="font-weight: bold; ">{{ result.name }}</span>
+  </div>
+  <!--<img src="{{result.image}}" alt="" class="rounded" style="width:45px;">-->
+
+</div>
+</a>
+
+{% endif %}
+{% endfor %}

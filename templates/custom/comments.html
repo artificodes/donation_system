@@ -1,0 +1,260 @@
+{% for comment in comments %}
+<li class="uk-padding-remove uk-animation-fade dark-mode" style="max-width:100%;padding-bottom:10px !important;  border-bottom: 0.5px solid #ddd;">
+    <div class="media dark-mode">
+        <div class="media-left dark-mode">
+            <img alt="img" src="{{currentuser.photo.url}}" class="media-object news-img uk-border-circle"
+                style=" height: 40px;width: 40px;margin: 0;margin-right: 5px;">
+        </div>
+        <div class="media-body uk-border-rounded uk-padding-small dark-mode"
+            style="max-width: max-content;">
+            <h5 class="author-name uk-padding-small uk-padding-remove-left"
+                style="font-weight: bold; width: max-content;position: relative;"> {% if comment.commenter_nick_name %}
+                {{comment.commenter_nick_name}} {% else %} {{comment.commenter_full_name}} {% endif %}
+
+                {% if comment.commenter_id == episode.story.user_id %}
+                <span class="fa fa-dot-circle fa-c-small uk-position-top-right" style="color: green;"></span>
+                {% endif %}
+
+            </h5>
+            <p style="font-size: 12px;">{{comment.comment}}</p>
+            <p style="font-size: 12px;" id="{{comment.comment_id}}time">
+                <script>
+                    commentTimeCalculator('{{comment.comment_id}}time', {{ comment.date_commented.year }}, {{ comment.date_commented.month }}-1, {{ comment.date_commented.day }}, {{ comment.time_commented.hour }}, {{ comment.time_commented.minute }}, {{ comment.time_commented.second }})
+                </script>
+            </p>
+
+
+
+            <div style="display: flex;">
+                <span class="uk-padding-small " href="#">
+                    <a class="fa fa-thumbs-up fa-c-medium " style="margin: 0;color: green;"
+                        href="{% url 'commentlike' comment_id=comment.comment_id %}"></a>
+                    <span class=" uk-text-center"
+                        style="padding: 1px; font-size: 11px;font-weight: bold;">{{comment.likes}}</span>
+                </span>
+
+                <span class="uk-padding-small ">
+                    <a class="fa fa-thumbs-down fa-c-medium" style="margin: 0;color: red;"
+                        href="{% url 'commentdislike' comment_id=comment.comment_id %}"></a>
+                    <span class=" uk-text-center uk-padding-small"
+                        style="padding: 1px; font-size: 11px;font-weight: bold;">
+                        {{comment.dislikes}}</span>
+                </span>
+
+
+                <span class="uk-padding-small">
+                    <a class="uk-text-center  {{comment.comment_id}}replies {{comment.comment_id}}replies1"
+                    role="button" id="{{comment.comment_id}}replies" href="javascript:void(0);" data-page="1"
+                    style="font-size: 11px;margin: 0;border: none;display: inline-block;font-weight: bold;"
+                    type='button' data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false" onclick="document.getElementById('{{comment.comment_id}}replyactions2').style.display='block';document.getElementById('{{comment.comment_id}}replies').setAttribute('class','disabled uk-disabled')">{{comment.replies}} replies
+                </a>
+                <a class="fa fa-chevron-up fa-c-medium uk-padding-small fold-replies {{comment.comment_id}}foldreplies" id="" onclick="foldReplyBox('{{comment.comment_id}}repliescontainerouter','{{comment.comment_id}}unfoldreplies','{{comment.comment_id}}foldreplies');"></a>
+
+                <a class="fa fa-c-medium fa-chevron-down uk-padding-small unfold-replies {{comment.comment_id}}unfoldreplies" id="{{comment.comment_id}}unfoldreplies" onclick="unFoldReplyBox('{{comment.comment_id}}repliescontainerouter','{{comment.comment_id}}unfoldreplies','{{comment.comment_id}}foldreplies')"></a>
+            </span>
+
+
+            <span class="uk-padding-small">
+
+                <a class="fa fa-reply fa-c-medium " role="button" id="{{comment.comment_id}}replybtn"
+                    style="padding: 0; margin: 0;color: blue !important;border: none;width: max-content;display:inline-block"
+                    type='button' onclick="showReplyBox('{{comment.comment_id}}replybtn','{{comment.comment_id}}replybox')"></a>
+
+            </span>
+            </div>
+
+            <div class="elevation-0 replybox col-cmd-14 uk-padding-remove-horizontal uk-padding-small"
+                id="{{comment.comment_id}}replybox"
+                style="border: none;top: 0%;position: relative !important;min-width: max-content !important;" >
+                <form class="uk-form-horizontal uk-padding-remove replyform" action="{% url 'add_comment_reply' %}" method="POST" 
+                    enctype="multipart/form-data" style="margin-left: 0px !important;background-color: transparent; ">
+                    <input type="hidden" name="csrfmiddlewaretoken" class="csrf" value="">
+
+                    <div class="uk-inline uk-padding-remove uk-padding-remove-vertical"
+                        style="display: flex;background-color: transparent !important;box-shadow: none;">
+                        <textarea class="uk-input col-cmd-12 uk-border-rounded" id="id_comment" name="comment"
+                            placeholder="comment..." style="max-height: 100px;"></textarea>
+                        <input class="uk-input col-cmd-12" type="hidden" id="id_comment_id" name="comment_id"
+                            placeholder="comment..." value="{{comment.comment_id}}"
+                            style="border-radius: 50px;height: 30px;">
+                        <input class="uk-input col-cmd-12" type="hidden" id="id_episode_id" name="episode_id"
+                            placeholder="comment..." value="{{episode.episode_id}}"
+                            style="border-radius: 50px;height: 30px;">
+                        <input class="uk-input col-cmd-12" type="hidden" id="id_story_id" name="story_id"
+                            placeholder="comment..." value="{{episode.story.story_id}}"
+                            style="border-radius: 50px;height: 30px;">
+                        <input class="uk-input col-cmd-12" type="hidden" id="id_commenter_id" name="commenter_id"
+                            placeholder="comment..." value="{{currentuser.user_id}}"
+                            style="border-radius: 50px;height: 30px;">
+                        <button  type="submit" class="uk-button uk-padding-remove " > 
+                            <span class="fa fa-paper-plane fa-c-medium uk-padding-small"></span>
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+ 
+ 
+    <div class="col-cmd-xl-offset-1  reply-bottom-action-container " id="{{comment.comment_id}}replyactions2" style="overflow: hidden;" >
+        <div class="col-cmd-14" id="{{comment.comment_id}}repliescontainerouter">
+            <div class="mu-comments-area uk-margin-remove">
+                <div class="comments uk-margin-remove" style="position: relative;">
+                    <div class="uk-position-bottom-left" id="{{comment.comment_id}}replyactions">
+                        <a  class="fa fa-plus-circle fa-c-medium uk-padding-small more-replies uk-text-center uk-padding-small {{comment.comment_id}}replies {{comment.comment_id}}replies2"
+                         href="javascript:void(0);" data-page="1"></a>
+
+                      <a class="fa fa-chevron-up fa-c-medium uk-padding-small fold-replies {{comment.comment_id}}foldreplies" id="" onclick="foldReplyBox('{{comment.comment_id}}repliescontainerouter','{{comment.comment_id}}unfoldreplies','{{comment.comment_id}}foldreplies');"></a>
+                      <a class="fa fa-reply fa-c-medium uk-padding-small comment-reply-btn" id="{{comment.comment_id}}replybtn2" onclick="showReplyBox('{{comment.comment_id}}replybtn2','{{comment.comment_id}}replybox2')"></a>
+
+                    </div>
+                    <ul class="commentlist repliescontainer uk-margin-remove c-padding-medium uk-padding-remove-horizontal uk-padding-remove-top"
+                        id="{{comment.comment_id}}repliescontainer">
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="elevation-0 replybox uk-padding-remove-horizontal uk-padding-small col-cmd-14" id="{{comment.comment_id}}replybox2"
+    style="position: relative;float: none;">
+    <form class="uk-form-horizontal uk-padding-remove replyform" action="{% url 'add_comment_reply' %}" method="POST" 
+        enctype="multipart/form-data" style="margin-left: 0px !important;background-color: transparent; ">
+        <input type="hidden" name="csrfmiddlewaretoken" class="csrf" value="">
+
+        <div class="uk-inline uk-padding-remove uk-padding-remove-vertical"
+            style="display: flex;background-color: transparent !important;box-shadow: none;">
+            <textarea class="uk-input col-cmd-12 uk-border-rounded" id="id_comment" name="comment"
+                placeholder="comment..." style="max-height: 100px;"></textarea>
+            <input class="uk-input col-cmd-12" type="hidden" id="id_comment_id" name="comment_id"
+                placeholder="comment..." value="{{comment.comment_id}}"
+                style="border-radius: 50px;height: 30px;">
+            <input class="uk-input col-cmd-12" type="hidden" id="id_episode_id" name="episode_id"
+                placeholder="comment..." value="{{episode.episode_id}}"
+                style="border-radius: 50px;height: 30px;">
+            <input class="uk-input col-cmd-12" type="hidden" id="id_story_id" name="story_id"
+                placeholder="comment..." value="{{episode.story.story_id}}"
+                style="border-radius: 50px;height: 30px;">
+            <input class="uk-input col-cmd-12" type="hidden" id="id_commenter_id" name="commenter_id"
+                placeholder="comment..." value="{{currentuser.user_id}}"
+                style="border-radius: 50px;height: 30px;">
+                <button  type="submit" class="uk-button uk-padding-remove " > 
+                    <span class="fa fa-paper-plane fa-c-medium uk-padding-small"></span>
+                </button>
+
+        </div>
+
+    </form>
+
+</div>
+ 
+    <script>
+
+
+        {
+            (function ($) { //Most read async
+                $('.{{comment.comment_id}}replies').on('click', function () {
+                    $('#{{comment.comment_id}}repliescontainerouter').css('display','block');
+                    var link = $(this);
+                    var newreplies = link.data('page');
+
+                    $.ajax({
+                        beforeSend: function () {
+
+                            $('#{{comment.comment_id}}repliescontainer').append(inline_loader_small_center);
+
+                        },
+                        complete: function () {
+                            $('#{{comment.comment_id}}repliescontainer').children('.loading').remove()
+
+                        },
+                        type: 'post',
+                        url: '{% url "replies" comment_id=comment.comment_id episode_id=episode.episode_id %}',
+                        data: {
+                            'newreplies': newreplies,
+                            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                        },
+                        success: function (data) {
+                            // if there are still more pages to load,
+                            // add 1 to the "Load More Posts" link's page data attribute
+                            // else hide the link
+
+                            // append html to the posts div
+                            $('.{{comment.comment_id}}foldreplies').css('display','inline')
+
+                            $('#{{comment.comment_id}}repliescontainer').append(data.replies_html);
+                            if (data.has_next) {
+                                $('.{{comment.comment_id}}replies2').css('display', 'inline')
+
+                                $('.{{comment.comment_id}}replies').data('page', newreplies + 1);
+                            } else {
+                                $('.{{comment.comment_id}}replies2').css('display', 'none')
+                                $('.{{comment.comment_id}}replies1').attr('class', 'disabled uk-disabled')
+
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            alert('there was an error')
+                        }
+                    });
+                });
+            }(jQuery))
+        };
+
+
+
+        
+$(".replyform").submit(function(event){
+    event.preventDefault(); //prevent default action 
+    var post_url = $(this).attr("action"); //get form action url
+    var request_method = $(this).attr("method"); //get form GET/POST method
+	var form_data = new FormData(this); //Creates new FormData object
+    $.ajax({
+        beforeSend: function () {
+               
+            
+        },
+        complete: function () {
+           
+           
+        },
+        url : post_url,
+        type: request_method,
+        data : form_data,
+		contentType: false,
+		cache: false,
+        processData:false,    
+    
+        success: function (data) {    
+
+
+            $('#{{comment.comment_id}}repliescontainer').append(data.reply_html);
+            $('.csrf').val(window.CSRF_TOKEN)
+            
+    },
+        error: function (xhr, status, error) {
+            UIkit.notification.closeAll()
+            UIkit.notification('Not sent. Check your internet connection',)
+        }});
+});
+
+    </script>
+</li>
+
+{% endfor %}
+
+<script>
+  $('textarea').autoResize({
+  'minRows': 1,
+  'maxRows': 0
+});
+
+</script>

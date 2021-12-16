@@ -1,0 +1,158 @@
+<nav class="navbar bg-white navbar-expand-lg " color-on-scroll="100" id="sectionsNav" style="z-index: 999;background-color: rgb(235, 235, 235) !important;">
+  <div class="container uk-margin-remove" style="width: 100%;max-width: 100%;">
+    <div class="navbar-translate">
+      <a class="navbar-brand">
+        <div class="uk-padding-small uk-border-pill" style="width:120px">
+          <img src="{{settings.logo.url}}" class="img-fluid">
+        </div>
+        <!-- <div class="uk-padding-small logo-small uk-border-pill" style="">
+            <img src="{{settings.logo.url}}" class="img-fluid">
+          </div> -->
+
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}"><i class="material-icons uk-padding-small">phone</i><span
+              class="uk-padding-small">{{settings.phone_number_1}}</span> </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pastors_desk' %}"><i class="material-icons uk-padding-small">mail</i><span
+              class="uk-padding-small">{{settings.email}}</span> </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'kingdom_strategies' %}"><i class="material-icons">location_on</i><span
+              class="uk-padding-small">{{settings.address}}</span> </a>
+        </li>
+        {% for social in socials %}
+        <a class="uk-icon-button btn fab fa-{{social.name}}" href="{{social.link}}"
+          style="height: 30px;width: 30px; background-color: {{social.color}};color:white;font-size:13px;"></a>
+        {% endfor %}
+
+
+        <!-- <li class="dropdown nav-item" style="height: max-content;">
+            <a href="#" class="dropdown-toggle nav-link btn btn-primary" data-toggle="dropdown" style="border-radius: 50px;">
+              <i class="material-icons uk-padding-small text-white">groups </i><span class="uk-padding-small text-white"> MEMBERSHIP</span>
+            </a>
+            <div class="dropdown-menu dropdown-with-icons bg-white" style="height: max-content;max-height: 300px;width: 100%; overflow: auto;position: absolute;">
+              <a href="{% url 'account_signup' %}" class="dropdown-item">
+                <i class="material-icons">person_add</i> Join
+              </a>
+              <a href="{% url 'account_login' %}" class="dropdown-item">
+                <i class="material-icons">login</i>Login
+              </a>
+
+            </div>
+          </li> -->
+
+      </ul>
+    </div>
+  </div>
+</nav>
+<nav class="navbar bg-primary navbar-expand-lg uk-margin-large-top uk-padding-remove uk-margin-remove-bottom" color-on-scroll="100"
+  id="sectionsNav" style="margin-top: -20px !important;position: sticky;top: 0 !important;z-index: 1000;border-radius: 0;min-height: 60px;">
+  <div class="container uk-margin-remove" style="width: 100%;max-width: 100%;">
+    <!--<div class="navbar-translate">
+        <a class="navbar-brand">
+          <div class="uk-padding-small uk-border-pill" style="width:120px">
+            <img src="{{settings.logo.url}}" class="img-fluid">
+          </div>
+          <div class="uk-padding-small logo-small uk-border-pill" style="">
+            <img src="{{settings.logo.url}}" class="img-fluid">
+          </div> 
+
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>-->
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav col-md-14 uk-position-top-center">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}"><i class="material-icons uk-padding-small">home</i><span
+              class="uk-padding-small">HOME</span> </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pastors_desk' %}"><span class="uk-padding-small">PASTOR'S DESK</span> </a>
+        </li>
+        <li class="dropdown nav-item" style="height: max-content;">
+          <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" style="border-radius: 50px;">
+            <span class="uk-padding-small"> EVENTS</span>
+          </a>
+          <div class="dropdown-menu dropdown-with-icons bg-white"
+            style="height: max-content;max-height: 300px;width: 100%; overflow: auto;position: absolute;">
+            <a href="{% url 'upcoming_events' %}" class="dropdown-item">
+              UPCOMING
+            </a>
+            <a href="{% url 'past_events' %}" class="dropdown-item">
+              PAST
+            </a>
+          </div>
+        </li>
+        <li class="dropdown nav-item" style="height: max-content;">
+          <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" style="border-radius: 50px;">
+            <span class="uk-padding-small"> MEDIA</span>
+          </a>
+          <div class="dropdown-menu dropdown-with-icons bg-white"
+            style=" height: max-content;max-height: 300px;width: 100%; overflow: auto;position: absolute;">
+            <a href="{% url 'moment_of_truth' %}" class="dropdown-item">
+              MOMENT OF TRUTH
+            </a>
+            <div class="uk-divider-small uk-margin-remove"></div>
+           
+            <div class="uk-divider-small uk-margin-remove"></div>
+
+            <a href="{% url 'videos' %}" class="dropdown-item">
+              VIDEOS
+            </a>
+            <div class="uk-divider-small uk-margin-remove"></div>
+
+            <a href="{% url 'account_login' %}" class="dropdown-item">
+              ARTICLES
+            </a>
+            <div class="uk-divider-small uk-margin-remove"></div>
+
+            <a href="{% url 'gallery' %}" class="dropdown-item">
+              GALLERY
+            </a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'contact_us' %}"><span class="uk-padding-small">CONTACT</span> </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'kingdom_strategies' %}"><span class="uk-padding-small">ABOUT US</span> </a>
+        </li>
+        <li class="dropdown nav-item" style="height: max-content;">
+          <a href="#" class="dropdown-toggle nav-link btn btn-outline-danger" data-toggle="dropdown" style="border-radius: 50px;">
+            <i class="material-icons uk-padding-small">groups </i><span class="uk-padding-small"> MEMBERSHIP</span>
+          </a>
+          <div class="dropdown-menu dropdown-with-icons bg-white"
+            style="height: max-content;max-height: 300px;width: 100%; overflow: auto;position: absolute;">
+            <a href="{% url 'account_signup' %}" class="dropdown-item">
+              <i class="material-icons">person_add</i> Join
+            </a>
+            <a href="{% url 'account_login' %}" class="dropdown-item">
+              <i class="material-icons">login</i>Login
+            </a>
+
+
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>

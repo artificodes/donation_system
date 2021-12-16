@@ -1,0 +1,13 @@
+    
+   <div style="display: flex;flex-wrap: wrap;justify-content: center;min-width: 100%;">
+  {% for video in videos %}
+<div class="col-cmd-5-e col-csxx-14 col-csx-14 col-css-7 col-csm-7 card uk-padding-small box-shadow-remove uk-text-center" style="background-color: transparent !important;">
+
+        <iframe height="200" uk-video="autoplay: true,automute:false" style="width: 100%;"
+            src="https://www.youtube.com/embed/{{video.video_id}}" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    </div>
+{% endfor %}     
+   </div>
+

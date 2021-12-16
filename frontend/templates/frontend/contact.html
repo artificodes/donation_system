@@ -1,0 +1,263 @@
+{% extends 'base/frontendbase.html' %}
+{% block content %}
+<div class="page-header header-filter header-small" data-parallax="true"
+    style="background-image: url('{{settings.primary_image.url}}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto text-center">
+
+                <h4>You can contact us with anything related to our Church services, communal activities. We'll get in
+                    touch with you as soon as possible.</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main main-raised uk-box-shadow-medium">
+    <div class="contact-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <form role="form" method="post" id="contactform" action="{% url 'send_message' %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name" class="bmd-label-floating">Your name</label>
+                            <input type="text" class="form-control" data-dj-validator="text,6,100" id="name"
+                                name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmails" class="bmd-label-floating">Email address</label>
+                            <input type="email" class="form-control" data-dj-validator="email,100"
+                                id="exampleInputEmails" name="email" required>
+                            <span class="bmd-help">We'll never share your email with anyone else.</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone" class="bmd-label-floating">Phone</label>
+                            <input type="text" data-dj-validator-msg="Invalid Phone number" class="form-control"
+                                name="phonenumber" data-dj-validator="call,isEleven" id="phone" required>
+                        </div>
+                        <div class="form-group label-floating">
+                            <label class="form-control-label bmd-label-floating" for="message"> Your message</label>
+                            <textarea class="form-control" rows="6" id="message" name="message"
+                                data-dj-validator="call,isNotEmpty" required></textarea>
+                        </div>
+                        <div class="submit text-center">
+                            <input type="submit" class="btn btn-primary btn-raised btn-round" value="Contact Us">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 ml-auto">
+                    <div class="info info-horizontal uk-padding-small">
+                        <div class="icon icon-primary">
+                            <i class="material-icons">pin_drop</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Find us at the office</h4>
+                            <p> {{settings.address}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info info-horizontal uk-padding-small">
+                        <div class="icon icon-primary">
+                            <i class="material-icons">phone</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Give us a call</h4>
+                            <p>{{settings.phone_number_1}} <br>
+                                {{settings.phone_number_2}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info info-horizontal uk-padding-small">
+                        <div class="icon icon-primary">
+                            <i class="material-icons">email</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">You can mail us</h4>
+                            <p>{{settings.email}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info info-horizontal uk-padding-small">
+                        <div class="icon icon-primary">
+                            <i class="material-icons">public</i>
+                        </div>
+                        <div class="description">
+                            <h4 class="info-title">Social Platforms</h4>
+                            <p> {% for social in socials %}
+                                <a class="uk-icon-button btn fab fa-{{social.name}}" href="{{social.link}}"
+                                    style="height: 30px;width: 30px; background-color: {{social.color}};color:white;font-size:13px;"></a>
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    {
+        (function ($) {
+            var pageStatus = null;
+            var progress = null;
+            var animationInterval = 33;
+
+            window.document.addEventListener("readystatechange", function () {
+                if (document.readyState == "complete") {
+                    pageStatus = "complete";
+                }
+                else {
+                    progress++
+
+                    $('#progress').progress({
+                        percent: progress
+                    });
+                }
+            }, false);
+
+
+            function updateProgress() {
+                if (pageStatus == "complete") {
+                    $('#progress').progress({
+                        percent: 100
+                    });
+                    setTimeout(function () {
+                        $('#page-ready-cover').addClass('uk-transition-fade uk-transition-slow')
+                        $('#page-ready-cover').transition('fade')
+                    }, 700);
+                }
+                else {
+                    if (progress == null) {
+                        progress = 1;
+                    }
+
+                    progress = progress + 1;
+                    if (progress >= 0 && progress <= 30) {
+                        animationInterval += 1;
+                        $('#progress').progress({
+                            percent: progress
+                        });
+                    }
+                    else if (progress > 30 && progress <= 60) {
+                        animationInterval += 2;
+                        $('#progress').progress({
+                            percent: progress
+                        });
+                    }
+                    else if (progress > 60 && progress <= 80) {
+                        animationInterval += 3;
+                        $('#progress').progress({
+                            percent: progress
+                        });
+                    }
+                    else if (progress > 80 && progress <= 90) {
+                        animationInterval += 4;
+                        $('#progress').progress({
+                            percent: progress
+                        });
+                    }
+                    else if (progress > 90 && progress <= 95) {
+                        animationInterval += 80;
+                        $('#progress').progress({
+                            percent: progress
+                        });
+                    }
+                    else if (progress > 95 && progress <= 99) {
+                        animationInterval += 150;
+                        document.getElementById("pageLoader").innerHTML = progress;
+                    }
+                    else if (progress >= 100) {
+                        $('#progress').progress({
+                            percent: progress
+                        });
+                    }
+                    setTimeout(updateProgress, animationInterval);
+                }
+            }
+
+            var intervalObject_1 = setInterval(function () {
+                var element = document.querySelector("body");
+
+                if (element != undefined) {
+                    clearInterval(intervalObject_1);
+
+                    updateProgress();
+                }
+            }, 50);
+          }(jQuery))
+    }
+
+</script>
+<script>
+    var submit = false
+    $('#contactform').djValidator({ mode: 'submit', success: () => { submit = true } })
+
+    $("#contactform").submit(function (event) {
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        if (submit == true) {
+
+            $.ajax({
+                beforeSend: function () {
+                   $('#loader-cover').show()
+                },
+                complete: function () {
+                    $('#loader-cover').hide()
+                },
+                url: post_url,
+                type: request_method,
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+
+                success: function (response) {
+
+                    if (response.sent) {
+                        $('.form-control').val('')
+                        $('#notification-modal-inner').empty()
+                        $('#notification-modal-inner').append(response.content)
+                        $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+                        UIkit.modal($('#notification-modal')).show();
+                    }
+                    else {
+
+                        UIkit.notification.closeAll()
+                        UIkit.notification('Unauthorized operation',)
+                    }
+                },
+                error: function (xhr, status, error) {
+                    UIkit.notification.closeAll()
+                    UIkit.notification('Not sent. Check your internet connection',)
+                }
+            });
+
+        }
+    });
+
+    function isEleven($field) {
+        value = $field.val();
+        if (value.length == 11) {
+            if (isNaN(value)) { return false }
+            else { return true }
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isNotEmpty($field) {
+        value = $field.val();
+        if (value.length > 15) {
+            return true
+        }
+        else {
+            return false;
+        }
+    }
+</script>
+{% endblock content %}

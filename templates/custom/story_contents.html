@@ -1,0 +1,7 @@
+<a href="{% url 'readstory' storyid=story.story_id %} ">
+
+    <img class="card-img-top rounded uk-animation-fade" src="{{story.image.url}}" id="{{story.story_id}}image" alt="" style="height: 200px;">
+  
+  </a>
+  <span class="story-category hollow button uk-position-top-left"
+    style="text-transform:capitalize; margin-bottom: 7px;background-image: linear-gradient(to right, rgb({{color.primary_rgb}}),rgb({{color.primary_rgba}}));color:white;border:none !important;font-size: 9px;padding:2px">{{story.category.title}}</span>

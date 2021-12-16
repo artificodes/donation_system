@@ -1,0 +1,284 @@
+<nav
+  class="main-header navbar navbar-expand navbar-white dark-mode navbar-light fixed-top uk-padding-remove-horizontal uk-padding-small col-csxx-14 col-csxx-x-14 uk-box-shadow-small"
+  style="margin: 0 !important;display: inline-block;">
+  <div
+    class="col-cmd-1 col-csl-1 col-css-1 col-csm-1 col-csxx-x-6 col-csx-2 col-csxx-6 col-csxx-xx-5 uk-position-left uk-padding-small"
+    style="z-index: 5;padding: 10px !important;height: max-content;">
+    <a class="fas fa-bars large dark-mode-no-background" type="button" uk-toggle="target: #offcanvas-slide"
+      style="border: none !important;"></a>
+  </div>
+  <div
+    class="col-cmd-1 col-csl-1 col-csxx-x-offset-0 col-css-1 col-csxx-offset-0 col-csx-offset-0 col-css-offset-1 col-csm-1 col-csxx-x-14 col-csx-14 col-csxx-14 col-csxx-xx-14 uk-text-center uk-padding-small uk-padding-remove-horizontal"
+    style="float: left;">
+<img src="{{general.logo.url}}" id="storypalm" style="width: 30px;height: 30px;border-radius: 50%;{% if currentuser.dark_mode %} -webkit-filter: brightness(0) invert(1);filter: invert(1) brightness(10);{% endif %}" alt="">
+  </div>
+
+  <div
+    class="col-cmd-5 col-csxx-x-offset-0 col-csl-6 col-css-7 col-csx-10 col-css-offset-1 col-csx-offset-1  col-csxx-11 col-csxx-x-10 col-csm-6 col-csl-offset-2 col-csm-offset-2  col-cmd-offset-2 uk-padding-remove"
+    style="float: left;padding-left: 10px !important;">
+    <form>
+        <div class="uk-inline  " style="display: flex;">
+          
+          <input class="uk-input dark-mode" type="text" style='border-radius: 500px !important;' id="search-input" type="button">
+          
+          <div uk-dropdown="mode: click;position: bottom-justify" class="uk-border-rounded  uk-padding-remove elevation-2 dark-mode" id="search-result" style="height: max-content; overflow-y: auto;max-height: 400px;width: 100%;"></div>
+
+        </div>
+         
+
+
+
+    </form>
+  </div>
+  <div
+    class='col-cmd-1 col-csl-2 col-csm-2 col-css-2 col-csx-2 col-csxx-2 col-csxx-x-2 col-csl-2 col-css-2 col-csx-2 col-csxx-2 col-css-offset-1 col-csx-offset-1 col-csxx-offset-1 col-csxx-xx-offset-0 col-csxx-x-2 col-csxx-x-offset-1  col-csl-offset-1 col-csm-offset-1 col-csxx-xx-2 col-csm-2  uk-padding-remove col-csxx-x-14 col-csxx-xx-14 col-cmd-offset-2 '
+    style="float: left;">
+    <div class="uk-inline  col-csxx-xx-4-e " style="">
+
+      <a class="uk-icon-button" type="button"><span class="fa fa-bell" style="color: #55A630;"></span>
+        {% if notificationscount > 0 %}
+        <span class="uk-border-rounded uk-position-top-right"
+          style="right: -5px; font-size: 11px; font-weight: bold;padding: 5px; height: 17px;width: 17px;background-color: red;color: white;"><span
+            class="uk-position-center">{{notificationscount}}</span></span>
+        {% endif %}
+      </a>
+
+
+      <div uk-dropdown="pos:bottom-justify;mode:click" id="storyreaction"
+        class="uk-padding-remove uk-border-rounded elevation-3 dropdown-c-width" style='z-index: 0;position: absolute;'>
+        {% if notificationscount > 0 %}
+     <!-- <div class="uk-padding-small" style="position: relative;height: 40px;">
+          <button class="btn-primary uk-position-center uk-button uk-padding-remove"
+            style="font-size: 12px;width: 100%;">Mark all as uk-link </button>
+        </div>-->
+        {% endif %}
+        <div class="dark-mode notification-container-inner" style="width: 100%;overflow-y: auto;max-height: 500px;">
+          {% for notification in notifications %}
+
+          {% if notification.tepisode %}
+          {% if notification.read %}
+
+          <a class="col-csxx-x-14"
+            href="{% url 'readepisode' slug=notification.story.slug episodeid=notification.episode_id %}"
+            style="width: 100%;border-radius: 0;">
+            <div class="uk-padding-remove-horizontal uk-link  uk-text-left col-csxx-x-14 dark-mode uk-padding-small"
+              style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+              <div style='' class="col-cmd-1 col-csl-1 col-csm-2 col-css-2 col-csx-2 col-csxx-2 col-csxx-x-2  uk-padding-remove">
+                <div style="height: 35px;width: 35px;position: relative;">
+                  <img src="{{notification.library.logo.url}}" alt="" class="uk-border-circle"
+                    style="width:35px;height:35px">
+                  <span class='uk-position-bottom-right uk-border-circle'
+                style="width: 20px;height: 20px; right: -3px;bottom: -5px;background-image:  linear-gradient(to right, rgb({{color.primary_rgb}}),rgb({{color.primary_rgba}}))"><span
+                      class="fas fa-book-open  fas-c-small uk-position-center " style="color: white;"></span></span>
+                </div>
+
+              </div>
+              <div class="col-cmd-13 col-csl-13 col-csm-12 col-css-11 col-csx-12 col-csxx-12 col-csxx-x-12  uk-padding-small">
+                <span style="font-weight: bold; "> {{ notification.library.name}} </span> added an episode to <span
+                  style="font-weight: bold;">{{ notification.story.title }}</span>
+              </div>
+              <!--<img src="{{notification.image}}" alt="" class="rounded" style="width:45px;">-->
+
+            </div>
+          </a>
+          {% else %}
+
+          <a class="col-csxx-x-14 uk-icon-button"
+            href="{% url 'readepisode' slug=notification.story.slug episodeid=notification.episode_id %}"
+            style="width: 100%;border-radius: 0;height: max-content;">
+            <div class="uk-padding-remove-horizontal uk-link  uk-text-left col-csxx-x-14 dark-mode uk-padding-small"
+              style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+              <div style='' class="col-cmd-1 col-csl-1 col-csm-2 col-css-2 col-csx-2 col-csxx-2 col-csxx-x-2 uk-padding-remove">
+                <div style="height: 35px;width: 35px;position: relative;">
+                  <img src="{{notification.library.logo.url}}" alt="" class="uk-border-circle"
+                    style="width:35px;height:35px">
+                  <span class='uk-position-bottom-right uk-border-circle'
+                    style="width: 20px;height: 20px; right: -3px;bottom: -5px;background-image:  linear-gradient(to right,rgb({{color.primary_rgba}}), rgb({{color.primary_rgb}}))"><span
+                      class="fas fa-book-open fas-c-small uk-position-center " style="color: white;"></span></span>
+                </div>
+
+              </div>
+              <div class="col-cmd-13 col-csl-13 col-csm-12 col-css-11 col-csx-12 col-csxx-12 col-csxx-x-12 uk-padding-small">
+                <span style="font-weight: bold; "> {{ notification.library.name}} </span> added an episode to <span
+                  style="font-weight: bold;">{{ notification.story.title }}</span>
+              </div>
+              <!--<img src="{{notification.image}}" alt="" class="rounded" style="width:45px;">-->
+
+            </div>
+          </a>
+
+          {% endif %}
+          <!--Episode Notification-->
+          {% elif notification.tstory %}
+          {% if notification.read %}
+
+          <a class="col-csxx-x-14" href="{% url 'readstory' storyid=notification.story_id %}"
+            style="width: 100%;border-radius: 0;">
+            <div class="uk-padding-remove-horizontal uk-link  uk-text-left col-csxx-x-14 dark-mode uk-padding-small dark-mode"
+              style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+              <div style='' class="col-cmd-1 col-csl-1 col-csm-2 col-css-2 col-csx-2 col-csxx-2 col-csxx-x-2 uk-padding-remove">
+                <div style="height: 35px;width: 35px;position: relative;">
+                  <img src="{{notification.library.logo.url}}" alt="" class="uk-border-circle"
+                    style="width:35px;height:35px">
+                  <span class='uk-position-bottom-right uk-border-circle'
+                    style="width: 20px;height: 20px; right: -3px;bottom: -5px;background-image:  linear-gradient(to right,rgb({{color.primary_rgba}}), rgb({{color.primary_rgb}}))"><span
+                      class="fa fa-book  fa-c-small uk-position-center " style="color: white;"></span></span>
+                </div>
+
+              </div>
+              <div class="col-cmd-13 col-csl-13 col-csm-12 col-css-11 col-csx-12 col-csxx-12 col-csxx-x-12 uk-padding-small">
+                <span style="font-weight: bold; "> {{ notification.library.name}} </span> added a story <span
+                  style="font-weight: bold;">{{ notification.title }}</span>
+              </div>
+              <!--<img src="{{notification.image}}" alt="" class="rounded" style="width:45px;">-->
+
+            </div>
+          </a>
+          {% else %}
+
+          <a class="col-csxx-x-14 uk-icon-button" href="{% url 'readstory' storyid=notification.story_id %}"
+            style="width: 100%;border-radius: 0;height: max-content;">
+            <div class="uk-padding-remove-horizontal uk-link  uk-text-left col-csxx-x-14 dark-mode uk-padding-small"
+              style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+              <div style='' class="col-cmd-1 col-csl-1 col-csm-2 col-css-2 col-csx-2 col-csxx-2 col-csxx-x-2 uk-padding-remove">
+                <div style="height: 35px;width: 35px;position: relative;">
+                  <img src="{{notification.library.logo.url}}" alt="" class="uk-border-circle"
+                    style="width:35px;height:35px">
+                  <span class='uk-position-bottom-right uk-border-circle'
+                    style="width: 20px;height: 20px; right: -3px;bottom: -5px;background-image:  linear-gradient(to right,rgb({{color.primary_rgba}}), rgb({{color.primary_rgb}}));"><span
+                      class="fa fa-book  fa-c-small uk-position-center " style="color: white;"></span></span>
+                </div>
+
+              </div>
+              <div class="col-cmd-13 col-csl-13 col-csm-12 col-css-11 col-csx-12 col-csxx-12 col-csxx-x-12 uk-padding-small">
+                <span style="font-weight: bold; "> {{ notification.library.name}} </span> added a story <span
+                  style="font-weight: bold;">{{ notification.title }}</span>
+              </div>
+              <!--<img src="{{notification.image}}" alt="" class="rounded" style="width:45px;">-->
+
+            </div>
+          </a>
+          {% endif %}
+
+          <!--Scene Notification-->
+
+          {% elif notification.tscene %}
+          {% if notification.read %}
+
+
+
+
+          <a class="col-csxx-x-14"
+            href="{% url 'readepisode' slug=notification.episode.story.slug episodeid=notification.episode.episode_id %}"
+            style="width: 100%;border-radius: 0;">
+            <div class="uk-padding-remove-horizontal uk-link  uk-text-left col-csxx-x-14 dark-mode uk-padding-small dark-mode"
+              style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+              <div style='' class="col-cmd-1 col-csl-1 col-csm-2 col-css-2 col-csx-2 col-csxx-2 col-csxx-x-2 uk-padding-remove">
+                <div style="height: 35px;width: 35px;position: relative;">
+                  <img src="{{notification.library.logo.url}}" alt="" class="uk-border-circle"
+                    style="width:35px;height:35px">
+                  <span class='uk-position-bottom-right uk-border-circle'
+                    style="width: 20px;height: 20px; right: -3px;bottom: -5px;background-image:  linear-gradient(to right, rgb({{color.primary_rgb}}),rgb({{color.primary_rgba}}))"><span
+                      class="fas fa-newspaper  fas-c-small uk-position-center " style="color: white;"></span></span>
+                </div>
+
+              </div>
+              <div class="col-cmd-13 col-csl-13 col-csm-12 col-css-11 col-csx-12 col-csxx-12 col-csxx-x-12 uk-padding-small">
+                <span style="font-weight: bold; "> {{ notification.library.name}} </span> added scene
+                {{notification.scene}} to <span style="font-weight: bold;">{{notification.episode.story.title}} </span>
+              </div>
+              <!--<img src="{{notification.image}}" alt="" class="rounded" style="width:45px;">-->
+
+            </div>
+          </a>
+          {% else %}
+
+          <a class="col-csxx-x-14 uk-icon-button"
+            href="{% url 'readepisode' slug=notification.episode.story.slug episodeid=notification.episode.episode_id %}"
+            style="width: 100%;border-radius: 0;height: max-content;">
+            <div class="uk-padding-remove-horizontal uk-link  uk-text-left col-csxx-x-14 dark-mode uk-padding-small"
+              style="width: 100%;border-bottom: 1px solid silver;height: max-content;">
+              <div style='' class="col-cmd-1 col-csl-1 col-csm-2 col-css-2 col-csx-2 col-csxx-2 col-csxx-x-2 uk-padding-remove">
+                <div style="height: 35px;width: 35px;position: relative;">
+                  <img src="{{notification.library.logo.url}}" alt="" class="uk-border-circle"
+                    style="width:35px;height:35px">
+                  <span class='uk-position-bottom-right uk-border-circle'
+                    style="width: 20px;height: 20px; right: -3px;bottom: -5px;background-image:  linear-gradient(to right,rgb({{color.primary_rgba}}), rgb({{color.primary_rgb}}))"><span
+                      class="fas fa-newspaper fas-c-small uk-position-center " style="color: white;"></span></span>
+                </div>
+
+              </div>
+              <div class="col-cmd-13 col-csl-13 col-csm-12 col-css-11 col-csx-12 col-csxx-12 col-csxx-x-12 uk-padding-small">
+                <span style="font-weight: bold; "> {{ notification.library.name}} </span>added scene
+                {{notification.scene}} to <span style="font-weight: bold;">{{ notification.episode.story.title }}</span>
+              </div>
+              <!--<img src="{{notification.image}}" alt="" class="rounded" style="width:45px;">-->
+
+            </div>
+          </a>
+
+          {% endif %}
+          {% endif %}
+
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="uk-position-right uk-padding-remove" style="height: max-content;right: 20px;">
+    <div class="dropdown uk-text-center col-cmd-13 col-csl-12 col-csm-12 col-css-11 col-csx-12 col-csxx-12 col-csxx-x-12 col-sm-12 col-xs-12 uk-padding-small uk-padding-remove-horizontal" style="height: max-content;">
+
+      <a class="uk-icon-button" type="button">
+        {% if user.is_active %}
+        {% if currentuser.photo %}
+
+        <img src="{{currentuser.photo.url}}" style="width:30px;height: 30px; border-radius: 50%;" alt="">
+
+        {% else %}
+        {{currentuser.first_name.0}}
+        {% endif %}
+        {% else %}
+        <span class="card-img fas fa-user-circle fa-2x" style="margin: 0px;margin-top: 2px; color: white;"></span>
+        {% endif %}
+      </a>
+
+      <div uk-dropdown='mode: click; pos: bottom-left;'
+        class="uk-text-left elevation-1 uk-border-rounded uk-padding-small dark-mode-light-force"
+        style="width: min-content;min-width: min-content;">
+        <ul class="uk-nav uk-dropdown-nav">
+          <li class="uk-nav-header uk-margin-small dark-mode-light-force">Account</li>
+          <li><a href=""><span class="fa fa-user"></span> Profile </a></li>
+
+          {% if user.is_active %}
+          <li><a href="{% url 'account_logout' %}"><span class="fa fa-power-off"></span> Sign out</a></li>
+          {% else %}
+          <li><a href="{% url 'account_login' %}"><span class="fa fa-power-off"></span> Sign In</a></li>
+          {% endif %}
+          <li class="uk-nav-divider"></li>
+          {% if user.is_active %}
+          <li class="uk-nav-header uk-margin-small dark-mode-light-force">Theme</li>
+
+          
+          <li>
+              <div class="switch-toggle-wrapper">
+                <div class="switch">
+                  <input class="switch-input" id="darkmodeswitch" type="checkbox" name="darkmodeswitch" style="display: none;" {% if currentuser.dark_mode %} checked {% endif %} >
+                  <label class="switch-paddle theme uk-border-pill {% if currentuser.dark_mode %} active {% endif %} " for="darkmodeswitch">
+                    
+                  </label>
+                </div>
+                <span class="uk-padding-small">Dark</span>
+              </div>
+            
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</nav>

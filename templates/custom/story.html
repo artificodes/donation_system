@@ -1,0 +1,389 @@
+{% autoescape off %}
+
+<div class="col-cmd-10 col-csl-9 col-csxx-x-14 col-css-14 col-csm-11 uk-padding-small uk-box-shadow-small linear-gradient " style="height: max-content;position: fixed;z-index: 2;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;">
+  <div class=" col-csxx-x-4-e uk-text-center">
+    {% if currentuser in story.subscribers.all %}
+    <button class="uk-icon-button fa fa-bell fa-c-medium  notify"
+      contenturl="{% url 'remove_notify' storyid=story.story_id %}"  uk-tooltip='notification' style="color:steelblue;"></button>
+    {% else %}
+    <button class="uk-icon-button fa fa-bell-o fa-c-medium  notify"  uk-tooltip='notification'
+      contenturl="{% url 'notify' storyid=story.story_id %}"></button>
+
+    {% endif %}
+  </div>
+  {% if story in lovedstories.stories.all %}
+  <div class="col-csxx-x-4-e uk-text-center">
+    <button class="uk-icon-button fa fa-heart fa-c-medium  love" uk-tooltip='favourite' style="color:crimson" contenturl="{% url 'unlove' storyid=story.story_id %}"></button>
+  </div>
+
+  {% else %}
+  <div class="col-csxx-x-4-e uk-text-center">
+    <button class="uk-icon-button fa fa-heart-o fa-c-medium  love" uk-tooltip='favourite' style="color: crimson;" contenturl="{% url 'love' storyid=story.story_id %}"></button>
+  </div>
+  {% endif %}
+{% if story in savedstories.stories.all %}
+  <div class="col-csxx-x-4-e uk-text-center">
+    <button class="uk-icon-button fa fa-bookmark fa-c-medium  save" uk-tooltip='save' style="color:green" contenturl="{% url 'unsave' storyid=story.story_id %}"></button>
+  </div>
+
+  {% else %}
+  <div class="col-csxx-x-4-e uk-text-center">
+    <button class="uk-icon-button fa fa-bookmark-o fa-c-medium  save" uk-tooltip='save' style="color: green;" contenturl="{% url 'save' storyid=story.story_id %}"></button>
+  </div>
+  {% endif %}
+
+  <div class="uk-inline col-csxx-x-4-e uk-text-center " >
+
+    <a  class="uk-icon-button fa fa-share fa-c-medium" type="button" uk-tooltip='Share'></a>
+
+
+    <div uk-dropdown="pos:bottom-justify;mode:click" id="storyreaction"
+      class="uk-padding-small uk-border-rounded uk-box-shadow-small uk-padding-remove-horizontal uk-text-center"
+      style='padding-left: 10px;min-width:max-content;max-width: max-content;z-index: 2;'>
+      <ul class="uk-nav uk-dropdown-nav " style="display: flex;">
+        <!--<li class=" uk-padding-small uk-text-center " style="padding-left: 5px;padding-right: 5px;">
+          <a href="#" class="fa fa-users fa-1x fa-c-medium" uk-tooltip='Create Room'>
+          </a>
+      
+        </li>-->
+        <li class="  uk-padding-small uk-text-center" style="padding-left: 5px;padding-right: 5px;">
+          <a contenturl="{% url 'readstory' storyid=story.story_id %}" class="facebookshare" uk-icon='icon:facebook' style='fill:blue' uk-tooltip='share on facebook'>
+          </a>
+        
+        </li>
+        <li class=" uk-padding-small uk-text-center " style="padding-left: 5px;padding-right: 5px;">
+          <a target="_blank" onclick="window.location='https://wa.me/?text=/'+encodeURIComponent(window.location.href)" data-original-title="whatsapp" rel="tooltip" uk-tooltip='share on whatsapp' data-placement="left" data-action="share/whatsapp/share" uk-icon='icon:whatsapp' style="fill: green;">
+          </a>
+
+
+        </li>
+        <li class=" uk-padding-small uk-text-center " style="padding-left: 5px;padding-right: 5px;">
+          <a uk-icon='icon:copy' class="copybtn" data-clipboard-text="{% url 'readstory' storyid=story.story_id %}" uk-tooltip='copy'>
+          </a>
+        
+
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+
+  </div>
+<div class='col-cmd-14' style='margin-top:50px;padding:0;position: relative;'>
+
+  <div
+    class="col-cmd-3 col-csm-4 col-csl-4 col-csx-5 col-csxx-14 col-css-4 col-csxx-x-14 uk-text-center uk-padding-remove">
+    <div id="user{{story.story_id}}"
+      class="col-cmd-14 col-csm-14 col-csl-14 col-csx-14 col-csxx-10 col-css-13 col-csxx-x-14 col-csxx-xx-8 uk-text-center story-cont-inner"
+      style='margin-top:0px !important;padding: 2px;margin-bottom: 20px;'>
+      <div class="uk-box-shadow-small uk-padding-remove uk-margin-remove uk-border-rounded" style="">
+
+        <img class="card-img-top story uk-border-rounded" src="{{story.image.url}}" alt="" style="">
+
+      </div>
+     
+    </div>
+
+  </div>
+
+  <div class="dark-mode col-cmd-11 col-csm-10 col-csx-9 col-csxx-14 col-csxx-x-14 col-csl-10 col-css-10 uk-padding-small"
+    style="border-radius: 0;">
+
+    <div
+      class="uk-text-left col-cmd-14 col-csm-10 col-cmd-xl-13 col-csx-14 col-csxx-14 col-csl-12 col-css-10 col-csxx-x-14 uk-padding-remove">
+
+      <h2 style="font-weight: bold;text-transform: uppercase;">{{story.title}}
+      </h2>
+    </div>
+
+    <div id="storyabout" class="col-csl-14 " style="font-size: 17px;">
+
+      {{story.about|truncatechars:500}}
+    </div>
+
+  </div>
+
+
+
+  <div
+    class="col-cmd-7 col-csm-10 col-csx-14 col-csxx-14 col-csl-10 col-css-10 col-csxx-x-14 col-csxx-xx-14 uk-padding-small">
+
+    {% if storyepisodes %}
+    <div uk-slider class="uk-align-center trending recent trending uk-text-center" id="activity"
+      style="margin: 0;width: 100%;display: inline-block; position: relative;">
+      <ul class="uk-slider-items uk-grid-small" style="text-align:center;">
+        {% for episode in storyepisodes %}
+        {% if episode in readepisodes %}
+        <li
+          class="col-cmd-2-e col-csx-2 col-csxx-2 col-csxx-x-3 col-csl-2-e col-csm-2  col-css-2 col-csxx-x-3-e"
+          style="padding: 2px;display: flex;">
+          <span class="fa fa-eye uk-position-top-center" style="z-index: 1; color: white;"></span>
+          <div class="card story col-cmd-14" style="height: 50px !important;">
+            <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+            <div class="card-img-overlay story uk-align-center"
+              onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+              <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+              <div class="bottom-text col-cmd-14 uk-position-center" style="padding: 1px;top: 30% ;">
+                <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+
+        {% elif episode.episode == 1 %}
+        <li
+          class="col-cmd-2-e col-csx-2 col-csxx-2 col-csl-2-e col-csm-2  col-css-2 col-csxx-x-3 col-csxx-x-3-e col-csxx-xx-3-e"
+          style="padding: 2px;display: flex;">
+          <span class="fa fa-play-circle uk-position-top-center" style="z-index: 1; color: white;"></span>
+
+          <div class="card story col-cmd-14" style="height: 50px !important;">
+            <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+            <div class="card-img-overlay story uk-align-center"
+              onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+              <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+              <div class="bottom-text col-cmd-14 uk-position-center" style="padding: 1px;top: 30% ;">
+                <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+
+        {% elif episode in nextepisodes %}
+        <li
+          class="col-cmd-2-e col-csx-2 col-csxx-2 col-csl-2-e col-csm-2  col-css-2 col-csxx-x-3 col-csxx-x-3-e col-csxx-xx-3-e"
+          style="padding: 2px;display: flex;">
+          <span class="fa fa-chevron-right uk-position-top-center" style="z-index: 1; color: white;"></span>
+
+          <div class="card story col-cmd-14" style="height: 50px !important;">
+            <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+            <div class="card-img-overlay story uk-align-center"
+              onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+              <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+              <div class="bottom-text col-cmd-14 uk-position-center" style="padding: 1px;top: 30% ;">
+                <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        {% else %}
+        <li
+          class="col-cmd-2-e col-csx-2 col-csxx-2 col-csl-2-e col-csm-2  col-css-2 col-csxx-x-3 col-csxx-x-3-e col-csxx-xx-3-e  "
+          style="padding: 2px;display: flex;">
+          <div class="card story col-cmd-14" style="height: 50px !important;">
+            <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+            <div class="card-img-overlay story uk-align-center">
+              <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+              <div class="bottom-text col-cmd-14 uk-position-center" style="padding: 1px;top: 30% ;">
+                <!--<h5 class="card-title">{{episode.title}}</h5>-->
+                <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+        {% endif %}
+        {% endfor %}
+
+
+      </ul>
+
+    </div>
+    {% else %}
+    <h3 class="display-6" style="margin-bottom: 0px;">Episodes</h3>
+    <em class="display-6" style="margin-bottom: 0px;">No Episodes Yet</em>
+    {% endif %}
+  </div>
+</div>
+
+<script>
+  {
+    (function ($) { //Most read async
+      $('.notify').on('click', function () {
+        var notifybtn = $(this);
+        var contenturl = notifybtn.attr('contenturl')
+        $.ajax({
+          beforeSend: function () {
+            UIkit.notification.closeAll()
+
+
+          },
+          complete: function () {
+
+
+          },
+          type: 'post',
+          url: contenturl,
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (data) {
+            // if there are still more pages to load,
+            // add 1 to the "Load More Posts" link's page data attribute
+            // else hide the link
+
+            // append html to the posts div
+            if (data.notificationOn) {
+              UIkit.notification.closeAll()
+              UIkit.notification(data.message)
+              notifybtn.attr('class', 'uk-icon-button fa fa-bell fa-c-medium ')
+              notifybtn.attr('contenturl', '{% url 'remove_notify' storyid=story.story_id %}')
+
+            }
+            else if (data.notificationOff) {
+              UIkit.notification.closeAll()
+              UIkit.notification(data.message)
+              notifybtn.attr('class', 'uk-icon-button fa fa-bell-o fa-c-medium ')
+              notifybtn.attr('contenturl', '{% url 'notify' storyid=story.story_id %}')
+
+            }
+          },
+          error: function (xhr, status, error) {
+            UIkit.notification.closeAll()
+            UIkit.notification('Delete not successful. Check your internet connection',)
+          }
+        });
+      });
+    }(jQuery))
+  };
+
+
+  {
+    (function ($) { //Most read async
+      $('.save').on('click', function () {
+        var savebtn = $(this);
+        var contenturl = savebtn.attr('contenturl')
+        $.ajax({
+          beforeSend: function () {
+            UIkit.notification.closeAll()
+
+
+          },
+          complete: function () {
+
+
+          },
+          type: 'post',
+          url: contenturl,
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (data) {
+            // if there are still more pages to load,
+            // add 1 to the "Load More Posts" link's page data attribute
+            // else hide the link
+
+            // append html to the posts div
+            if (data.saved) {
+              UIkit.notification.closeAll()
+              UIkit.notification(data.message)
+              savebtn.attr('class', 'uk-icon-button fa fa-bookmark fa-c-medium ')
+              savebtn.attr('contenturl', '{% url 'unsave' storyid=story.story_id %}')
+
+            }
+            else if (data.unsave) {
+              UIkit.notification.closeAll()
+              UIkit.notification(data.message)
+              savebtn.attr('class', 'uk-icon-button fa fa-bookmark-o fa-c-medium ')
+              savebtn.attr('contenturl', '{% url 'save' storyid=story.story_id %}')
+
+            }
+          },
+          error: function (xhr, status, error) {
+            UIkit.notification.closeAll()
+            UIkit.notification('Could not save. Check your internet connection',)
+          }
+        });
+      });
+    }(jQuery))
+  };
+
+
+
+  {
+    (function ($) { //Most read async
+      $('.love').on('click', function () {
+        var savebtn = $(this);
+        var contenturl = savebtn.attr('contenturl')
+        $.ajax({
+          beforeSend: function () {
+            UIkit.notification.closeAll()
+
+
+          },
+          complete: function () {
+
+
+          },
+          type: 'post',
+          url: contenturl,
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (data) {
+            // if there are still more pages to load,
+            // add 1 to the "Load More Posts" link's page data attribute
+            // else hide the link
+
+            // append html to the posts div
+            if (data.loved) {
+              UIkit.notification.closeAll()
+              UIkit.notification(data.message)
+              savebtn.attr('class', 'uk-icon-button fa fa-heart fa-c-medium ')
+              savebtn.attr('contenturl', '{% url 'unlove' storyid=story.story_id %}')
+
+            }
+            else if (data.unloved) {
+              UIkit.notification.closeAll()
+              UIkit.notification(data.message)
+              savebtn.attr('class', 'uk-icon-button fa fa-heart-o fa-c-medium ')
+              savebtn.attr('contenturl', '{% url 'love' storyid=story.story_id %}')
+
+            }
+          },
+          error: function (xhr, status, error) {
+            UIkit.notification.closeAll()
+            UIkit.notification('Could not save. Check your internet connection',)
+          }
+        });
+      });
+    }(jQuery))
+  };
+
+</script>
+
+<script>
+  {
+      (function ($) {
+          $('.facebookshare').on('click',function () {
+             
+            
+       var shareButton = $(this)
+        $.fn.shareOnFacebook(shareButton.attr('contenturl'))
+
+    });
+          
+         }(jQuery))
+      };
+
+
+      new ClipboardJS('.copybtn');
+
+      (function ($) {
+        $('.copybtn').on('click', function () {
+          UIkit.notification('Story link copied')
+        });
+    }(jQuery));
+
+
+    </script>
+{% endautoescape %}

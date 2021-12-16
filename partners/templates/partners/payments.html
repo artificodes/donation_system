@@ -1,0 +1,42 @@
+
+<div class="mt-0 position-relative">
+
+    <!-- <div class="mt--2 container-fluid p-1 uk-position-top-right" style="z-index: 2;">
+        <div class=" p-2 text-right float-none">
+            <a class="uk-icon-button text-white bg-primary position-relative" uk-tooltip="Add payment"
+                onclick="requestContentModal('{% url 'partner_make_payment' %}','get')">
+                <i class="fa fa-plus uk-position-center text-white"></i></a>
+        </div>
+
+    </div> -->
+
+    <div id="main-container" class="">
+        <div id="pending_payments" class="mt-1">
+            {% include 'partners/pending_payments.html' %}
+
+        </div>
+        <div class="card uk-animation-slide-top p-1 mt-1 rounded-0 m-0 pb-4" id="" style="box-shadow: none;">
+            <div class=" card-header text-sm uk-margin-remove bg-gradient-secondary uk-text-center text-darker uk-text-bold 
+            rounded-pill p-2 border-0" style="width: max-content;">
+                Recent Remittances
+            </div>
+            <div class="card-body uk-margin-remove uk-padding-small pt-2" id="recent_remittances">
+
+                {% include 'partners/recent_remittances.html' %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% if request.user.is_superuser %}
+{% else %}
+<div class="fixed-bottom text-right">
+    <a class="p-5 uk-icon-button text-white bg-primary position-relative elevation-2 mt--7 mr-2"
+        uk-tooltip="Add payment" onclick="requestContentModal('{% url 'partner_make_payment' %}','get')">
+        <i class="fa fa-plus uk-position-center text-white fa-2x"></i></a>
+</div>
+{% endif %}
+
+
+
+

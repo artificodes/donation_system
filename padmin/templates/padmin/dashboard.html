@@ -1,0 +1,83 @@
+{% extends "base/abase.html" %}
+{% load static %}
+{% block content %}
+    {% include 'padmin/dashboard_header.html' %}
+<div class="container-fluid uk-text-center p-0 mt-1"
+    style="">
+
+    {% include 'padmin/dashboard_content.html' %}
+
+</div>
+
+<script>
+ jQuery(document).ready(function () {
+          $.ajax({
+            beforeSend: function () {
+  
+            },
+            complete: function () {
+            },
+            type: 'get',
+            url: '{% url 'admin_members_analysis' %}',
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              // if there are still more pages to load,
+              // add 1 to the "Load More Posts" link's page data attribute
+              // else hide the link
+              // append html to the posts div
+              //$('.uk-modal-header-title').empty()
+  
+              //$('.uk-modal-header-title').append(link.attr('inner-html'));
+              if (response.content) {
+                $('#members_analysis').empty()
+
+                $('#members_analysis').append(response.content);
+              }
+    
+  
+            },
+            error: function (xhr, status, error) {
+            //   alert('there was an error')
+            }
+          });
+        });
+    
+  
+        jQuery(document).ready(function () {
+          $.ajax({
+            beforeSend: function () {
+  
+            },
+            complete: function () {
+            },
+            type: 'get',
+            url: '{% url 'admin_members_payments_analysis' userid='all' %}',
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              // if there are still more pages to load,
+              // add 1 to the "Load More Posts" link's page data attribute
+              // else hide the link
+              // append html to the posts div
+              //$('.uk-modal-header-title').empty()
+  
+              //$('.uk-modal-header-title').append(link.attr('inner-html'));
+              if (response.content) {
+                $('#members_payments_analysis').empty()
+
+                $('#members_payments_analysis').append(response.content);
+              }
+    
+  
+            },
+            error: function (xhr, status, error) {
+            //   alert('there was an error')
+            }
+          });
+        });
+    
+  </script>
+{% endblock content %}

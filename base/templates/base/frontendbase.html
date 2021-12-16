@@ -1,0 +1,261 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+
+  {% block style %}
+  <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css' %}" />
+  {% endblock %}
+
+  <link rel="stylesheet" href="{% static 'base/fontawesome/css/fontawesome.min.css' %} ">
+  <!--<link rel="stylesheet" href="{% static 'base/boomerang/assets/css/theme.css' %}">-->
+  <!--  <link rel="stylesheet" href="{% static 'base/countdown/css/jQuery.countdownTimer.css' %}">-->
+  <link rel="stylesheet" href="{% static 'base/inputcounter/css/handle-counter.min.css' %}">
+  <link rel="stylesheet" href="{% static 'base/imagepreview/css/jpreview.css' %}">
+  <link rel="stylesheet" href="{% static 'base/formvalidation/js/jquery.validity.css' %}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css" />
+  <link rel="stylesheet" href="{% static 'base/semantic/semantic.css' %}">
+  <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.mind1f1.css' %}">
+  <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.minb68f.css' %}">
+
+  <link rel="stylesheet" href="{% static 'base/material/assets/css/material-kit.minf27d.css' %}">
+  <!-- <link rel="stylesheet" href="{% static 'base/searchselect/css/jquery-customselect-1.9.1.css' %}">    -->
+
+  <link rel="stylesheet" href="{% static 'base/semantic/semantic.css' %}">
+  <link rel="stylesheet" href="{% static 'base/uikit/css/uikit.css' %}">
+  <link rel="stylesheet" href="{% static 'base/custom/custom.min.css' %}">
+  <link rel="stylesheet" href="{% static 'base/custom/custom.css' %}">
+
+  <link rel="stylesheet" href="{% static 'base/videothumbnails/jquery.youtubevideo.css' %}">
+  <link rel="stylesheet" href="{% static 'base/videomodal/modal-video.min.css' %}">
+
+</head>
+
+<body
+  style="height: max-content;min-width: 100%;background-image: url('{{settings.secondary_image.url}}');background-repeat: repeat;background-size: 500px;">
+  <div id="top">
+
+  </div>
+
+  <script type="text/javascript">
+
+    window.CSRF_TOKEN = "{{csrf_token}}";
+  </script>
+  <!-- <div id='page-cover' style="background-color: teal;width: 100%;height: 100%;position: absolute;top: 0;bottom: 0;z-index: 10000;"></div> -->
+  <!-- <div id="dorra-main" style="background-image: url('{{general.primary_image2.url}}'); background-size: cover; background-position: top center;position: absolute;width: 100%;min-height: 100%; top: 0px;background-attachment: fixed;"> -->
+
+  {% include 'base/scripts.html' %}
+  <div class="uk-overlay uk-height-viewport bg-primary " id="page-ready-cover" uk-cover
+    style="z-index: 1031;position: fixed;">
+    <div class="uk-position-center container-fluid uk-text-center" style="min-width: 100%;">
+      <div class="" style="float: none;">
+        {% if settings.logo_loader %}
+        <img src="{{settings.logo_loader.url}}" style="height: 80px;" class="uk-animation-slide-left-medium" alt="">
+        {% endif %}
+        {% if settings.logo_loader_text %}
+        <img src="{{settings.logo_loader_text.url}}" style="height: 70px;" class="uk-animation-slide-right-medium"
+          alt="">
+        {% endif %}
+      </div>
+      <div class="ui tiny col-cmd-14  active progress uk-margin-small-top" id="progress">
+        <div class="bar"></div>
+      </div>
+    </div>
+  </div>
+  {% include 'frontend/navbar.html' %}
+
+  <div class="uk-margin-xlarge-bottom">
+    {% block content%}
+
+
+    {% endblock %}
+  </div>
+
+
+  {% include 'frontend/footer.html' %}
+  <div id="notification-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-border-rounded uk-padding-small">
+      <div class="card card-login" id="notification-modal-inner" style="box-shadow: none;padding-bottom: 70px;">
+
+      </div>
+<button class="btn btn-danger uk-padding-small uk-modal-close uk-position-top-right uk-border-circle "
+      ><i class="material-icons">close</i></button>
+    </div>
+    
+  </div>
+  <div class="uk-overlay uk-height-viewport " uk-cover id="loader-cover"
+    style="z-index: 1030;background-color: black;opacity: 0.8;position: fixed;display: none;">
+    <div class='ui active uk-position-center loader loading big uk-border-circle uk-box-shadow-small uk-padding-small'
+      style='position: fixed !important;'>
+      <img src="{{settings.logo_loader.url}}" class="logo-loader " alt="">
+    </div>
+  </div>
+  <script>
+    // $('#progress').progress({
+    //   percent: 22
+    // });
+
+
+
+
+
+    function flip() {
+      $('.logo-loader')
+        .transition('pulse')
+    }
+
+    setInterval(flip, 1000)
+
+
+    {
+      (function ($) { //Most read async
+        $(window).ready(function () {
+          // $('#page-ready-cover').addClass('uk-transition-fade uk-transition-slow')
+          // $('#page-ready-cover').transition('fade')
+          ;
+
+        })
+      }(jQuery))
+    };
+
+  </script>
+
+
+
+  <script>
+    $('.demo').youtubeVideo({
+
+      // custom layout
+      layout: {
+        wrap: $('<div />', { class: 'ytb-video-wrap' }),
+        container: $('<div />', { class: 'ytb-video-container' }),
+        iframe: $('<iframe />', { class: 'ytb-video-iframe' }),
+        button: $('<div />', { class: 'ytb-video-play-button' })
+          .append('<svg viewBox="0 0 68 48"><path class="ytb-video-play-button-bg" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z" fill="#212121" fill-opacity="0.8"></path><path d="M 45,24 27,14 27,34" fill="#fff"></path></svg>'),
+      },
+
+      /*
+        56.25 - 16:9
+        75.25 - 4:3
+        80.25 - 5:4
+        100 - 1:1
+      */
+      aspectRatio: 56.25,
+
+      /* 'default' - 120x90
+        'mqdefault' - 320x180
+        'hqdefault' - 480x360
+        'sddefault' - 640x480
+        'maxresdefault' - 1280x720
+        'http://...' - custom image
+      */
+      cover: 'hqdefault',
+
+      // custom parameters
+      parametrs: 'autoplay=0&autohide=1',
+
+      // play event
+      playEvent: 'click',
+
+
+      // or 'button'
+      playMode: 'block',
+
+      // or 'playlist'
+      type: 'video',
+
+      // Youtube API
+      api: '',
+
+      // displays the duration of the video
+      // requires Youtube API
+      duration: false,
+
+      // displays the video title
+      // requires Youtube API
+      title: true,
+
+      // displays the video description
+      // requires Youtube API
+      description: false
+
+    });
+
+
+    {
+      (function ($) {
+        $('.ytb-video-play-button,.ytb-video-container').on('click', function (event) {
+
+          var button = $(this)
+          var carousel = button.closest('#othervideos')
+          UIkit.slider(carousel).stopAutoplay();
+
+
+        }
+
+        )
+      }(jQuery))
+    };
+
+
+    $(".demo").modalVideo({
+      channel: 'youtube',
+      youtube: {
+        autoplay: 1,
+        cc_load_policy: 1,
+        color: null,
+        controls: 1,
+        disablekb: 0,
+        enablejsapi: 0,
+        end: null,
+        fs: 1,
+        h1: null,
+        iv_load_policy: 1,
+        list: null,
+        listType: null,
+        loop: 0,
+        modestbranding: null,
+        origin: null,
+        playlist: null,
+        playsinline: null,
+        rel: 0,
+        showinfo: 1,
+        start: 0,
+        wmode: 'transparent',
+        theme: 'dark'
+      },
+      ratio: '16:9',
+      vimeo: {
+        api: false,
+        autopause: true,
+        autoplay: true,
+        byline: true,
+        callback: null,
+        color: null,
+        height: null,
+        loop: false,
+        maxheight: null,
+        maxwidth: null,
+        muted: false,
+        player_id: null,
+        portrait: true,
+        title: true,
+        width: null,
+        xhtml: false
+      },
+    });
+
+  </script>
+</body>
+
+</html>

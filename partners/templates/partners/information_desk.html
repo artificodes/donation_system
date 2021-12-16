@@ -1,0 +1,194 @@
+{% autoescape off %}
+<div id="offcanvas-nav-secondary" class="uk-offcanvas" uk-offcanvas="flip:true;overlay: true;mode:slide;">
+
+    <div
+        class="uk-margin-remove-last-child uk-height-viewport uk-offcanvas-bar uk-flex uk-flex-column uk-padding-remove 
+        bg-white  uk-offcanvas-bar-animation uk-offcanvas-slide border-left">
+        <div class="uk-text-center pb-2 pt-2 bg-white text-darker uk-text-bold position-relative border-bottom mb-2"
+            style="width: 100%">
+            Notifications
+             <!-- <button
+            class="uk-offcanvas-close uk-button uk-button-default uk-position-center-left"
+            type="button"><i class="fa fa-arrow-right text-white"
+                style="font-size: medium;"></i></button> -->
+
+        </div>
+       
+  {% for notification in notifications %}
+  {% if notification.content == 'article' %}
+
+  <div onclick="requestContentModal('{% url 'partner_information_desk_content' cid=notification.articleid content=notification.content %}')"
+  class="m-0 card btn p-0 uk-margin-remove-top shadow-none" style="width: 100%;border-radius: 0;">
+   
+  <div class="card-body uk-padding-remove">
+          
+          <p class=" uk-text-bold text-darker uk-margin-remove p-2 border-bottom {% if partner in notification.read.all %} {% else %} bg-lighter {% endif %} text-left" style="width: 100%;">
+              {{notification.title}}
+            
+            </p>
+          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+          <p class="text-sm p-2 text-left {% if partner in notification.read.all %} {% else %} bg-secondary {% endif %} " 
+          style="color: black;">{{notification.short_description|truncatechars:150}}</p>
+          <!-- <a href="javascript:;" class="card-link btn btn-primary" style="border-radius: 0;">READ</a> -->
+      </div>
+      <div class="card-footer text-muted uk-padding-small position-relative">
+         
+         <span class="badge text-darker uk-position-center-right rounded-pill mr-1 bg-white border"  style="">
+          {{notification.content}} | {{notification.date_time_added.date}}</span>
+        </div>
+  </div>
+  {% elif notification.content == 'announcement' %}
+
+  <div onclick="requestContentModal('{% url 'partner_information_desk_content' cid=notification.contentid content=notification.content %}')"
+  class="m-0 card btn p-0 uk-margin-remove-top shadow-none" style="width: 100%;border-radius: 0;">
+   
+  <div class="card-body uk-padding-remove">
+          
+          <p class="{% if partner in notification.read.all %} {% else %} bg-lighter {% endif %} text-left uk-text-bold text-darker uk-margin-remove p-2 border-bottom"style="width: 100%;">
+              {{notification.title}}</p>
+          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+          <p class="text-sm p-2 text-left {% if partner in notification.read.all %} {% else %} bg-secondary {% endif %} " style="color: black;">{{notification.short_description|truncatechars:150}}</p>
+          <!-- <a href="javascript:;" class="card-link btn btn-primary" style="border-radius: 0;">READ</a> -->
+      </div>
+      <div class="card-footer text-muted uk-padding-small position-relative">
+         
+         <span class="badge text-darker uk-position-center-right rounded-pill mr-1 bg-white border"  style="">
+          {{notification.content}} | {{notification.date_time_added.date}}</span>
+        </div>
+  </div>
+  {% elif notification.content == 'event' %}
+
+  <div onclick="requestContentModal('{% url 'partner_information_desk_content' cid=notification.eventid content=notification.content %}')"
+  class="m-0 card btn p-0 uk-margin-remove-top shadow-none" style="width: 100%;border-radius: 0;">
+   
+  <div class="card-body uk-padding-remove">
+          
+          <p class="{% if partner in notification.read.all %} {% else %} bg-lighter {% endif %} text-left uk-text-bold text-darker uk-margin-remove p-2 border-bottom" style="width: 100%;">
+              {{notification.title}}</p>
+          <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+          <p class="text-sm p-2 text-left {% if partner in notification.read.all %} {% else %} bg-secondary {% endif %} " style="color: black;">{{notification.short_description|truncatechars:150}}</p>
+          <!-- <a href="javascript:;" class="card-link btn btn-primary" style="border-radius: 0;">READ</a> -->
+      </div>
+      <div class="card-footer text-muted uk-padding-small position-relative">
+         
+         <span class="badge text-darker uk-position-center-right rounded-pill mr-1 bg-white border"  style="">
+          {{notification.content}} | {{notification.date_time_added.date}}</span>
+        </div>
+  </div>
+  {% elif notification.content_type == 'support' %}
+
+  <div onclick="requestContentModal('{% url 'partner_support_details' supportid=notification.supportid %}')"
+  class="m-0 card btn p-0 uk-margin-remove-top shadow-none" style="width: 100%;border-radius: 0;">
+   
+  <div class="card-body uk-padding-remove">
+          
+<div class="card m-0 mt-1 uk-text-left shadow-sm border p-0 btn btn-white rounded-0" onclick="requestContentModal('{% url 'partner_support_details' supportid=notification.supportid %}','get')"
+style="width: 100%;display: inline-block;">
+<div class="card-header p-2 bg-secondary m-0">
+  Support request
+</div>
+    <div class="card-body" style="padding: 5px;">
+        <div class="col-csxx-x-14" style="font-size: 10px;">
+            <div class="col-csxx-x-14 uk-text-lead text-darker">
+                <p class=""><span>Subject:</span> {{notification.subject}}
+                </p>
+            </div>           
+         <div class="col-csxx-x-14">
+                <p class="" style="font-weight: bold;font-size: 11px;"><span
+                        style="font-weight: bold;font-size: 11px;">Support ID:</span> #{{notification.supportid}}
+                </p>
+            </div>
+
+            <div class="col-csxx-x-14">
+                <p class="card-text" style="font-size: 10px;"><span
+                        style="font-weight: bold;font-size: 10px;">Status:</span>
+                       <span class="pr-2 pl-2 text-darker rounded-sm bg-secondary"> {% if notification.admin_resolved and notification.partner_resolved %} RESOLVED {% elif notification.admin_resolved %} ANSWERED {% else %} SENT {% endif %}</span>
+            </div>
+            <div class="col-csxx-x-14">
+                <p class="card-text" style="font-size: 10px;"><span
+                        style="font-weight: bold;font-size: 10px;">Time created:</span>
+                    {{notification.date_time_added}}
+                   
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+          
+      </div>
+      <div class="card-footer text-muted uk-padding-small position-relative">
+         
+         <span class="badge text-darker uk-position-center-right rounded-pill mr-1 bg-white border"  style="">
+          {{notification.content_type}} | {{notification.date_time_added.date}}</span>
+        </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+
+      
+
+    </div>
+</div>
+
+{% endautoescape %}
+
+<script>
+    
+    {
+      (function ($) { //Most read async
+        $('.desk-content-btn ml-0').on('click', function (event) {
+          event.preventDefault(); 
+          var link = $(this);
+          $.ajax({
+            beforeSend: function () {
+                showLoadingBar()
+            },
+            complete: function () {
+                hideLoadingBar()
+
+            },
+            type: 'get',
+            url: link.attr('contenturl'),
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              // if there are still more pages to load,
+              // add 1 to the "Load More Posts" link's page data attribute
+              // else hide the link
+              // append html to the posts div
+              //$('.uk-modal-header-title').empty()
+
+              //$('.uk-modal-header-title').append(link.attr('inner-html'));
+              if (response.content) {
+                  window.location ='#top'
+                $('#tab-header').empty()
+                $('#tab-header').append(response.header);
+                $('#inner-container').empty();
+                $('#inner-container').append(response.content);
+                $('#loader-cover').hide()
+               UIkit.offcanvas($('#offcanvas-nav-secondary')).hide()
+            }
+
+              if (response.message) {
+                $('#notification-modal-inner').empty()
+                $('#notification-modal-inner').append(response.message)
+                $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+                UIkit.modal($('#notification-modal')).show();
+              }
+
+
+            },
+            error: function (xhr, status, error) {
+              alert('there was an error')
+            }
+          });
+        });
+      }(jQuery))
+    };
+
+ 
+</script>

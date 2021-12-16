@@ -1,0 +1,25 @@
+<div class="p-1">
+ <div class="form-group mb-3">
+    <div
+        class="input-group input-group-merge input-group-alternative border rounded-md p-1 shadow-sm border rounded-md p-1 shadow-sm">
+        <div class="input-group-prepend">
+
+            <span class=" input-group-text text-dark">
+                Gender:
+            </span>
+        </div>
+        <div class="col-csxx-x-14">
+            <select class="ui fluid dropdown" data-style="btn btn-link" name="gender"
+                id="gender_id" class="form-control" required>
+                <option value="{{partner.gender}}" selected="selected">
+                    {% if partner.gender %}
+                   {% if partner.gender == 'M' %} Male {% elif partner.gender == 'F' %} Female  {% endif %} {% else %} select {% endif %} </option>
+                <option value='M'>Male</option>
+                <option value='F'>Female</option>
+
+            </select>
+        </div>
+
+    </div>
+</div>   
+</div>

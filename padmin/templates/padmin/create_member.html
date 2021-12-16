@@ -1,0 +1,111 @@
+
+
+<div class="p-2 uk-display-inline-block col-csxx-14 uk-text-center overflow-hidden" id=""
+    style="box-shadow: none;float: none;">
+
+<div class="card card-login uk-animation-slide-top shadow-none" id="other_support">
+
+    <form class="form" id="membersignupform" method="POST" action="{% url 'admin_member_signup' %}">
+
+        {% csrf_token %}
+
+  
+        <div class="input-group m-1">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">face</i>
+              </span>
+            </div>
+            <input type="text" class="form-control" name="first_name" placeholder="First name"
+              autofocus="autofocus">
+          </div>
+          <div class="input-group m-1">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">face</i>
+              </span>
+            </div>
+            <input type="text" class="form-control" name="last_name" placeholder="Last name" autofocus="autofocus">
+          </div>
+          <div class="input-group m-1">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">perm_identity</i>
+              </span>
+            </div>
+            <input type="text" class="form-control" name="username" placeholder="Preferred username. Leave blank to use last and first name"
+              autofocus="autofocus">
+          </div>
+          <div class="input-group m-1">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="material-icons">mail</i>
+              </span>
+            </div>
+            <input type="email" class="form-control" name="email" placeholder="E-mail address"
+              autofocus="autofocus">
+          </div>
+        <div class="mt-3 text-center">
+            <button class="btn btn-success" type="submit" style="border-radius: 50px;"> <i class="fa fa-user-plus"></i> Create</button>
+        </div>
+    </form>
+</div>
+</div>
+
+
+
+<script>
+
+    $("#membersignupform").submit(function (event) {
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        $.ajax({
+            beforeSend: function () {
+
+                $('#loader-cover').show()
+            },
+            complete: function () {
+                $('#loader-cover').hide()
+
+            },
+            url: post_url,
+            type: request_method,
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function (response) {
+               
+                if (response.modal_message) {
+            messageModal(response.modal_message, response.heading)
+
+          }
+          if (response.modal_notification) {
+            notificationModal(response.modal_notification)
+
+          }
+
+          if (response.modal_content) {
+            contentModal(response.modal_content, response.heading)
+
+          }
+          if (response.message) {
+                UIkit.notification.closeAll()
+                UIkit.notification(response.message)
+              }
+},
+
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+
+
+</script>

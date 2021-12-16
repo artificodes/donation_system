@@ -1,0 +1,144 @@
+{% autoescape off %}
+
+<div class="text-left">
+   <p> <span class="h3 text-darker border-bottom p-1">{{support.subject}}</span> 
+         <span class="pr-2 pl-2 text-darker rounded-sm"> {% if support.resolved %}  
+            <span class="text-green uk-text-bold pr-2 pl-2 rounded-sm bg-white">RESOLVED</span> 
+            {% elif support.admin_resolved and not support.partner_resolved %}  
+            <span class="text-danger uk-text-bold pr-2 pl-2 rounded-sm bg-white">UNRESOLVED</span>  
+            {% elif support.admin_resolved %} 
+            <span class="text-white uk-text-bold pr-2 pl-2 rounded-sm bg-blue">ANSWERED</span>  
+            {% else %} <span class="text-blue uk-text-bold pr-2 pl-2 rounded-sm bg-white">{% if request.user.is_superuser %} RECEIVED {% else %} SENT {% endif %}</span>  {% endif %}</span>
+
+   </p>
+
+   <div class="card shadow-none">
+      {% if request.user.is_superuser %}
+      <div class="card-body p-0">
+         <div class="text-white bg-blue p-2 rounded-sm">
+            <p class="h2 text-white">Request</p>
+
+            <p class="uk-text-small">{{support.message}}</p>
+
+         </div>
+
+         <div class="card-body uk-width-1-1@s uk-text-left p-0">
+
+            <form role="form" id='replysupport' enctype="multipart/form-data" class="form uk-padding-small"
+               method="POST" action="{% url 'admin_reply_support' supportid=support.supportid %}">
+               {% csrf_token %}
+               <div class="card m-0 shadow-none">
+                  <div class="rounded-md uk-text-bold m-0 bg-secondary p-2 text-center">
+
+                     Reply
+
+                  </div>
+                  <div class="card-body p-2">
+                     <div class="form-group mt-2">
+                        <textarea class="form-control" id="resolution" rows="3" name="resolution" >{{support.resolution}} </textarea>
+                     </div>
+                  </div>
+               </div>
+               <div class="text-center">
+
+                  <button type="submit" class="btn btn-primary payment-form-submit"> <i class="fa fa-paper-plane mr-2"></i> Reply</button>
+                </div>
+            </form>
+         </div>
+
+         {% else %}
+         <div class="card-body p-0">
+            <div class="text-white bg-blue p-2 rounded-sm">
+               <p class="h2 text-white">Your request</p>
+
+               <p class="uk-text-small">{{support.message}}</p>
+
+            </div>
+            <div class="text-dark bg-secondary border p-2 rounded-sm mt-2">
+               <p class="h2 text-darker">Resolution</p>
+              <p class="mt-2">{{support.resolution}}</p> 
+            </div>
+            {% if support.admin_resolved and not support.resolved %}
+            <div class="mt-4 text-center">
+               <p class=" text-sm text-left">Dear Partner, thank you for reaching out. We hope your request was
+                  resolved. If so, kindly
+                  click on <span class="uk-text-bold">Resolved</span>
+                  to close this request or click on <span class="uk-text-bold">Unresolved</span> to get further
+                  assistance.
+               </p>
+               <div>
+                  <button class="btn btn-primary text-sm m-0 " onclick="requestContentModal('{% url 'partner_change_support_status' supportid=support.supportid status='resolved' %}','get')" >Resolved</button>
+                  <button class="btn btn-warning text-sm m-0"
+                  onclick="requestContentModal('{% url 'partner_change_support_status' supportid=support.supportid status='unresolved' %}','get')" >Unresolved</button>
+               </div>
+
+            </div>
+            {% endif %}
+
+            {% endif %}
+
+
+         </div>
+      </div>
+
+   </div>
+   {% endautoescape %}
+
+
+   <script>
+
+
+
+      tinymce.init({
+         selector: 'textarea#message',
+         height: 250,
+         menubar: false,
+         plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+         ],
+         toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+      });
+
+      $("#replysupport").submit(function (event) {
+         event.preventDefault(); //prevent default action 
+         var post_url = $(this).attr("action"); //get form action url
+         var request_method = $(this).attr("method"); //get form GET/POST method
+         var form_data = new FormData(this); //Creates new FormData object
+         $.ajax({
+            beforeSend: function () {
+               closeModal()
+               showLoadingBar()
+            },
+            complete: function () {
+               hideLoadingBar()
+
+            },
+            url: post_url,
+            type: request_method,
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function (response) {
+
+               if (response.modal_message) {
+                  messageModal(response.modal_message, response.heading)
+
+               }
+              
+            },
+            error: function (xhr, status, error) {
+               // UIkit.notification.closeAll()
+               // UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+         });
+      });
+
+   </script>

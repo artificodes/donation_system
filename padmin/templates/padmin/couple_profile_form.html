@@ -1,0 +1,248 @@
+{% extends "base/abase.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="mt-8">
+    <!-- <div class="uk-border-circle bg-gradient-red uk-position-top-center"
+    style="height: 70px;width: 70px;margin-top: -20px;border: 4px solid white;">
+    <i class="fa fa-user-friends fa-2x uk-position-center" style="color: white;">
+    </i>
+
+</div> -->
+
+    <div class="p-2 uk-display-inline-block col-csxx-14 uk-text-center overflow-hidden" id=""
+        style="box-shadow: none;float: none;">
+
+        <div class="card card-login uk-animation-slide-top shadow-none">
+            <div class="card-header border-0 m-0">
+                COUPLE PROFILE UPDATE
+            </div>
+            <form id="profileform" class="form" method="POST" enctype="multipart/form-data"
+                action="{% url 'admin_update_member_profile' userid=partner.member_no %}"
+                style=" min-height: max-content; max-height: max-content;">
+
+                {% csrf_token %}
+
+                <div class="rounded-pill bg-gradient-indigo p-2 text-left text-white mb-3">
+                    <div class="">
+                        <i class="fa fa-info-circle " style="color: white;"></i>
+                        <span class="p-1">
+                            Personal Data
+                        </span>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <div
+                        class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text uk-text-bold">
+                                <!-- <i class="material-icons">face</i>  -->
+                                First name
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" required name="first_name" id="first_name_id"
+                            placeholder="Your First name" value="{{partner.first_name}}">
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div
+                        class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text uk-text-bold">
+                                Last name
+                            </span>
+                        </div>
+                        <input type="text" class="form-control" required name="last_name" id="last_name_id"
+                            placeholder="Your Last name" value="{{partner.last_name}}">
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div
+                        class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="icon calendar alternate"></i> Date of Birth
+                            </span>
+                        </div>
+                        <input type="date" class="form-control" required name="date_of_birth" id="dob_id"
+                            placeholder="Date of birth" value="{{partner.date_of_birth|date:'Y-m-d'}}">
+                    </div>
+                </div>
+                {% include 'partners/gender.html' %}
+
+                {% include 'partners/marital_status.html' %}
+                <div class="form-group mb-3">
+                    <div
+                        class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-image mr-2"></i> Profile Picture</span>
+                        </div>
+                        <input class="previewimage form-control" name="photo"
+                            data-jpreview-container="#preview-container" placeholder="profile picture" type="file">
+
+                    </div>
+                    <div id="preview-container"
+                        class="jpreview-container uk-padding-small col-csxx-14 col-md-6 col-csx-6" style="float: none;">
+                    </div>
+                </div>
+
+                <div class="rounded-pill bg-gradient-indigo p-2 text-left text-white mb-3">
+                    <div class="">
+                        <i class="fa fa-user " style="color: white;"></i>
+                        <span class="p-1">
+                            Spouse Details
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="">
+                        <span class="input-group-text border-0 p-0 uk-text-bold">
+                            <!-- <i class="material-icons">face</i>  -->
+                        Name
+                        </span>
+                    </div>
+                    <div
+                        class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+
+                        <input type="text" class="form-control height-mx p-2" required name="spouse_name"
+                            id="last_name_id" placeholder="Full name" value="{{partner.spouse_name}}">
+                    </div>
+                </div>
+                <!-- <div class="form-group mb-3">
+                        <div
+                            class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                            <div class="input-group-prepend">
+
+                                <span class=" input-group-text">
+                                    Spouse gender:
+                                </span>
+                            </div>
+                            <div class="col-csxx-x-14">
+                                <select class="ui fluid dropdown" data-style="btn btn-link" name="spouse_gender" id="gender_id"
+                                    class="form-control" required>
+                                    <option value="{{partner.spouse_gender}}" selected="selected">
+                                        {% if partner.spouse_gender %}
+                                        {{partner.spouse_gender}} {% else %} select {% endif %} </option>
+                                    <option value='male'>Male</option>
+                                    <option value='female'>Female</option>
+
+                                </select>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+                <div class="form-group mb-3">
+                    <div
+                        class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="icon calendar alternate"></i> Date of Birth
+                            </span>
+                        </div>
+                        <input type="date" class="form-control" required name="spouse_dob" id="dob_id"
+                            placeholder="Date of birth" value="{{partner.spouse_dob|date:'Y-m-d'}}">
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div
+                        class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                        <div class="input-group-prepend">
+
+                            <span class=" input-group-text p-0">
+                                <i class="material-icons">phone</i>
+                            </span>
+                        </div>
+                        <input type="text" class="form-control height-mx p-2" required name="spouse_phone" id="phone_id"
+                            placeholder="Spouse Phone" value="{{partner.spouse_phone}}">
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div
+                        class="input-group input-group-merge input-group-alternative border rounded-lg p-1 shadow-sm border rounded-lg p-1 shadow-sm">
+                        <div class="input-group-prepend">
+
+                            <span class=" input-group-text p-0">
+                                <i class="material-icons">email</i>
+                            </span>
+                        </div>
+                        <input type="email" class="form-control height-mx p-2" required name="spouse_email"
+                            id="email_id" placeholder="Email" value="{{partner.spouse_email}}">
+                    </div>
+                </div>
+                <div class="rounded-pill bg-gradient-indigo p-2 text-left text-white mb-3">
+                    <div class="">
+                        <i class="fa fa-address-book " style="color: white;"></i>
+                        <span class="p-1">
+                            Contact Details
+                        </span>
+                    </div>
+                </div>
+                {% include 'partners/contact_details.html' %}
+
+                {% include 'partners/other_details.html' %}
+
+                <div class="uk-text-center">
+                    <button class="btn btn-primary uk-border-pill" type="submit">Save</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $("#profileform").submit(function (event) {
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        $.ajax({
+            beforeSend: function () {
+                $('#loader-cover').show()
+            },
+            complete: function () {
+                $('#loader-cover').hide()
+
+            },
+            url: post_url,
+            type: request_method,
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function (response) {
+                if (response.modal_message) {
+                    messageModal(response.modal_message, response.heading)
+
+                }
+
+                if (response.modal_content) {
+                    contentModal(response.modal_content, response.heading)
+
+                }
+                if (response.message) {
+                    UIkit.notification.closeAll()
+                    UIkit.notification(response.message)
+                }
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+    $('.previewimage').jPreview();
+
+    $('.ui.dropdown').dropdown()
+
+    {% include 'custom/lga.js' %}
+
+</script>
+{% endblock content %}

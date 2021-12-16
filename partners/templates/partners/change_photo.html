@@ -1,0 +1,110 @@
+{% load static %}
+
+<div class="card-body uk-width-1-1@s uk-text-left p-0">
+  <div
+  class="uk-padding-small text-center"
+  style=" ">
+<img src="{% if partner.photo %} {{partner.photo.url}} {% endif  %}" class="rounded-sm" alt="" style="max-width: 100%;max-height: 100px;">
+<p class="h4"><b>Current</b></p>
+</div>
+  <form role="form" id='changephoto' enctype="multipart/form-data" class="form uk-padding-small" method="POST"
+    action="">
+    {% csrf_token %}
+
+    <div class="p-1">
+      <div class="uk-inline mt-1" style="width: 100%;">
+          <div class="position-relative">
+               <input class="uk-input change-photo form-control p-3 password  rounded-md position-relative "
+         name="photo" data-jpreview-container="#changed-photo-container" style="z-index: 2;"
+               type="file">
+          <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 mt--4 bg-white text-dark" 
+          style="z-index: 3;font-size: 12px;">
+              New profile picture
+          </span>
+          </div>
+         <div class="text-center">
+            <div id="changed-photo-container" 
+              class="jpreview-container  uk-padding-small rounded-circle uk-display-inline-block"
+              style=" max-width: 150px;">
+          </div>
+         </div>
+    
+         
+      </div>
+  </div>
+
+
+
+    <div class="text-center">
+
+
+      <button type="submit" class="btn btn-primary payment-form-submit">Change</button>
+
+    </div>
+  </form>
+
+</div>
+
+<script>
+  $('.ui.dropdown').dropdown()
+  $('.change-photo').jPreview();
+
+</script>
+
+<script>
+
+
+
+  $("#changephoto").submit(function (event) {
+    event.preventDefault(); //prevent default action 
+    // tinymceIframe = $('#full_description_ifr')
+    // tinymceContent = tinymceIframe.contents().find("body#tinymce").html()
+    // $('textarea#full_description').val(tinymceContent)
+    var post_url = '{% url 'partner_change_photo' %}'//get form action url
+    var request_method = $(this).attr("method"); //get form GET/POST method
+    var form_data = new FormData(this); //Creates new FormData object
+
+      $.ajax({
+        beforeSend: function () {
+          UIkit.modal($('#content-modal')).hide();
+          showLoadingBar()
+        },
+        complete: function () {
+          hideLoadingBar()
+        },
+        url: post_url,
+        type: request_method,
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+
+        success: function (response) {
+          if (response.modal_message) {
+            messageModal(response.modal_message, response.heading)
+
+          }
+          if (response.modal_notification) {
+            notificationModal(response.modal_notification)
+
+          }
+
+          if (response.modal_content) {
+            contentModal(response.modal_content, response.heading)
+
+          }
+          if (response.message) {
+            UIkit.notification.closeAll()
+            UIkit.notification(response.message)
+          }
+        },
+        error: function (xhr, status, error) {
+          UIkit.notification.closeAll()
+          UIkit.notification('Not sent. Check your internet connection',)
+        }
+      });
+
+    
+  });
+
+</script>

@@ -1,0 +1,29 @@
+{% autoescape off %}
+<div style="text-align: center; background-color: silver; padding: 20px;">
+    <div style="display: inline-block;background-color: white; background-image: url('cid:background');background-size: contain; text-align: left;">
+        {% include 'templates/email_header.html' %}
+
+        <div
+            style="display: inline-block; padding: 20px; color: black;font-weight: 14px;max-width: 500px;text-align: left;">
+            Dear <b>{{ name }}</b>, <br> <br>
+
+            We wish you a happy birthday on this glorious day.
+            <br> <br> May God continue to shower you with all His blessings.
+            May you experience a new season of Full, Complete and Total Restoration in every area of your life from this
+            day
+            forward in Jesus Name.
+            <br><br> Enjoy your day of celebration.
+            <br><br>
+            <b> Blessings Galore</b>
+            <br> <br>
+
+
+            Dominion Partners Global
+
+
+        </div>
+        {% include 'templates/email_footer.html' %}
+    </div>
+</div>
+
+{% endautoescape %}

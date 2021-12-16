@@ -1,0 +1,64 @@
+<div class="p-0">
+ {% for payment in payments %}
+<div class="card uk-padding-small m-0  uk-text-left shadow-sm border" style="width: 100%;display: inline-block;">
+    <!-- <i class="material-icons uk-position-top-right bg-dark uk-border-circle uk-padding-xsmall"
+                style="color: white;font-size: 10px;">shopping_bag</i> -->
+    <div class="card-body" style="padding: 5px;">
+        <div class="col-csxx-x-14" style="font-size: 10px;">
+            <div class="col-csxx-x-14">
+                <p class="" style="font-weight: bold;font-size: 11px;"><span
+                        style="font-weight: bold;font-size: 11px;">Amount:</span> {{payment.currency}}
+                    {% if payment.formatted_amount %}
+                    {{payment.formatted_amount }}
+                    {% else %}
+                    {{payment.amount }}
+                    {% endif %}
+                </p>
+            </div>
+            <div class="col-csxx-x-14">
+                <p class="card-text" style="font-size: 10px;"><span
+                        style="font-weight: bold;font-size: 10px;">Months covered:</span>
+                        {% if payment.start_date.month == payment.end_date.month and payment.start_date.year == payment.end_date.year  %}
+                        {{payment.start_date|date:'M, Y'}}
+                        {% else %}
+                        {{payment.start_date|date:'M, Y'}} - {{payment.end_date|date:'M, Y'}}
+                        {% endif %}
+            </div>
+            <div class="col-csxx-x-14">
+                <p class="card-text" style="font-size: 10px;"><span
+                        style="font-weight: bold;font-size: 10px;">Date/Time:</span>
+                    {% if payment.date_time_added %}
+                    {{payment.date_time_added}}
+                    {% else %}
+                    {{payment.created_on}}
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endfor %}   
+</div>
+
+
+
+{% if payments.has_next %}
+<script>
+                  
+
+</script>
+<div id='load-more' style="" class="text-light text-center hide mt-0 position-relative" next-page="{{payments.next_page_number}}"> 
+    <div
+    class='ui active  loader loading m-0 uk-border-circle small uk-box-shadow-small uk-padding-small'>
+  </div> 
+    
+    <span
+        class="text-sm rounded-pill p-1 border pl-3 pr-3">
+         <b>Loading</b></span> 
+        </div>
+{% endif %}

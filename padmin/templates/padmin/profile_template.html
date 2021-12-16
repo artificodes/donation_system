@@ -1,0 +1,27 @@
+{% if partner.account_type_selected %}
+{% if partner.account_type == 'I' %}
+{%  include 'partners/individual_profile.html' %}
+{% elif partner.account_type == 'Cr'   %}
+{%  include 'partners/corporate_profile.html' %}
+
+{% elif partner.account_type == 'S'   %}
+{%  include 'partners/sponsor_profile.html' %}
+{% elif partner.account_type == 'C'   %}
+{%  include 'partners/couple_profile.html' %}
+{% endif %}
+<div class="card m-2  elevation-0 " style="box-shadow: none;">
+
+    <div class=" uk-text-center">
+        <a class="btn btn-info  rounded-pill  edit-profile-btn"
+            href="{% url 'admin_update_member_profile' userid=partner.member_no %}"
+            style="position: relative; ">
+            <li class="fa fa-user-edit"></li> Update
+    </a>
+
+    </div>
+
+</div>
+{% else %}
+{% include 'padmin/select_account_type.html' %}
+
+{% endif %}

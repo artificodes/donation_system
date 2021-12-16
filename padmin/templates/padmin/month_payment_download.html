@@ -1,0 +1,82 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+  <title>Document</title>
+
+  <style>
+      {% include 'static/argon/css/argon.css' %}
+      {% include 'static/custom/custom.min.css' %}
+  </style>
+</head>
+
+<body class="bg-white"
+  style="">
+  <div>
+   <span class="text-sm-right" style="font-size: 10px;">Generated: {% now "SHORT_DATETIME_FORMAT" %}</span>
+    
+  </div>
+
+  <div class="card bg-white m-1 mt-0 position-relative" style="box-shadow: none;">
+    <div class="card-body">
+
+      <div class="uk-text-center uk-padding-remove" style="width: 100px;">
+        <img src="{{logo}}" alt="" style="width: 100px;">
+      </div>
+    </div>
+  </div>
+
+
+<div class="card bg-white shadow-none">
+    <div class="card-header text-center text-uppercase">
+PAYMENTS FOR {{allObject.period}}
+    </div>
+   <div class="card-body">
+    <div class="table-responsive">
+        <!-- Projects table -->
+        <table class="table align-items-center table-flush">
+
+            <thead class="thead-light" style="border: none !important;">
+                <tr>
+                    <th >Partner</th>
+                    <th class="text-right">Amount</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for monthlypayment in allObject.monthlypayments %}
+                <tr id="{{hostedevent.eventid}}{{arrangement.pk}}" class="p-0" style="border: none !important;">
+                    <th class="p-1">
+                        {{monthlypayment.partner.user.last_name}} {{monthlypayment.partner.user.first_name}} ({{monthlypayment.partner.userid}})
+                    </th>
+                    <td class="p-1 text-right">
+                        {{monthlypayment.formatted_amount}}
+                    </td>
+                    
+                </tr>
+
+                {% endfor %}
+                <tr id="{{hostedevent.eventid}}{{arrangement.pk}}" class="p-0">
+                    <th class="p-1">
+                       TOTAL
+                    </th>
+                    <td class="p-1 text-right">
+                        {{allObject.monthlypaymentstotal}}
+                    </td>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>  
+   
+</div>
+
+</body>
+</html>

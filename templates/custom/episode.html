@@ -1,0 +1,267 @@
+{% autoescape off %}
+{% load static %}
+
+
+
+
+<div
+  class="col-cmd-7 col-cmd-offset-4-e col-csl-offset-4 col-csm-offset-3 col-cmd-l-9 col-cmd-xl-10-e col-csm-8 col-csl-6 col-css-14 col-csx-14 col-csxx-14 col-csxx-x-14 uk-padding-small "
+  style="margin-top: 0px;padding: 10px;">
+
+  <div class='col-csxx-x-14 uk-border-rounded ' style="">
+    <div
+      class="col-csxx-x-14   uk-padding-small uk-border-rounded uk-box-shadow-small uk-text-center"
+      style="background-color: steelblue;">
+      <div class="heading uk-text-left col-csxx-x-12 ">
+
+        <h5 class="" style="color: white;font-family: Impact;"> <span class="fa fa-book fa-c-medium uk-icon-button sm-w"
+            style="background-color: black;"></span> {{episode.story.title}}</h5>
+      </div>
+      <div class="uk-padding-small uk-text-center col-csxx-x-2" >
+        <h5 class="display-6" style='text-align:center;width: max-content;color: white;'>Episode {{episode.episode}}</h5>
+
+      </div>
+
+      <div class="heading uk-text-left col-csxx-x-14 ">
+
+        <h5 class="" style="color: white;font-family: Impact, "><span class="fas fa-book-open fas-c-medium uk-icon-button sm-w"
+          style="background-color: black;"></span>   {{episode.title}}</h5>
+      </div>
+      <div class="heading uk-text-left col-csxx-x-14 ">
+
+        <h5 class="" style="color: white;font-family: Impact, "><span class="fas fa-lightbulb fas-c-medium uk-icon-button sm-w"
+          style="background-color: black;"></span>  {{episode.insight}} </h5>
+      </div>
+
+    </div>
+
+
+    <div uk-slider id="scene-container-outer"
+      class="dark-mode col-csxx-x-14 uk-padding-remove-horizontal uk-padding-large uk-border-rounded"
+      style="margin: 0;position: relative;padding-bottom: 50px;">
+      <ul class="scene uk-slider-items uk-grid-small scene-container">
+        {% for scene in scenes %}
+        <li
+          class="scene col-cmd-14 col-csx-14  col-csxx-14 col-csl-14 col-csm-14 col-css-14 col-csxx-x-14 col-csxx-xx-14 uk-padding-small">
+          <div class="col-cmd-14 scene">
+            <div class="scene jumbotron uk-margin-remove uk-padding-remove"
+              style="margin-top: 0;background-color:transparent;position: relative;">
+              <div class="uk-padding-small scene">
+                <em class="display-6" style="font-weight: bold;">Scene {{scene.scene}}</em>
+                <h3 class="display-6 uk-padding-small" style='text-align:center;font-weight:bold'>{{scene.title}}</h3>
+
+                <p class="">{{scene.content}}</p>
+
+              </div>
+
+            </div>
+          </div>
+        </li>
+
+
+        {% endfor %}
+      </ul>
+
+      <a href="#" class=" uk-icon-button uk-position-bottom-left elevation-1" uk-slider-item='previous'
+        style="background: turquoise;left: 30px;bottom: 30px;">
+        <span class="fas fa-chevron-left uk-position-center" style="color:white !important"></span>
+      </a>
+
+
+
+      <a href="#" class="uk-icon-button uk-position-bottom-right elevation-1" uk-slider-item='next'
+        style="right: 30px; bottom: 30px; display: block !important; background: turquoise;">
+        <span class="fas fa-chevron-right uk-position-center" style="color:white !important"></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-csxx-x-14">
+
+
+    <div class="col-csxx-x-14 uk-padding-small">
+
+      <!--
+    <div class="uk-padding-remove col-cmd-3-e col-cmd-l-2 col-cmd-xl-2-e col-csl-2 col-csm-2 col-css-2 col-csx-3 col-csxx-3 col-csxx-x-3 col-csxx-xx-3 ">
+      <a  class="uk-icon-button col-csxx-xx-14" href="javascript:void(0);" data-page="1" style="width: 80%;position: relative;">
+        <span  class="uk-text-center fa fa-thumbs-up medium col-csxx-xx-7 uk-position-center-left" style="left: 5px;"></span>
+        <span class=" col-csxx-xx-7 uk-text-center uk-position-center-right" style="right: 5px;font: 10px;font-weight: bold;">{{count}}</span>
+        </a>
+    </div>
+
+    <div class="uk-padding-remove col-cmd-3-e col-cmd-l-2 col-cmd-xl-2-e col-csl-2 col-csm-2 col-css-2 col-csx-3 col-csxx-3 col-csxx-x-3 col-csxx-xx-3 ">
+      <a  class="uk-icon-button col-csxx-xx-14" href="javascript:void(0);" data-page="1" style="width: 80%;position: relative;">
+        <span  class="uk-text-center fa fa-thumbs-down medium col-csxx-xx-7 uk-position-center-left" style="left: 5px;"></span>
+        <span class="col-csxx-xx-7 uk-text-center uk-position-center-right" style="right: 5px;font: 10px;font-weight: bold;">{{count}}</span>
+        </a>
+    </div>
+  -->
+
+      <div class=" uk-padding-remove col-cmd-2 col-csl-2 col-csm-2 col-css-2 col-csx-3 col-csxx-4 col-csxx-x-7 "
+        style="position: relative;">
+        <a onclick="showCommentBox('loadcomments','commentbox',)" id="loadcomments"
+          class="uk-icon-button col-csxx-xx-14 more-comments" href="javascript:void(0);" data-page="1"
+          style="width: 80%;position: relative;">
+          <span class="uk-text-center fa fa-comments medium col-csxx-xx-7 uk-position-center-left"
+            style="left: 5px;"></span>
+          <span class="col-csxx-xx-7 uk-text-center uk-position-center-right"
+            style="right: 5px;font: 10px;font-weight: bold;">{{count}}</span>
+        </a>
+      </div>
+
+
+      <div class="uk-inline  col-cmd-2 col-csl-2 col-csm-2 col-css-2 col-csx-3 col-csxx-4 col-csxx-x-7 ">
+        <button class="uk-button   uk-button-default uk-border-circle elevation-1"
+          onclick="document.getElementById('storyreaction').style.animationName='uk-fade';document.getElementById('storyreaction').style.animationDuration='2s';"
+          type="button"
+          style="border: none; padding:0;height: 35px;width: 35px;background-image: linear-gradient(to right, rgb({{color.primary_rgb}}), rgb({{color.primary_rgba}}));margin: 0px;">
+          <span class="fa fa-share medium" style="color: white;"></span>
+        </button>
+        <div uk-dropdown="pos:bottom-justify;mode:click" id="storyreaction"
+          class="uk-padding-small uk-border-rounded uk-box-shadow-small uk-padding-remove-horizontal uk-text-center"
+          style='padding-left: 10px;min-width:max-content;max-width: max-content;z-index: 2;'>
+          <ul class="uk-nav uk-dropdown-nav " style="display: flex;">
+            <!--<li class=" uk-padding-small uk-text-center " style="padding-left: 5px;padding-right: 5px;">
+          <a href="#" class="fa fa-users fa-1x fa-c-medium" uk-tooltip='Create Room'>
+          </a>
+      
+        </li>-->
+            <li class="  uk-padding-small uk-text-center" style="padding-left: 5px;padding-right: 5px;">
+              <a contenturl="{% url 'readstory' storyid=episode.story.story_id %}" class="facebookshare"
+                uk-icon='icon:facebook' style='fill:blue' uk-tooltip='share on facebook'>
+              </a>
+
+            </li>
+            <li class=" uk-padding-small uk-text-center " style="padding-left: 5px;padding-right: 5px;">
+              <a target="_blank"
+                onclick="window.location='https://wa.me/?text=/'+encodeURIComponent(window.location.href)"
+                data-original-title="whatsapp" rel="tooltip" uk-tooltip='share on whatsapp' data-placement="left"
+                data-action="share/whatsapp/share" uk-icon='icon:whatsapp' style="fill: green;">
+              </a>
+
+
+            </li>
+            <li class=" uk-padding-small uk-text-center " style="padding-left: 5px;padding-right: 5px;">
+              <a uk-icon='icon:copy' class="copybtn"
+                data-clipboard-text="{% url 'readstory' storyid=episode.story.story_id %}" uk-tooltip='copy'>
+              </a>
+
+
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+      <!--
+    <div class="uk-inline col-cmd-2-e col-cmd-l-2-e col-cmd-xl-1 col-csl-2 col-csm-2 col-css-2 col-csx-3 col-csxx-3 col-csxx-x-3 col-csxx-xx-3" >
+      <button  class="uk-button   uk-button-default uk-border-circle elevation-1" onclick="document.getElementById('storyreaction').style.animationName='uk-fade';document.getElementById('storyreaction').style.animationDuration='2s';" type="button"  style="border: none; padding:0;height: 35px;width: 35px;background-image: linear-gradient(to right, rgb({{color.primary_rgb}}), rgb({{color.primary_rgba}}));margin: 0px;">
+      <span class="fa fa-ellipsis-h medium" style="color: white;"></span>
+      </button>
+      <div uk-dropdown="pos:top-justify;mode:click" id="storyreaction" class="uk-padding-small uk-border-rounded elevation-1" style='padding-left: 10px;min-width: max-content;max-width: max-content;z-index: 0;'>
+          <ul class="uk-nav uk-dropdown-nav " style="display: flex;">
+              <li class=" uk-padding-small uk-text-center" style="padding-left: 5px;padding-right: 5px;">
+                <a href="#" class="fa fa-info-circle fa-1x fa-c-large">
+                </a>
+                <span>Report</span>
+              </li>
+              
+              <li class=" uk-padding-small uk-text-center" style="padding-left: 5px;padding-right: 5px;"> 
+                <a href="#" class="fa fa-heart fa-1x fa-c-large">
+                </a>
+                <span>Add to Favorite</span>
+              </li>
+                </ul>
+                   
+      </div>
+    </div>-->
+
+
+    </div>
+  </div>
+
+</div>
+<!-- 
+    <div class="row uk-border-rounded col-cmd-14 ">
+      {% for scene in scenes %}
+      <div class="jumbotron uk-border-rounded uk-padding-large uk-padding-remove-horizontal uk-padding-remove-top" style="margin-top: 0;background-color:rgb(253, 253, 253);position: relative;">
+        <div class="uk-padding-small "> 
+          <em class="display-6">{{scene.scene}}</em>
+        <h3 class="display-6" style='text-align:center;font-weight:bold'>{{scene.title}}</h3>
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+        <hr class="my-4">
+        <p>{{scene.content}}</p>
+
+      </div>
+        
+      <div class="uk-inline uk-position-bottom-right" >
+        <button onclick="document.getElementById('storyreaction').style.animationName='uk-fade';document.getElementById('storyreaction').style.animationDuration='2s';" class="uk-button uk-button-default  uk-border-circle elevation-1" type="button"  style="border: none; padding:0;height: 35px;width: 35px;background-image: linear-gradient(to right, rgb({{color.primary_rgb}}), rgb({{color.primary_rgba}}));margin: 20px;">
+          <span class="uk-position-center fa fa-ellipsis-h medium" style="color: white !important;"></span>
+        </button>
+        <div uk-dropdown="pos:top-justify;mode:click" id="storyreaction" class="uk-padding-small uk-border-rounded elevation-1 uk-padding-remove-horizontal" style='padding-left: 10px;min-width: max-content;max-width: max-content;z-index: 0;'>
+            <ul class="uk-nav uk-dropdown-nav ">
+                <li class=" uk-padding-small " style="padding-left: 5px;padding-right: 5px;">
+                  <a href="#" class="fa fa-heart fa-1x medium">
+                  </a>
+                </li>
+                <li class="  uk-padding-small" style="padding-left: 5px;padding-right: 5px;">
+                  <a href="#" class="fa fa-thumbs-up fa-1x medium">
+                  </a>
+                </li>
+                <li class=" uk-padding-small uk-padding-remove-right " style="padding-left: 5px;padding-right: 5px;"> 
+                  <a href="#" class="fa fa-share fa-1x medium">
+                  </a>
+                </li>
+                  </ul>
+        </div>
+      </div>  
+      
+      
+      {% if scenes.has_other_pages %}
+
+      <ul class="pagination pagination-lg uk-position-bottom-left">
+        {% if scenes.has_previous %}
+
+        <li class="page-item">
+          <a class="uk-border-rounded elevation-1 fa fa-chevron-left" 
+          href="?scene={{ scenes.previous_page_number }}" style="border-radius: 50%;padding: 8px;height: 30px;width: 30px;background-color: blue;color: white;"
+            tabindex="-1"></a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="uk-border-rounded fa fa-chevron-left disabled" tabindex="-1" style="border-radius: 50%;padding: 8px;height: 30px;width: 30px;background-color: silver;color: white;"></a>
+        </li>
+        {% endif %}
+
+        {% if scenes.has_next %}
+        <li class="page-item" style='float:right'>
+          <a class="uk-border-circle elevation-1 fa fa-chevron-right"
+            href="?scene={{ scenes.next_page_number }}" style="border-radius: 50%;padding: 8px;height: 30px;width: 30px;background-color: blue;color: white;"></a>
+        </li>
+        {% else %}
+        <li class="page-item disabled" style='float:right'>
+          <a class="uk-border-rounded disabled elevation-1 fa fa-chevron-right" href="#" style="border-radius: 50%;padding: 8px;height: 30px;width: 30px;background-color: silver;color: white;"></a>
+        </li>
+        {% endif %}
+      </ul>
+     /.pagination
+      {% endif %}
+ 
+      
+     </div>
+     <div class="col-xs-12 uk-text-center">
+        <a  href="javascript:void(0);" data-page="1">
+          <span class="fa fa-comment fa-c-large"></span></a>
+      </div>
+      {% endfor %}
+      {% endautoescape %}
+
+
+    </div>
+</div>
+
+  You can add more icons at //fontawesome.io/icons/#brand -->

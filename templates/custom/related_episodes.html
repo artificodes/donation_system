@@ -1,0 +1,94 @@
+
+  {% if relatedepisodes %}
+  <div uk-slider class="uk-align-center trending recent trending uk-text-center" id="activity"
+    style="margin: 0;width: 100%;display: inline-block; position: relative;">
+    <ul class="uk-slider-items uk-grid-small" style="text-align:center;">
+      {% for episode in relatedepisodes %}
+      {% if episode in readepisodes %}
+      <li
+        class="col-cmd-2-e col-csx-1 col-csxx-2  col-csl-2 col-csm-3 col-css-1 col-csxx-x-3-e "
+        style="padding: 2px;display: flex;">
+        <span class="fa fa-eye uk-position-top-center" style="z-index: 1; color: white;"></span>
+        <div class="card story col-cmd-14" style="height: 50px !important;">
+          <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+          <div class="card-img-overlay story uk-align-center"
+            onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+            <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+            <div class="bottom-text col-cmd-14 uk-position-center" style="padding: 1px;top: 30% ;">
+              <!--<h5 class="card-title">{{episode.title}}</h5>-->
+              <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+
+
+      {% elif episode.episode == 1 %}
+      <li
+        class="col-cmd-2-e col-csx-1 col-csxx-2  col-csl-2 col-csm-3 col-css-1 col-csxx-x-3-e "
+        style="padding: 2px;display: flex;">
+        <span class="fa fa-play-circle uk-position-top-center" style="z-index: 1; color: white;"></span>
+
+        <div class="card story col-cmd-14" style="height: 50px !important;">
+          <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+          <div class="card-img-overlay story uk-align-center"
+            onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+            <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+            <div class="bottom-text col-cmd-14 uk-position-center" style="padding: 1px;top: 30% ;">
+              <!--<h5 class="card-title">{{episode.title}}</h5>-->
+              <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+
+
+      {% elif episode in nextepisodes %}
+      <li
+        class="col-cmd-2-e col-csx-1 col-csxx-2  col-csl-2 col-csm-3 col-css-1 col-csxx-x-3-e "
+        style="padding: 2px;display: flex;">
+        <span class="fa fa-play-circle uk-position-top-center" style="z-index: 1; color: white;"></span>
+
+        <div class="card story col-cmd-14" style="height: 50px !important;">
+          <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+          <div class="card-img-overlay story uk-align-center"
+            onclick='window.location = "{% url 'readepisode' slug=episode.story.slug episodeid=episode.episode_id %}"'>
+            <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+            <div class="bottom-text col-cmd-14 uk-position-center" style="padding: 1px;top: 30% ;">
+              <!--<h5 class="card-title">{{episode.title}}</h5>-->
+              <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      {% else %}
+      <li
+        class="col-cmd-2-e col-csx-1 col-csxx-2  col-csl-2 col-csm-3 col-css-1 col-csxx-x-3-e  "
+        style="padding: 2px;display: flex;">
+        <div class="card story col-cmd-14" style="height: 50px !important;">
+          <!--<img class="card-img story" src="{{episode.image.url}}" alt="">-->
+          <div class="card-img-overlay story uk-align-center">
+            <!--<a href="#"><span class='fa fa-heart heart'></span></a>-->
+            <div class="bottom-text col-cmd-14 uk-position-center" style="padding: 1px;top: 30% ;">
+              <!--<h5 class="card-title">{{episode.title}}</h5>-->
+              <p class="card-text" style="text-align: center;font-weight: bold;">{{episode.episode}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endif %}
+      {% endfor %}
+
+
+    </ul>
+
+  </div>
+  {% else %}
+  <h3 class="display-6" style="margin-bottom: 0px;">Episodes</h3>
+  <em class="display-6" style="margin-bottom: 0px;">No Episodes Yet</em>
+  {% endif %}

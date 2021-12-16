@@ -1,0 +1,212 @@
+{% extends "base/abase.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class=" text-center mt-1">
+
+    <div class="card m-0 bg-white shadow-none rounded-0 text-center uk-display-inline-block"
+        style="width: 100%;">
+        <div class="uk-border-circle bg-transparent mt-2 uk-display-inline-block text-center overflow-hidden p-1 border position-relative"
+            style="height: 80px;width: 80px;border: 4px solid white;">
+            {% if partner.photo %}
+            <img src="{{partner.photo.url}}" alt="" style="width: 100%;display: inline-block;height: 100%;"
+                class="rounded-circle">
+            {% else %}
+            <span class="text-dark uk-position-center h1" style="font-size: 30px;">
+                {{partner.first_name.0}}
+            </span>
+            {% endif %}
+        </div>
+        <div class="card-body text-center text-dark ">
+          <p>{{visits}} Visits</p>
+            <div class="uk-padding-small " style="font-weight: bold;">
+                {% if partner.account_type == 'I' %}
+                {% if partner.gender == 'M' %}
+                Mr.
+                {% elif partner.gender == 'F' %}
+                {% if partner.marital_status == 'S' %} Miss {% else %} Mrs. {% endif %}
+                {% endif %}
+                {{partner.last_name}} {{partner.first_name}}
+
+                {% elif partner.account_type == 'Cr' %}
+                {{partner.last_name}} {{partner.first_name}}
+
+                {% elif partner.account_type == 'S' %}
+                {{partner.last_name}} {{partner.first_name}}
+                {% elif partner.account_type == 'C' %}
+                Mr. & Mrs. {{partner.last_name}}
+                {% endif %}
+            </div>
+
+            <div class="uk-text-center mt-3">
+                <a href="{% url 'admin_member_profile' userid=partner.member_no %}"
+                    class="main-content-redirect btn btn-outline-info rounded-pill p-2 pr-3 pl-3 btn-sm m-0">View profile</a>
+                <button onclick="requestContentModal('{% url 'admin_make_payment' userid=partner.member_no %}','get')"
+                    class="main-content-redirect btn btn-outline-primary p-2 pr-3 pl-3 rounded-pill m-0 btn-sm">Pay now</button>
+                    <!-- <button onclick="requestContentModal('{% url 'admin_create_payment_lite' userid=partner.member_no %}','get')"
+                    class="main-content-redirect btn btn-outline-darker p-2 pr-3 pl-3 rounded-pill m-0 btn-sm">Create payment</button> -->
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="mt-1 bg-white p-2">
+    <div class=" pl-3 pr-3 bg-gradient-secondary uk-text-center text-darker uk-text-bold rounded-pill p-1 border-0"
+    style="width: max-content;">
+   Payments overview
+  </div>
+  <div class="card-body position-relative p-2 " style="min-height: 100px;">
+
+  <div class="mt-2 p-2" id="members_payments_analysis">
+
+    <div
+      class='ui active uk-position-center loader loading m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+    </div>
+    <p class="uk-text-bold mt-7 text-sm">Loading payment overview. Kindly wait</p>
+
+  </div>
+  </div>
+
+</div>
+<div class="mt-1 bg-white p-2 position-relative" style="min-height: 150px;" id="payments">
+    {% if partner.payment_synced %}
+    <div class="uk-position-center mt--5 p-3 text-center">
+        <div
+        class='ui active  loader loading m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+      </div>      
+      <p class="uk-text-bold mt-7 text-sm">Loading payments. Kindly wait</p>
+    
+        </div>
+            {% else %}
+    <div class="uk-position-center mt--5 p-3 text-center">
+    <div
+    class='ui active  loader loading m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+  </div>      
+  <p class="uk-text-bold mt-7 text-sm">Updating payment records. This might take some minutes. Kindly wait</p>
+
+    </div>
+ 
+    {% endif %}
+</div>
+<div class="fixed-bottom text-center">
+    <div class="uk-flex-inline p-2">
+        <div class="p-1">  <a href="{% url 'admin_member_profile' userid=partner.member_no %}" 
+            class="m-0 pt-1 pb-1 pl-2 pr-2 rounded-pill main-content-redirect btn btn-info">View
+        profile</a></div>
+        <div class="p-1">
+    <button onclick="requestContentModal('{% url 'admin_make_payment' userid=partner.member_no %}','get')"
+        class="main-content-redirect btn btn-danger m-0 pt-1 pb-1 pl-2 pr-2 rounded-pill ">Pay now</button>
+        </div>
+        <div class="p-1"> <button onclick="requestContentModal('{% url 'admin_create_payment_lite' userid=partner.member_no %}','get')"
+        class="main-content-redirect btn btn-primary m-0 pt-1 pb-1 pl-2 pr-2 rounded-pill">Add payment</button>     
+        </div>  
+    </div>
+
+</div>
+<script>
+    jQuery(document).ready(function () {
+             $.ajax({
+               beforeSend: function () {
+     
+               },
+               complete: function () {
+               },
+               type: 'get',
+               url: '{% url 'admin_partner_all_payments' userid=partner.member_no %}',
+               data: {
+                 'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+               },
+               success: function (response) {
+
+                 if (response.content) {
+                   $('#payments').empty()
+   
+                   $('#payments').append(response.content);
+                 }
+       
+     
+               },
+               error: function (xhr, status, error) {
+               //   alert('there was an error')
+               }
+             });
+           })
+
+
+           jQuery(document).ready(function () {
+          $.ajax({
+            beforeSend: function () {
+  
+            },
+            complete: function () {
+            },
+            type: 'get',
+            url: '{% url 'admin_members_payments_analysis' userid=partner.member_no %}',
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              // if there are still more pages to load,
+              // add 1 to the "Load More Posts" link's page data attribute
+              // else hide the link
+              // append html to the posts div
+              //$('.uk-modal-header-title').empty()
+  
+              //$('.uk-modal-header-title').append(link.attr('inner-html'));
+              if (response.content) {
+                $('#members_payments_analysis').empty()
+
+                $('#members_payments_analysis').append(response.content);
+              }
+    
+  
+            },
+            error: function (xhr, status, error) {
+            //   alert('there was an error')
+            }
+          });
+        });
+    
+    </script> 
+
+<script>
+  $(window).on('scroll', function () {
+          $('#load-more').removeClass('hide')
+          if ($('#load-more').visible()) {
+      if ($('#load-more').attr('next-page')) {
+          
+          
+              $.ajax({
+                  beforeSend: function () {
+                          $('#load-more').remove()
+
+                  },
+                  complete: function () {
+
+                  },
+                  type: 'get',
+                  url: '{% url 'partner_recent_remittances' userid=partner.member_no %}',
+                  data: {
+                      'csrfmiddlewaretoken': window.CSRF_TOKEN,
+                      'page': $('#load-more').attr('next-page') // from index.html
+                  },
+                  success: function (response) {
+
+                      if (response.content) {
+                          $('#recent_remittances').append(response.content)
+
+                      }
+                  },
+                  error: function (xhr, status, error) {
+                      alert('there was an error')
+                  }
+              });
+          }
+
+    }
+  })
+
+</script>
+{% endblock content %}
+

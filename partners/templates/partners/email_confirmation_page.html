@@ -1,0 +1,115 @@
+{% extends "base/ubase.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class=" overflow-hidden mt-1">
+
+    <div class="card card-login uk-animation-slide-top shadow-none m-0 rounded-0">
+        <div class="card-body text-center p-2">
+            <div class="uk-text-lead uk-text-bold text-darker mb-2">
+                Unverified Email!
+            </div>
+            <p class="uk-text bg-secondary p-3 text-darker rounded-md">
+
+                You are seeing this page because you have not verified your email address.
+                Kindly check your email <b>({{request.user.email}})</b> for verification code sent to you.
+                
+            </p>
+            <p>Didn't get the code? Click the button below
+                to get another verification code
+</p>
+            <button class="btn btn-warning" 
+                onclick="requestContentModal('{% url 'resend_activation_code' %}','get')">Resend Code</button>
+        <form class="form" id="account-activate-form" method="POST" action="{% url 'activate_account' %}">
+
+            {% csrf_token %}
+            <input type="hidden" name="next" id="" value="{{next}}">
+            <div class="activate-form-inner">
+                <div class="uk-inline text-center mt-5" style="width: max-content;">
+
+                    <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-user"></i></span> -->
+                    <input class="uk-input form-control uk-display-inline-block p-3 password  rounded-md position-relative "
+                        style="z-index: 2;max-width: 300px;min-width: 250px" id="activation_code" type="text" name="activation_code" required>
+                    <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 c-label"
+                        style="z-index: 1;font-size: 12px;">
+                        Activation code
+                    </span>
+                </div>
+                
+
+            </div>
+            <div class="mt-2 text-center">
+                <button class="btn btn-primary" type="submit" >Submit</button>
+            </div>
+        </form>
+        </div>
+
+
+
+    </div>
+</div>
+
+
+
+
+<script>
+
+    $("#account-activate-form").submit(function (event) {
+        event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+        $.ajax({
+            beforeSend: function () {
+
+                showLoadingBar()
+            },
+            complete: function () {
+
+            },
+            url: post_url,
+            type: request_method,
+            data: form_data,
+            contentType: false,
+            cache: false,
+            processData: false,
+
+            success: function (response) {
+                if (response.invalid_code) {
+
+                    $('.code-alert').remove()
+                    $('.activate-form-inner').append('<div class="uk-text-danger code-alert  uk-animation-fade p-1 uk-text-center text-sm uk-text-bold">Invalid Code entered</div>')
+                    hideLoadingBar()
+
+                }
+
+                else if (response.activated) {
+                    hideLoadingBar()
+                    if (response.modal_message) {
+                        messageModal(response.modal_message)
+
+                    }
+                    if (response.modal_notification) {
+                        notificationModal(response.modal_notification)
+
+                    }
+                    window.location = response.next_url
+                }
+
+
+            },
+
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+
+
+</script>
+
+{% endblock content %}

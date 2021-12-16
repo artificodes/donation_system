@@ -1,0 +1,283 @@
+<div class='uk-text-center uk-margin-xlarge-top'>
+    <div style="display:inline-block">
+        <ul class="nav nav-pills nav-pills-primary">
+            <li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab"
+                    style="font-family: arial black;border-radius: 0;">UPCOMING EVENTS</a></li>
+            <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab"
+                    style="font-family: arial black;border-radius: 0;">PAST EVENTS</a></li>
+        </ul>
+
+    </div>
+    <div class="uk-divider-small uk-margin-remove"></div>
+
+    <div class="tab-content tab-space uk-padding-remove-bottom">
+        <div class="tab-pane active" id="pill1">
+            {% if upcomingevents %}
+            <div class="uk-position-relative uk-visible-toggle uk-light" style="" tabindex="-1"
+                uk-slider="ratio: false;animation:scale;autoplay:true;autoplay-interval: 6000;pause-on-hover: true">
+
+                <ul class="uk-slider-items">
+                    {% for event in upcomingevents %}
+                    <li class="col-cmd-4-e col-csxx-12 col-csx-10 col-css-7 col-csm-5-e uk-padding-small ">
+
+                        <div class="input-group uk-position-top-center uk-text-primary card-header {% cycle 'card-header-primary' 'bg-rose' %} uk-padding-small"
+                            style="opacity: 0.8;font-size: 10px;font-weight: bold;z-index: 2;cursor:default;">
+
+                            <div class=" uk-padding-small " style="width: max-content;">
+                                <div id="days{{event.eventid}}">
+
+                                </div>
+
+                                <div>
+                                    DAY(S)
+                                </div>
+                            </div>
+                            <div class="uk-divider-vertical uk-margin-remove" style="height: 40px;"></div>
+                            <div class=" uk-padding-small " style="width: max-content;">
+                                <div id="hours{{event.eventid}}">
+
+                                </div>
+
+                                <div>
+                                    HOUR(S)
+                                </div>
+                            </div>
+                            <div class="uk-divider-vertical uk-margin-remove" style="height: 40px;"></div>
+
+                            <div class=" uk-padding-small" style=" width: max-content;">
+                                <div id="minutes{{event.eventid}}">
+
+                                </div>
+
+                                <div>
+                                    MIN(S)
+                                </div>
+                            </div>
+                            <div class="uk-divider-vertical uk-margin-remove" style="height: 40px;"></div>
+                            <div class=" uk-padding-small" style=" width: max-content;">
+                                <div id="seconds{{event.eventid}}">
+
+                                </div>
+
+                                <div>
+                                    SEC(S)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card uk-box-shadow-medium uk-margin-remove-left uk-margin-remove-right"
+                            style="overflow: hidden;">
+
+                            <img src="{{event.thumbnail.url}}" alt="" class="card-image scale-up-card "
+                                style="min-height: 150px;max-height:150px;">
+
+
+                            <div class="bg-primary uk-padding-medium uk-text-center"
+                                style="color: white;font-weight: bold;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                {{event.title}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text" style="">{{event.short_description|truncatechars:100}}</p>
+                            </div>
+                            <div class="card-footer uk-text-center container-fluid" style="display: inline-block;">
+                                <a href=""
+                                    target="_blank" class="btn btn-outline-primary btn-round btn-block"
+                                    style="width: max-content;display: inline-block;border-radius: 0;">
+                                    <i class="material-icons">add</i> More
+                                    <!-- on {{event.title|truncatechars:10}} -->
+                                </a>
+                                {% if event.registration_required %}
+                                <a href="{% url 'account_login' %}"
+                                    target="_blank" class="btn {% cycle 'btn-rose' 'bg-primary' %} btn-round btn-block"
+                                    style="width: max-content;display: inline-block;border-radius: 0;"
+                                    uk-tooltip="To attend this event, attendees are required to be registered">
+                                    <i class="material-icons">app_registration</i> REGISTER
+                                    <!-- on {{event.title|truncatechars:10}} -->
+                                </a>
+                                {% endif %}
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+                <a class=" uk-position-center-left uk-position-small uk-hidden-hover uk-border-circle btn-rose btn"
+                    href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-border-circle bg-primary"
+                    href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+            </div>
+            {% else %}
+
+                <p class="uk-text-bold uk-text-danger">
+                    No upcoming Events
+                </p>
+            {% endif %}
+        </div>
+        <div class="tab-pane" id="pill2">
+            <div class="uk-position-relative uk-visible-toggle uk-light" style="" tabindex="-1"
+                uk-slider="ratio: false;animation:scale;autoplay:true;autoplay-interval: 6000;pause-on-hover: true">
+
+                <ul class="uk-slider-items">
+                    {% for event in pastevents %}
+                    <li class="col-cmd-4-e col-csxx-12 col-csx-10 col-css-7 col-csm-5-e uk-padding-small">
+                        <div class="card uk-box-shadow-medium uk-margin-remove-left uk-margin-remove-right ">
+
+
+
+                            <img src="{{event.thumbnail.url}}" alt="" class="card-image scale-up-card"
+                                style="min-height: 150px;max-height:150px;">
+                            <div class="bg-primary uk-padding-medium uk-text-center"
+                                style="color: white;font-weight: bold;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                {{event.title}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text" style="">{{event.short_description|truncatechars:100}}</p>
+                            </div>
+                            <div class="card-footer uk-text-center container-fluid" style="display: inline-block;">
+                                <a href=""
+                                    target="_blank" class="btn btn-outline-primary btn-round btn-block"
+                                    style="width: max-content;display: inline-block;border-radius: 0;">
+                                    <i class="material-icons">add</i> More
+                                    <!-- on {{event.title|truncatechars:10}} -->
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+                <a class=" uk-position-center-left uk-position-small uk-hidden-hover uk-border-circle btn-rose btn"
+                    href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-border-circle bg-primary"
+                    href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    {% for event in upcomingevents %}
+    $(function () 
+    {
+        var suspension_days = (Number({{ event.start_time_timestamp }}) - Number({{ server_timestamp }})) /(86400)
+    var suspension_seconds = Math.ceil(suspension_days * 24 * 60 * 60)
+    var suspension_minutes = Math.ceil(suspension_seconds / 60)
+    var total_remaining_days = suspension_minutes / 60 / 24
+    var remain_days = total_remaining_days | 0
+    var total_remaining_hours = (suspension_minutes / 60) % 24
+    var remain_hours = (total_remaining_hours | 0)
+    var total_remaining_minutes = (total_remaining_hours - remain_hours) * 60
+    var remain_minutes = (total_remaining_minutes) | 0
+    var remain_seconds = Math.round((total_remaining_minutes - remain_minutes) * 60)
+    // if (remain_minutes < 1) {
+    //     $('#briefly-suspended-message{{event.eventid}}').html('Your account is briefly suspended. Kindly wait for ' + remain_seconds + ' seconds.')
+
+    // }
+    // else {
+    //     $('#briefly-suspended-message{{event.eventid}}').html('Your account is briefly suspended. Kindly wait for ' + remain_days + ' days ' + remain_hours + ' hours ' + remain_minutes + ' minutes and ' + remain_seconds + ' seconds.')
+
+    // }
+
+    function updateTime() {
+
+        if (remain_seconds >= 1) {
+            remain_seconds--
+            $('#days{{event.eventid}}').html(remain_days)
+            $('#hours{{event.eventid}}').html(remain_hours)
+            $('#minutes{{event.eventid}}').html(remain_minutes)
+            $('#seconds{{event.eventid}}').html(remain_seconds)
+
+        }
+        else {
+            remain_seconds = 60
+            remain_minutes--
+            $('#days{{event.eventid}}').html(remain_days)
+            $('#hours{{event.eventid}}').html(remain_hours)
+            $('#minutes{{event.eventid}}').html(remain_minutes)
+            $('#seconds{{event.eventid}}').html(remain_seconds)
+            if (remain_minutes >= 1) { }
+            else {
+                remain_hours--
+                remain_minutes = 60
+
+                $('#days{{event.eventid}}').html(remain_days)
+                $('#hours{{event.eventid}}').html(remain_hours)
+                $('#minutes{{event.eventid}}').html(remain_minutes)
+                $('#seconds{{event.eventid}}').html(remain_seconds)
+                if (remain_hours >= 1) {
+                    $('#days{{event.eventid}}').html(remain_days)
+                    $('#hours{{event.eventid}}').html(remain_hours)
+                    $('#minutes{{event.eventid}}').html(remain_minutes)
+                    $('#seconds{{event.eventid}}').html(remain_seconds)
+                }
+                else {
+                    if (remain_days < 1) {
+                        $('#days{{event.eventid}}').html(remain_days)
+                        $('#hours{{event.eventid}}').html(remain_hours)
+                        $('#minutes{{event.eventid}}').html(remain_minutes)
+                        $('#seconds{{event.eventid}}').html(remain_seconds)
+                    }
+                    else {
+                        remain_days--
+                        remain_hours = 23
+                    }
+
+                    $('#days{{event.eventid}}').html(remain_days)
+                    $('#hours{{event.eventid}}').html(remain_hours)
+                    $('#minutes{{event.eventid}}').html(remain_minutes)
+                    $('#seconds{{event.eventid}}').html(remain_seconds)
+                }
+            }
+        }
+        // else{
+        //     $('#days{{event.eventid}}').html(remain_days)
+        // $('#hours{{event.eventid}}').html(remain_hours)
+        // $('#minutes{{event.eventid}}').html(remain_minutes)
+        // $('#seconds{{event.eventid}}').html(remain_seconds)
+        // }
+
+    }
+    setInterval(updateTime, 1000)
+
+    // $('#{{event.eventid}}').countdowntimer({
+    //     seconds: 300 - suspension_seconds,
+    //     size: "lg",
+    //     displayFormat: 'DHMS',
+
+    // });
+
+});
+    {% endfor %}
+
+    {
+        (function ($) { //Most read async
+            $('.scale-up-card').on('mouseout', function () {
+
+                var card = $(this)
+                card.removeClass('uk-animation-kenburns')
+
+            })
+        }(jQuery))
+    };
+
+    {
+        (function ($) { //Most read async
+            $('.scale-up-card').on('mouseover', function () {
+
+                var card = $(this)
+                card.addClass('uk-animation-kenburns')
+
+            })
+        }(jQuery))
+    };
+</script>

@@ -1,0 +1,125 @@
+<div class="col-md-12   uk-padding-small uk-text-left"
+  style='padding-top:50px;background-color: white;'>
+  <div class="col-md-12 " style="padding: 0;">
+    <h2 class="display-6" style="">Stories of The Month</h2>
+    <div class="container-fluid recent" id="activity">
+      <div class='col-md-12 uk-text-center' style='margin-top:40px;'>
+        <div uk-slider style="padding-left: 0;padding-right: 0;">
+          <ul class="uk-slider-items" style="text-align:center;">
+            {% for episode in episodes %}
+            <li class="col-md-3 col-sm-6 col-xs-12" style="margin: 10px;padding: 0;">
+              <div
+                class="col-md-12 col-sm-6 fh5co-recent-work uk-box-shadow-small uk-padding-remove-horizontal uk-text-center uk-border-rounded"
+                style='padding-top:0px;background-color: white;padding-bottom: 0;'>
+
+                <div class="container-fluid recent trending" id="activity" >
+
+
+                  <div class=" col-md-12 col-xs-12 trending" style="text-align: center;padding: 0px;">
+
+
+                    <!--<div class="jumbotron linked col-md-4 col-sm-4 col-xs-4" style="padding-bottom: 0;background-color: rgb({{color.primary_rgb}});">
+                        <h4 class="display-6" style='text-align:center;color: white;'>{{trendingstory.title}}</h4>
+                        <div class="" style="width: 100%;">
+                          <img class="card-img-top" src="{{trendingstory.image_64}}" alt="Card image cap" style='width:100%'
+                            onmouseover="void">
+                          <div class="card-body">
+                              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                            <p class="lead"><em> "{{trendingstory.insight}}"</em></p></p>
+                            <hr class="my-4">
+                          </div>
+                        </div>
+                      </div>-->
+
+                    <div class="card story trending col-xs-12" style="height: 180px;">
+                      <img class="card-img story" src="{{trendingstory.image_64}}" alt="">
+                      <div class="card-img-overlay story"
+                        onclick='window.location = "{% url 'readstory' slug=trendingstory.slug %}"'> <a href="#"><span
+                            class='fa fa-heart heart'></span></a>
+                        <div class="bottom-text uk-position-center">
+                          <h5 class="card-title">{{trendingstory.title}}</h5>
+                          <p class="card-text">{{trendingstory.insight}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class=" col-xs-12" style="padding: 2px;border-radius: 0;padding: 0;">
+                      <div class="uk-padding-small uk-padding-remove-horizontal uk-text-left uk-border-rounded"
+                        style="margin: 0px;box-sizing: border-box;">
+                        <div class="blogpost-footer-actions" style="padding:5px;">
+                          <div class="blogpost-footer-actions-left">
+                            <span class="fas fa-book"></span> 4
+                             <span class="fas fa-book-reader"></span> 2
+                          </div>
+                          <div class="blogpost-footer-actions-right">
+                            <a href="#"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+                            <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                          </div>
+                        </div>
+
+                        <div class="blogpost-footer-author-section col-xs-12" style="display: inline-block;">
+
+                          <div class="col-xs-12" style="padding:10px;">
+                            <div class="blogpost-footer-author uk-align-center" style="text-align: center !important;">
+                              <img class="avatar" src="{{trendingstory.image_64}}" alt="" />
+                             
+                                <span class="author" style="margin-right: 20px;">Bill Murray</span><a href="#" class="hollow button success" style="margin:5px;margin-bottom:0;margin-top: 0;">Follow</a>
+
+                              
+                          </div>
+                          <p class="card-text" style="font-weight: bold;">Insight</p>
+
+                          <p class="card-text" style="margin: 0;">{{trendingstory.about|truncatechars:100}}</p>
+                          </div>
+                          
+
+                        </div>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+
+                  <!--
+      
+                        <div class="jumbotron linked" style="min-width: 200px; padding-bottom: 0;">
+                          <h4 class="display-6" style='text-align:center'>{{trendingstory.title}}</h4>
+                          <div class="" style="width: 100%;">
+                            <img class="card-img-top" src="{{trendingstory.image_64}}" alt="Card image cap" style='width:100%'
+                              onmouseover="void">
+                            <div class="card-body">
+                              <!--   <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <p class="lead"><em> "{{trendingstory.insight}}"</em></p>
+                              <hr class="my-4">
+                            </div>
+                          </div>
+                        </div>-->
+                </div>
+              </div>
+
+            </li>
+            {% endfor %}
+          </ul>
+
+          <a class="uk-position-center-left uk-position-small  fas fa-book-open slider-dot slider-dot-left" href="#"
+            uk-slider-item="previous" style="left: -10px;"></a>
+          <a class="uk-position-center-right uk-position-small  fas fa-book-open slide-dot slider-dot-right" href="#"
+            uk-slider-item="next" style="right: -10px;"></a>
+          <!--   <div class="card story trending" style="float: left;width: 50%;min-width: 100%;"> <img class="card-img story"
+            src="{{trendingstory.image_64}}" alt="">
+          <div class="card-img-overlay story"
+            onclick='window.location = "{% url 'readstory' slug=trendingstory.slug %}"'> <a href="#"><span
+                class='fas fa-ad'></span></a>
+            <div class="bottom-text">
+              <h5 class="card-title">{{trendingstory.title}}</h5>
+              <p class="card-text">{{trendingstory.insight}}</p>
+            </div>
+          </div>
+        </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div style="width: 100%;">
+    <div class="uk-margin-small-top" style=" display: flex;flex-wrap: wrap;justify-content: center;min-width: 100%;">
+
+        {% if pastevents %}
+
+                {% for event in pastevents %}
+                <div class="col-cmd-5-e col-csxx-12 col-csx-10 col-css-7 col-csm-5-e uk-padding-small ">
+<div class="card card uk-box-shadow-medium ">
+<div class="card-body uk-padding-remove">
+
+                    <div class="uk-margin-remove-left uk-margin-remove-right"
+                        style="overflow: hidden;">
+
+                        <img src="{{event.thumbnail.url}}" alt="" class="card-image scale-up-card "
+                            style="min-height: 150px;max-height:200px;width: 100%;">
+
+
+                        <div class="bg-primary uk-padding-medium uk-text-center"
+                            style="color: white;font-weight: bold;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                            {{event.title}}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" style="">{{event.short_description|truncatechars:100}}</p>
+                        </div>
+                        <div class="card-footer uk-text-center container-fluid" style="display: inline-block;">
+                            <a href=""
+                                target="_blank" class="btn btn-outline-primary btn-round btn-block"
+                                style="width: max-content;display: inline-block;border-radius: 0;">
+                                <i class="material-icons">add</i> More
+                                <!-- on {{event.title|truncatechars:10}} -->
+                            </a>
+                        </div>
+
+                    </div>
+</div>
+</div>
+                  
+
+                </div>
+
+                {% endfor %}
+
+           
+
+     
+        {% else %}
+
+            <p class="uk-text-bold uk-text-danger">
+                No Past Events
+            </p>
+        {% endif %}
+    </div>
+</div>
+

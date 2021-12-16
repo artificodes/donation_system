@@ -1,0 +1,198 @@
+{% extends "base/abase.html" %}
+{% load static %}
+{% block content %}
+
+<!-- 
+<div class="uk-border-circle bg-indigo uk-position-top-center"
+    style="height: 70px;width: 70px;margin-top: -20px;border: 4px solid white;">
+    <i class="fa fa-user-cog uk-position-center" style="color: white;">
+    </i>
+
+</div> -->
+
+<div class="p-0 mt-1 uk-animation-slide-top uk-display-inline-block col-csxx-14 uk-text-center" id=""
+    style="box-shadow: none;float: none;">
+
+    <div class="card card-login uk-padding-small shadow-none" id="other_support">
+
+        <form id="accounttypeform" class="form" method="POST" action="{% url 'admin_select_account_type' userid=partner.member_no %}"
+            style=" min-height: max-content; max-height: max-content;">
+
+            {% csrf_token %}
+
+            <div class="card-body">
+
+                <div class="card uk-margin-small-top shadow-none">
+
+                    <div class="card-body uk-margin-large-bottom">
+                        <p class="h1">Select Account Type</p>
+
+
+                        <div class="uk-padding-small uk-margin-small-top">
+
+                            <div class="input-group uk-margin-remove-vertical">
+                                <div class="input-group uk-margin-remove-vertical">
+                                    <div class="form-check uk-width-1-1@s form-check-radio uk-margin-remove card  m-1 shadow-lg border rounded-pill"
+                                        style="">
+                                        <label class="form-check-label p-2 text-left">
+                                            <input class="form-check-input" type="radio" name="accounttype"
+                                                id="individual" value="I" required 
+                                                {% if partner.account_type == 'I' %} checked {% endif %}>
+                                            <div class="ml-1">INDIVIDUAL</div>
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+                                        </label>
+                                        <span class="uk-position-center-right uk-padding-small"
+                                            uk-tooltip="This is a type of account that is owned and controlled by a single person. "><i
+                                                class="fa fa-info-circle"></i></span>
+                                    </div>
+
+                                </div>
+                                <div class="input-group uk-margin-remove-vertical">
+                                    <div class="form-check  uk-width-1-1@s form-check-radio  uk-margin-remove card  m-1 shadow-lg border rounded-pill"
+                                        style="">
+                                        <label class="form-check-label p-2 text-left">
+                                            <input class="form-check-input" type="radio" name="accounttype"
+                                                id="corporate" value="Cr" 
+                                                {% if partner.account_type == 'Cr' %} checked {% endif %} required>
+                                            <div class="ml-1">CORPORATE</div>
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+
+
+                                        </label>
+                                        <span class="uk-position-center-right uk-padding-small"
+                                            uk-tooltip="This is a type of account that is owned and controlled by a corporate institution"><i
+                                                class="fa fa-info-circle"></i></span>
+                                    </div>
+
+                                </div>
+                                <div class="input-group uk-margin-remove-vertical">
+                                    <div class="form-check  uk-width-1-1@s form-check-radio uk-margin-remove card  m-1 shadow-lg border rounded-pill"
+                                        style="">
+                                        <label class="form-check-label p-2 text-left">
+                                            <input class="form-check-input" type="radio" name="accounttype" id="copule"
+                                                value="C" required 
+                                                {% if partner.account_type == 'C' %} checked {% endif %}>
+                                            <div class="ml-1">COUPLE</div>
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+
+                                        </label>
+                                        <span class="uk-position-center-right uk-padding-small"
+                                            uk-tooltip="This is a type of account that is owned and controlled by both husband and wife."><i
+                                                class="fa fa-info-circle"></i></span>
+                                    </div>
+
+                                </div>
+                                <div class="input-group uk-margin-remove-vertical">
+                                    <div class="form-check  uk-width-1-1@s form-check-radio uk-margin-remove card  m-1 shadow-lg border rounded-pill"
+                                        style="">
+                                        <label class="form-check-label p-2 text-left">
+
+                                            <input class="form-check-input" type="radio" name="accounttype" id="sponsor"
+                                                value="S" 
+                                                {% if partner.account_type == 'S' %} checked {% endif %} required>
+                                            <div class="ml-1">SPONSOR</div>
+                                            <span class="circle">
+                                                <span class="check"></span>
+                                            </span>
+
+
+                                        </label>
+                                        <span class="uk-position-center-right uk-padding-small"
+                                            uk-tooltip="This type of account is for partners who single handedly sponsor Moment of Truth in their preferred TV/Radio stations. They either pay directly to the stations or through dominion partners account."><i
+                                                class="fa fa-info-circle"></i></span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+                        <div class="uk-text-center">
+                            <button class="btn btn-primary rounded-pill " type="submit">Proceed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+</div>
+
+<script>
+    {
+        (function ($) { //Most read async
+            $('.form-check.form-check-radio').on('click', function () {
+                $('.form-check.form-check-radio').attr('style', 'background-color:white !important;color:black !important')
+                $('.form-check.form-check-radio').removeClass('uk-animation-fade')
+                $(this).attr('style', 'background-color:rgb(5, 51, 94) !important;color:white !important')
+                $(this).addClass('uk-animation-fade')
+
+            });
+        }(jQuery))
+    };
+
+    $("#accounttypeform").submit(function (event) {
+        // event.preventDefault(); //prevent default action 
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = new FormData(this); //Creates new FormData object
+       
+        $.ajax({
+            beforeSend: function () {
+
+              $('#loader-cover').show()
+            },
+            complete: function () {
+
+            },
+            type: 'post',
+            url: link.attr('contenturl'),
+            data: {
+              'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+            },
+            success: function (response) {
+              // if there are still more pages to load,
+              // add 1 to the "Load More Posts" link's page data attribute
+              // else hide the link
+              // append html to the posts div
+              //$('.uk-modal-header-title').empty()
+
+              //$('.uk-modal-header-title').append(link.attr('inner-html'));
+              if (response.content) {
+                window.location - '#top'
+                $('#tab-header').empty()
+                $('#tab-header').append(response.header);
+                $('#inner-container').empty();
+                $('#inner-container').append(response.content);
+                $('#loader-cover').hide()
+              }
+
+              if (response.message) {
+                $('#notification-modal-inner').empty()
+                $('#notification-modal-inner').append(response.message)
+                $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+                UIkit.modal($('#notification-modal')).show();
+              }
+
+
+            },
+          });
+         });
+
+    $('.ui.dropdown').dropdown()
+
+
+</script>
+
+{% endblock content %}

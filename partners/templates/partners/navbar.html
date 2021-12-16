@@ -1,0 +1,46 @@
+<div class="page-header header-filter header-small" data-parallax="true"
+  style="border-bottom-left-radius: 20px;border-bottom-right-radius: 20px;overflow: hidden; background-image: url('http://localhost:8000{{settings.primary_image.url}}');">
+  <div class="container">
+
+      <div class="uk-margin-medium-top uk-text-large uk-text-bold uk-text-center">
+        Dues Balance: 22,000,000.00
+      </div>
+
+  </div>
+
+</div>
+
+
+<div class="container-fluid uk-margin-remove uk-text-center fixed-top" style="display: inline-block;">
+  <button class="uk-position-top-left uk-padding-small btn bg-primary uk-margin-small-right uk-padding-remove uk-border-circle  " type="button"
+  uk-toggle="target: #offcanvas-nav-primary"
+  style="box-shadow: none;width: 40px;height: 40px;z-index: 2;position: fixed;top: 0;">
+  <i class="material-icons uk-text-bold" style="font-size: 25px;font-weight: bold;">menu</i></button>
+  <div class="uk-position-top-right uk-padding-small">
+    <button class="btn bg-primary uk-margin-small-right uk-margin-remove-top  uk-border-circle uk-padding-remove"
+      type="button" uk-toggle="target: #offcanvas-nav-secondary" style="box-shadow: none;width: 40px;height: 40px;"
+      uk-tooltip='Notifications'>
+
+      <i class="bullhorn large {% if unreadnotifications %} loading {% endif %} icon"></i>
+      <!-- <i class="material-icons uk-text-bold" style="font-size: 25px;font-weight: bold;">notifications</i></button> -->
+
+      <button class="btn bg-primary uk-margin-small-right uk-margin-remove-top uk-border-circle uk-padding-remove"
+        style="box-shadow: none;width: 40px;height: 40px;" type="button">
+        <i class="material-icons uk-text-bold" style="font-size: 25px;font-weight: bold;">account_circle</i></button>
+      <div uk-dropdown="mode:click" class="uk-padding-medium uk-border-rounded"
+        style="min-width: max-content; max-width: max-content;">
+        <ul class="uk-nav uk-dropdown-nav">
+          <!-- <li class="uk-nav-header">Account</li> -->
+          <li class="uk-active"><a href="#">Profile</a></li>
+          <li><a href="#">Settings</a></li>
+          <!-- <li class="uk-nav-header">Header</li>
+                <li><a href="#">Item</a></li>
+                <li><a href="#">Item</a></li> -->
+          <li class="uk-nav-divider"></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </div>
+  </div>
+
+</div>
+

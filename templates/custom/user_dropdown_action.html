@@ -1,0 +1,14 @@
+
+ 
+<div uk-dropdown='mode: click; pos: bottom-justify;' class="uk-text-left elevation-1 uk-border-rounded uk-padding-small" style="width: min-content;min-width: min-content;">
+    <ul class="uk-nav uk-dropdown-nav">
+
+        <li><a href=""><span class="fa fa-user"></span>  Profile </a></li>
+        <li class="uk-nav-divider"></li>
+{% if user.is_active %}
+        <li><a href="{% url 'account_logout' %}"><span class="fa fa-power-off"></span>  Sign out</a></li>
+        {% else %}
+        <li><a href="{% url 'account_login' %}"><span class="fa fa-power-off"></span>  Sign In</a></li>
+{% endif %}
+    </ul>
+</div>

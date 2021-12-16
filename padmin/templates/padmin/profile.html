@@ -1,0 +1,205 @@
+{% extends "base/abase.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="mt-1">
+
+
+<div class="p-1 bg-white uk-animation-slide-top  uk-display-inline-block col-csxx-14 uk-text-center" id=""
+    style="">
+
+    <div class="" style="overflow: hidden;">
+        <div class="uk-margin-remove uk-animation-slide-left uk-text-left {{animation}}">
+            <div class="card uk-margin-remove shadow-lg" style="">
+                <!-- <div class="card-header card-header-primary" style="box-shadow: none;">
+            Profile
+        </div> -->
+                <div class="card-body p-2" id="dynamic-container">
+                {% include 'padmin/profile_template.html' %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>   
+</div>
+
+
+
+
+
+
+
+<script>
+
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+
+
+    $(".edit-pin-btn").on('click', function (event) {
+        UIkit.modal($('#pin-reset-modal')).show();
+    });
+
+
+
+    $("#verify-bvn-btn").on('click', function (event) {
+        $('#main-content').empty()
+
+        var get_url = $(this).attr("contenturl"); //get form action url
+        $.ajax({
+            beforeSend: function () {
+
+                $('#main-content').append(inline_loader_small_center);
+
+
+            },
+            complete: function () {
+                $('#main-content').children('.loading').remove()
+            },
+            url: get_url,
+            success: function (response) {
+                $('#main-content').empty()
+
+
+                //UIkit.modal($('#edit-profile-modal')).show();
+                $('#main-content').append(response.content)
+
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+
+    $("#forgotten-pin-btn").on('click', function (event) {
+        $('#main-content').empty()
+
+        var get_url = $(this).attr("contenturl"); //get form action url
+        $.ajax({
+            beforeSend: function () {
+
+                $('#main-content').append(inline_loader_small_center);
+
+
+            },
+            complete: function () {
+                $('#main-content').children('.loading').remove()
+            },
+            url: get_url,
+            success: function (response) {
+                $('#main-content').empty()
+
+
+                //UIkit.modal($('#edit-profile-modal')).show();
+                $('#main-content').append(response.content)
+
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+
+
+
+
+    $("#compromised-pin-btn").on('click', function (event) {
+        $('#main-content').empty()
+
+        var get_url = $(this).attr("contenturl"); //get form action url
+        $.ajax({
+            beforeSend: function () {
+
+                $('#main-content').append(inline_loader_small_center);
+
+
+            },
+            complete: function () {
+                $('#main-content').children('.loading').remove()
+            },
+            url: get_url,
+            success: function (response) {
+                $('#main-content').empty()
+
+
+                //UIkit.modal($('#edit-profile-modal')).show();
+                $('#main-content').append(response.content)
+
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+</script>
+
+<script>
+
+    {
+        (function ($) { //Most read async
+            $('.edit-content-btn').on('click', function (event) {
+                event.preventDefault();
+                var link = $(this);
+                $.ajax({
+                    beforeSend: function () {
+
+                        $('#loader-cover').show()
+                    },
+                    complete: function () {
+                    },
+                    type: 'get',
+                    url: link.attr('contenturl'),
+                    data: {
+                        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                    },
+                    success: function (response) {
+                        // if there are still more pages to load,
+                        // add 1 to the "Load More Posts" link's page data attribute
+                        // else hide the link
+                        // append html to the posts div
+                        //$('.uk-modal-header-title').empty()
+
+                        //$('.uk-modal-header-title').append(link.attr('inner-html'));
+                        if (response.content) {
+                            window.location = '#top'
+                            $('#tab-header').empty()
+                            $('#tab-header').append(response.header);
+                            $('#inner-container').empty();
+                            $('#inner-container').append(response.content);
+                            $('#loader-cover').hide()
+                        }
+
+                        if (response.message) {
+                            $('#notification-modal-inner').empty()
+                            $('#notification-modal-inner').append(response.message)
+                            $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+                            UIkit.modal($('#notification-modal')).show();
+                        }
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        alert('there was an error')
+                    }
+                });
+            });
+        }(jQuery))
+    };
+
+
+</script>
+
+{% endblock content %}

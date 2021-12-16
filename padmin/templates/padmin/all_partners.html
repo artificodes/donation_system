@@ -1,0 +1,43 @@
+{% for partner in partners %}
+<tr class="" id="{{partner.member_no}}" data="{{partner.last_name}} {{partner.first_name}} {{partner.email_addres}}  {{partner.phone_no}}">
+  <td class="p-0">
+      <a href="{% url 'admin_member_page' userid=partner.member_no %}" class="btn btn-white col-csxx-x-14 shadow-none p-0">
+          <div class="card uk-padding-small m-0  uk-text-left shadow-none rounded-0 bg-transparent border-bottom"
+        style="width: 100%;display: inline-block;">
+        <!-- <i class="material-icons uk-position-top-right bg-dark uk-border-circle uk-padding-xsmall"
+            style="color: white;font-size: 12px;">shopping_bag</i> -->
+        <div class="card-body" style="padding: 5px;">
+            <div class="" style="font-size: 12px;">
+                <div class="col-csxx-x-14  col-cmd-5-e">
+                    <p class="" style="font-weight: bold;font-size: 14px;">
+                        {{partner.last_name}} {{partner.first_name}}</p>
+                </div>
+                <div class="col-csxx-x-14  col-cmd-5-e">
+                    <p class="card-text" style="font-size: 12px;"><i class="fa fa-envelope mr-1"></i>
+                            {{partner.email_addres}} </p>
+
+                </div>
+                <div class="col-csxx-x-14  col-cmd-3-e">
+                    <p class="card-text" style="font-size: 12px;"><i class="fa fa-phone mr-1"></i>
+                            {{partner.phone_no}} </p>
+
+                </div>
+                
+
+            </div>
+
+        </div>
+        <!-- <div class=" uk-position-top-right pr-3 pt-1">
+            <a class="rounded-circle p-1 uk-position-relative " 
+             >
+              <i class="icon plus circle uk-position-center uk-margin-remove text-dark"></i>
+            </a>
+          </div> -->
+    </div> </a>
+       
+  </td>
+  
+
+
+</tr>
+{% endfor %}

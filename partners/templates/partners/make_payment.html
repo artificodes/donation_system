@@ -1,0 +1,311 @@
+{% load static %}
+<div class="nav-tabs-navigation p-0">
+  <div class="nav-tabs-wrapper text-center bg-white">
+    <ul class="nav nav-pills nav-pills-info m-0 text-center row">
+      <li class="nav-item  m-0 p-1 uk-display-inline-block col">
+        <a class="nav-link active custom inner-tab-content-btn rounded-pill shadow-none p-2 uk-width-1-1 pl-2 pr-2 uk-text-bold"
+          style="font-weight: bold;" href="#online_payment" data-toggle="tab"><i class="fa fa-credit-card mr-1">
+          </i>Online</a>
+      </li>
+      <li class="nav-item  m-0 p-0 p-1 col">
+        <a class="nav-link rounded-pill custom inner-tab-content-btn shadow-none p-2 pl-2 uk-width-1-1 pr-2 uk-text-bold"
+          style="font-weight: bold;" href="#offline_payment" data-toggle="tab">
+          Offline</a>
+      </li>
+     
+    </ul>
+  </div>
+
+</div>
+<div class="tab-content tab-space pb-0">
+  <div class="tab-pane active slide uk-animation-slide-left " id="online_payment">
+    <div class="p-0 mt-1 bg-white load-content position-relative overflow-hidden slide uk-animation-slide-left-small"
+      style="min-height: 100px;">
+
+      <div class="card-body uk-width-1-1@s uk-text-left">
+
+        <form role="form" id='makepayment' enctype="multipart/form-data" class="form uk-padding-small" method="POST"
+          action="">
+          {% csrf_token %}
+          <div class="row-grid">
+            <div class="uk-inline mt-0" style="width: 100%;">
+
+              <span class="uk-position-center-left ml-2" style="z-index: 3;width: max-content;">
+                <select name="currency" id="currency_id"
+                  class="form-control bg-white border-0 p-0" required
+                  style="border: none !important;height: max-content; width: max-content;background-color: white !important;">
+                  <option value=''>Currency</option>
+                  {% for currency in currencies %}
+                  <option value='{{currency.id}}'>{{currency.symbol}}</option>
+                {% endfor %}
+                </select></span>
+              <input class="uk-input form-control pt-3 pb-3 pl-7  rounded-md position-relative " style="z-index: 2;"
+                id="amount" type="number" name="amount" required>
+
+              <span class=" uk-position-center-left rounded-sm pr-1 ml-8 pl-1 c-label"
+                style="z-index: 1;font-size: 12px;">
+                Amount
+              </span>
+            </div>
+            <div class="card m-0 shadow-none">
+              <div class="card-header uk-text-bold row m-0 p-2">
+
+                <div class="col p-0">Period Covered</div>
+              </div>
+              <div class="card-body p-2">
+                <div class="form-group mb-3 text-left">
+                  <div class="custom-control custom-radio custom-control-inline hide-custom-dates">
+                    <input class="custom-control-input" type="radio" name="period" id="period1" value="current" checked
+                      required>
+                    <label class="custom-control-label text-capitalize "
+                      for="period1">{{partner.contribution_frequency}}
+                      (Current Plan)
+                    </label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline show-custom-dates">
+                    <input class="custom-control-input" type="radio" name="period" id="period2" value="custom" required>
+                    <label class="custom-control-label " for="period2">Custom</label>
+                  </div>
+                </div>
+                <div class=" custom-dates hide">
+                  <div class="input-group p-2">
+
+                    <span class=" uk-position-top-left bg-white rounded-sm p-1 ml-3 mt--2 text-sm" style="z-index: 4;">
+                      Covers from
+                    </span>
+
+                    <input type="date" class="form-control position-relative" name="start_date" id="id_start_date"
+                      required placeholder="Payment covers from" autofocus="autofocus" value="2000-01-01"
+                      style="min-width: 100%;">
+
+                  </div>
+                  <div class="input-group p-2">
+
+                    <span class=" uk-position-top-left bg-white rounded-sm p-1 ml-3 mt--2 text-sm" style="z-index: 4;">
+                      Covers to
+                    </span>
+
+                    <input type="date" class="form-control position-relative" name="end_date" id="id_start_date"
+                      required placeholder="Payment covers to" autofocus="autofocus" value="2000-01-01"
+                      style="min-width: 100%;">
+
+                  </div>
+
+                </div>
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+
+
+          <div class="text-center">
+
+
+            <button type="submit" class="btn btn-primary my-4 payment-form-submit">Pay now</button>
+
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+  <div class="tab-pane slide uk-animation-slide-left " id="offline_payment">
+    <div class="nav-tabs-navigation p-0">
+      <div class="nav-tabs-wrapper text-center bg-white">
+        <ul class="nav nav-pills nav-pills-info m-0 text-center row">
+         
+          <li class="nav-item  m-0 p-0 p-1 col">
+            <a class="nav-link active rounded-pill custom inner-tab-content-btn shadow-none p-2 pl-2 uk-width-1-1 pr-2 uk-text-bold"
+              style="font-weight: bold;" href="#naira_payment" data-toggle="tab"> <span>₦</span>
+              Naira details</a>
+          </li>
+          <li class="nav-item  m-0 p-1 uk-display-inline-block col">
+            <a class="nav-link custom inner-tab-content-btn rounded-pill shadow-none p-2 uk-width-1-1 pl-2 pr-2 uk-text-bold"
+              style="font-weight: bold;" href="#dollar_payment" data-toggle="tab"><i class="fa fa-credit-card mr-1">
+              </i>Dollar details</a>
+          </li>
+        </ul>
+      </div>
+    
+    </div>
+    <div class="tab-content tab-space pb-0">
+      <div class="tab-pane slide uk-animation-slide-right active" id="naira_payment">
+
+        <div class="p-0 mt-1 bg-white position-relative overflow-hidden text-left slide uk-animation-slide-right"
+          style="min-height: 100px;">
+    
+    
+          <p class="h2 text-darker">NAIRA TRANSACTION</p>
+    
+        <p> To make an offline donation, make a bank transfer of to the following account below:</p> 
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">Payment</span>
+          <p class="p-2 m-0"> Dominion Partners </p>
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">Wema Bank </span>
+          <p class="p-2 m-0"> 0122619869 </p>
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">Polaris Bank </span>
+          <p class="p-2 m-0">1770064505 </p>
+        </div>
+      </div>
+      <div class="tab-pane slide uk-animation-slide-right" id="dollar_payment">
+    
+        <div class="p-0 mt-1 bg-white position-relative overflow-hidden text-left slide uk-animation-slide-right"
+          style="min-height: 100px;">
+    
+    
+          <p class="h2 text-darker">USD TRANSACTION</p>
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">BENEFICIARY’S NAME</span>
+          <p class="p-2 m-0">THE CITADEL GLOBAL COMMUNITY CHURCH</p>
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">  BENEFICIARY’S ACCT NUMBER </span>
+          <p class="p-2 m-0">0620146542</p>  
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">BENEFICIARY BANK’S NAME </span>
+          <p class="p-2 m-0"> WEMA BANK PLC, LAGOS, NIGERIA</p>
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">INTERMEDIARY BANK’S NAME </span>
+          <p class="p-2 m-0"> STANDARD CHARTERED BANK, NEW YORK 1095, AVENUE OF THE AMERICAS NEW YORK, NY10036 </p>
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3"> WEMA BANK SWIFT CODE </span> 
+          <p class="p-2 m-0">WEMANGLA</p>
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">  FED WIRE NO </span>
+          <p class="p-2 m-0"> 026 002 561 </p>
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">  INTERMEDIARY BANK SWIFT </span>
+          <p class="p-2 m-0">  SCBLUS33 </p>
+    
+          <span class="rounded-md bg-lighter text-darker p-1 pl-2 pr-2 h3">WEMA BANK’S ACCOUNT NUMBER WITH INTERMEDIARY </span>
+          <p class="p-2 m-0"> 3582- 026198- 003 </p>
+    
+    
+    
+        </div>
+      </div> 
+    </div>
+
+  </div>
+
+</div>
+
+
+<script src="{% static 'base/tinymce/jquery.tinymce.min.js' %}"></script>
+<script src="{% static 'base/tinymce/tinymce.min.js' %}"></script>
+<script>
+  $('.ui.dropdown').dropdown()
+  {
+    (function ($) {
+      $('.show-custom-dates').on('click', function (event) {
+        $('.custom-dates').show()
+      })
+    }(jQuery))
+  }
+  {
+    (function ($) {
+      $('.hide-custom-dates').on('click', function (event) {
+        $('.custom-dates').hide()
+      })
+    }(jQuery))
+  }
+
+
+
+  var submit = false
+  var action = ''
+  {
+    (function ($) {
+      $('.payment-form-submit').on('click', function (event) {
+        button = $(this)
+        action = button.attr('action')
+      })
+    }(jQuery))
+  }
+  // $('#makepayment').djValidator({ mode: 'submit', success: () => { submit = true } })
+
+  function isEleven($field) {
+    value = $field.val();
+    if (value.length == 11) {
+      if (isNaN(value)) { return false }
+      else { return true }
+    }
+    else {
+      return false;
+    }
+  }
+
+  function isNotEmpty($field) {
+    value = $field.val();
+    if (value.length > 15) {
+      return true
+    }
+    else {
+      return false;
+    }
+  }
+</script>
+<script>
+
+  $("#makepayment").submit(function (event) {
+    event.preventDefault(); //prevent default action 
+    // tinymceIframe = $('#full_description_ifr')
+    // tinymceContent = tinymceIframe.contents().find("body#tinymce").html()
+    // $('textarea#full_description').val(tinymceContent)
+    var post_url = '{% url 'partner_make_payment' %}'//get form action url
+    var request_method = $(this).attr("method"); //get form GET/POST method
+    var form_data = new FormData(this); //Creates new FormData object
+
+    $.ajax({
+      beforeSend: function () {
+        UIkit.modal($('#content-modal')).hide();
+        showLoadingBar()
+      },
+      complete: function () {
+        hideLoadingBar()
+      },
+      url: post_url,
+      type: request_method,
+      data: form_data,
+      contentType: false,
+      cache: false,
+      processData: false,
+
+      success: function (response) {
+
+        if (response.pay) {
+          makePayment(response.amount, response.paymentid, response.currency,)
+        }
+        if (response.modal_message) {
+          messageModal(response.modal_message, response.heading)
+
+        }
+        if (response.modal_notification) {
+          notificationModal(response.modal_notification)
+
+        }
+
+        if (response.modal_content) {
+          contentModal(response.modal_content, response.heading)
+
+        }
+        if (response.message) {
+          UIkit.notification.closeAll()
+          UIkit.notification(response.message)
+        }
+      },
+      error: function (xhr, status, error) {
+        UIkit.notification.closeAll()
+        UIkit.notification('Not sent. Check your internet connection',)
+      }
+    });
+
+
+  });
+
+</script>

@@ -1,0 +1,78 @@
+<div class="bg-secondary p-2 text-left text-darker mb-3">
+    <div class="">
+        <i class="fa fa-plus-circle " style=""></i>
+        <span class="p-1">
+            Other Details
+        </span>
+    </div>
+</div>
+<div class="p-1">
+    <div class="form-group mb-3 text-left">
+        <p class=" "> Are you a member of Citadel Global Community Church?</p>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" name="cgcc" id="cgcc1" value="yes" required 
+            {% if partner.is_cgcc_member %} checked {% endif %}>
+            <label class="custom-control-label " for="cgcc1">Yes</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+            <input class="custom-control-input" type="radio" name="cgcc" id="cgcc2" value="no" required 
+            {% if partner.is_cgcc_member %} {% else %} checked {% endif %}>
+            <label class="custom-control-label " for="cgcc2">No</label>
+        </div>
+    </div>
+
+    <div class="form-group mb-3">
+        <div class="input-group input-group-merge input-group-alternative border rounded-md p-1 shadow-sm border 
+        rounded-md p-1 shadow-sm">
+            <div class="input-group-prepend">
+
+                <span class=" input-group-text">
+                    Contribution Frequency:
+                </span>
+            </div>
+            <div class="col-csxx-x-14">
+                <select class="ui fluid dropdown" data-style="btn btn-link" name="contribution_frequency"
+                    id="contribution_frequency" class="form-control" required>
+                    <option value="{{partner.contribution_frequency}}" selected="selected">
+                        {% if partner.contribution_frequency %}
+                        {{partner.contribution_frequency}} {% else %} select {% endif %} </option>
+                    <option value='monthly'>Monthly</option>
+                    <option value='quarterly'>Quarterly</option>
+
+                    <option value='yearly'>Yearly</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="uk-inline mt-4" style="width: 100%;">
+        <input class="uk-input form-control p-3 password  rounded-md position-relative " style="z-index: 2;"
+            id="Contribution" type="text" name="contribution" value="{{partner.contribution}}" required>
+        <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label" style="z-index: 1;font-size: 12px;">
+            Contribution amount
+        </span>
+    </div>
+    <div class="uk-inline mt-4" style="width: 100%;">
+        <div
+            class="input-group input-group-merge input-group-alternative border rounded-md p-1 shadow-sm border rounded-md p-1 shadow-sm">
+            <div class="input-group-prepend">
+                <span class="input-group-text text-dark">
+                    Currency:
+            </div>
+
+            <div class="col-csxx-x-14">
+                <select class="ui fluid dropdown" data-style="btn btn-link" name="currency" id="currency_id"
+                    class="form-control" required>
+                    <!-- <option value="{{partner.currency}}" selected="selected">
+                        {% if partner.currency %} {{partner.currency}} {% else %} select {% endif %}
+                    </option> -->
+                    <option value='NGN'>Naira (₦)</option>
+                    <option value='USD'>Dollar ($)</option>
+                    <option value='GBP'>Pounds (£)</option>
+                    <option value='EUR'>Euro (€)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>

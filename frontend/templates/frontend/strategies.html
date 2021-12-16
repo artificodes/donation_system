@@ -1,0 +1,79 @@
+<div class='uk-text-center uk-margin-xlarge-top'>
+    <div style="display:inline-block" class="uk-margin-large-top">
+        <ul class="nav nav-pills nav-pills-primary">
+            <li class="nav-item"><a class="nav-link active" href="#pill1" data-toggle="tab"
+                    style="font-family: arial black;border-radius: 0;">ARTICLES</a></li>
+            <li class="nav-item"><a class="nav-link" href="#pill2" data-toggle="tab"
+                    style="font-family: arial black;border-radius: 0;">VIDEOS</a></li>
+        </ul>
+    </div>
+    <div class="uk-divider-small uk-margin-remove"></div>
+
+    <div class="tab-content tab-space">
+        <div class="tab-pane active" id="pill1">
+            <div class="uk-position-relative uk-visible-toggle uk-light" style="" tabindex="-1"
+                uk-slider="ratio: false;animation:scale;autoplay:true;autoplay-interval: 6000;pause-on-hover: true">
+
+                <ul class="uk-slider-items">
+                    {% for article in articles %}
+                    <li class="col-cmd-4-e col-csxx-12 col-csx-10 col-css-7 col-csm-5-e uk-padding-small scale-up-card">
+                        <div class="card uk-box-shadow-medium " style="overflow: hidden;">
+                            <img src="{{article.thumbnail.url}}" alt="" class="card-image"
+                                style="min-height: 150px;max-height:150px;">
+                            <div class="bg-primary uk-padding-medium uk-text-center"
+                                style="color: white;font-weight: bold;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                                {{article.title}}
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text" style="">{{article.short_description|truncatechars:100}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://www.creative-tim.com/product/material-kit-pro?ref=presentation"
+                                    target="_blank" class="btn {% cycle 'btn-rose' 'bg-primary' %} btn-round btn-block">
+                                    <i class="material-icons">add</i> More on {{article.title|truncatechars:10}}
+                                </a>
+                            </div>
+                        </div>
+
+                    </li>
+                    {% endfor %}
+
+                </ul>
+
+                <a class=" uk-position-center-left uk-position-small uk-hidden-hover uk-border-circle btn-rose btn"
+                    href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-border-circle bg-primary"
+                    href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+            </div>
+        </div>
+        <div class="tab-pane" id="pill2">
+            <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" id="othervideos"
+                uk-slider="clsActivated: uk-transition-active;ratio: false;animation:scale;autoplay:true;autoplay-interval: 6000;pause-on-hover: true">
+
+                <ul class="uk-slider-items">
+                    {% for video in videos %}
+                    <li class="uk-padding-small video col-csxx-12 col-csx-10 col-css-7 col-csm-7 col-cmd-5-e" style="float: none;">
+
+                        <div class="demo" data-ytb-video="{{video.video_id}}" data-video-id='{{video.video_id}}'></div>
+
+                        <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom uk-padding-small"
+                            style="max-height: 50px;">
+                            <h5 class="uk-margin-remove">{{video.title}}</h5>
+                        </div>
+
+                    </li>
+                    {% endfor %}
+
+                </ul>
+
+                <a class=" uk-position-center-left uk-position-small uk-hidden-hover uk-border-circle btn-rose btn"
+                    href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-border-circle bg-primary"
+                    href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+            </div>
+        </div>
+    </div>
+</div>
+

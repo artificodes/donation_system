@@ -1,0 +1,105 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
+
+  <title>Document</title>
+
+  <style>
+      {% include 'static/argon/css/argon.css' %}
+      {% include 'static/custom/custom.min.css' %}
+
+  </style>
+</head>
+
+<body
+  style="" class="bg-white">
+  <div class="pl-3">
+    <span class="" style="font-size: 10px;">Generated: {% now "SHORT_DATETIME_FORMAT" %}</span>
+     
+   </div>
+  <div class="card bg-white m-1 mt-0" style="box-shadow: none;">
+    <div class="card-body">
+
+      <div class="uk-text-center uk-padding-remove" style="width: 100px;">
+        <img src="{{logo}}" alt="" style="width: 100px;">
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="card bg-white shadow-none">
+    <div class="card-header text-center text-uppercase">
+PAYMENTS FOR {{allObject.period}}
+    </div>
+  <div class="card-body">
+    <div class="table-responsive">
+        <!-- Projects table -->
+        <table class="table align-items-center table-flush">
+
+            <thead class="thead-light text-darker">
+                <tr>
+                    <th class="text-darker  ">Partner</th>
+                    <th class="text-darker  ">Month</th>
+                    <th class="text-darker  text-right">Amount</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for monthlypayment in allObject.monthlypayments %}
+                <tr id="" class="p-0 text-darker">
+                    <td class="p-1">
+                        {% if monthlypayment.partner.account_type == 'individual' %}
+                        {% if monthlypayment.partner.gender == 'male' %} 
+                        Mr.
+                        {% elif  monthlypayment.partner.gender == 'female'  %} 
+                        {% if monthlypayment.partner.marital_status == 'single' %} Miss {% else %} Mrs. {% endif %}
+                        {% endif %}
+                        {{monthlypayment.partner.full_name}}
+                        
+                        {% elif monthlypayment.partner.account_type == 'corporate'   %}
+                        {{monthlypayment.partner.company_name}}
+            
+                        {% elif monthlypayment.partner.account_type == 'sponsor'   %}
+                        {{monthlypayment.partner.full_name}}
+                        {% elif monthlypayment.partner.account_type == 'couple'   %}
+                        Mr. & Mrs. {{monthlypayment.partner.user.last_name}}
+                        {% else %}
+                        {{monthlypayment.partner.full_name}}
+                        {% endif %}                    
+                    </td>
+                    
+                    <td class="p-1">
+                        {{monthlypayment.month_covered | date:'F'}}
+                    </td>
+                    <td class="p-1  text-right">
+                        {{monthlypayment.formatted_amount}}
+                    </td>
+                </tr>
+
+                {% endfor %}
+                <tr id="" class="p-0">
+                    <th class="p-1">
+                       TOTAL
+                    </th>
+                    <th class="p-1">
+                        
+                     </th>
+                    <th class="p-1 text-right">
+                        {{allObject.monthlypaymentstotal}}
+                    </th>
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>  
+</div>
+</body>
+</html>

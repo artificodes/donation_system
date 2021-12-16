@@ -1,0 +1,56 @@
+<div class="" uk-lightbox="animation: scale" style="height: 100%;">
+    <div style=" display: flex;flex-wrap: wrap;justify-content: center;min-width: 100%;">
+        {% for image in gallery %}
+
+        <div class="card uk-box-shadow-medium col-cmd-4-e col-csxx-12 col-csx-10 col-css-7 col-csm-5-e uk-padding-small scale-up-card"
+            style="overflow: hidden;">
+            <a class="uk-inline uk-box-shadow-small uk-border-rounded" href="{{image.image.url}}"
+                data-caption="{{image.image.title}}" style="max-height: inherit;min-width: 100%">
+                <img src="{{image.image.url}}" alt="" class="card-image" style="">
+            </a>
+            <div class="uk-overlay uk-overlay-default uk-position-bottom uk-padding-medium">
+                <p>{{image.title}}</p>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% if gallery.has_other_pages %}
+<div class="uk-text-center" style="width: 100%;height: 50px;position: relative;">
+    <ul class="pagination pagination-lg uk-position-center">
+        {% if gallery.has_previous %}
+
+        <li class="page-item">
+            <a class="page-link btn bg-primary uk-border-circle" href="?page={{ gallery.previous_page_number }}"
+                tabindex="-1">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link btn uk-border-circle" href="#" tabindex="-1">Previous</a>
+        </li>
+        {% endif %}
+        {% for i in gallery.paginator.page_range %}
+        {% if gallery.number == i %}
+        <li class="page-item"><a class="page-link btn bg-primary uk-border-circle" href="#">{{ i }}</a>
+        </li>
+        {% else %}
+        <li class="page-item"><a class="page-link btn bg-primary uk-border-circle" href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if gallery.has_next %}
+        <li class="page-item">
+            <a class="page-link btn bg-primary uk-border-circle" href="?page={{ gallery.next_page_number }}">Next</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link btn uk-border-circle" href="#">Next</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!--/.pagination-->
+</div>
+
+{% endif %}

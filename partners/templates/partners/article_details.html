@@ -1,0 +1,17 @@
+{% autoescape off %}
+<div class="card uk-text-center m-0" style="width: 100%;box-shadow: none;display: inline-block;">
+    {% if article.thumbnail %}
+    <img class="card-img-top col-cmd-7" src="http://localhost:8000{{article.thumbnail.url}}" rel="nofollow" alt="{{article.title}}" style="float: none;display: inline-block;">
+    {% endif %}
+    <div class="card-body uk-text-left">
+        <div class="input-group m-0" style="font-size: 9px;">
+            
+           <p class="bg-primary uk-margin-remove uk-padding-small rounded-pill uk-text-bold" style="width: max-content;color: white;font-size: inherit;">
+            {{article.date_time_added}}</p>            
+        </div>
+      <p class="card-text">{{article.full_description}}</p>
+    </div>
+  </div>
+  
+  {% endautoescape %}
+ 

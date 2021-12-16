@@ -1,0 +1,19 @@
+{% autoescape off %}
+<div class="card uk-text-center" style="width: 100%;box-shadow: none;display: inline-block;">
+    {% if content.thumbnail %}
+    <img class="card-img-top col-cmd-7" src="http://localhost:8000{{content.thumbnail.url}}" rel="nofollow" alt="{{content.title}}" style="float: none;display: inline-block;">
+    {% endif %}
+    <div class="card-body uk-text-left">
+        <div class="input-group" style="font-size: 9px;">
+            <p class="input-group bg-rose uk-margin-remove uk-padding-small" style="width: max-content;color: white;">
+                <span class="uk-padding-remove"></span> <i class="material-icons uk-padding-remove"
+                    style="color: white;font-size: inherit;">event</i></p>
+           <p class="bg-primary uk-margin-remove uk-padding-small" style="width: max-content;color: white;font-size: inherit;">
+            {{content.date_time_added}}</p>            
+        </div>
+      <p class="card-text">{{content.full_description}}</p>
+    </div>
+  </div>
+  
+  {% endautoescape %}
+ 

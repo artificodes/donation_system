@@ -1,0 +1,31 @@
+<div class="p-1"> 
+<div class="form-group mb-3">
+    <div
+        class="input-group input-group-merge input-group-alternative border rounded-md p-1 shadow-sm border rounded-md p-1 shadow-sm">
+        <div class="input-group-prepend">
+
+            <span class=" input-group-text text-dark">
+                Marital Status:
+            </span>
+        </div>
+        <div class="col-csxx-x-14">
+            <select class="ui fluid dropdown" data-style="btn btn-link" name="marital_status"
+                id="marriage_id" class="form-control" required>
+                <option value="{{partner.marital_status}}" selected="selected">
+                    {% if partner.marital_status %} 
+                    {% if partner.marital_status == 'S' %} Single {% elif partner.marital_status == 'M' %} Married 
+                    {% elif partner.marital_status == 'D' %} Divorced {% elif partner.marital_status == 'W' %} Widowed   {% endif %}
+                     {% else %} select
+                    {% endif %}
+                </option>
+                <option value='S'>Single</option>
+                <option value='M'>Married</option>
+                <option value='D'>Divorced</option>
+                <option value='W'>Widowed</option>
+
+            </select>
+        </div>
+    </div>
+</div>    
+</div>
+

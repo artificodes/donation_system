@@ -1,0 +1,33 @@
+{% load i18n %}
+
+
+    <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        <div class="uk-margin">
+            <div class="uk-inline">
+                <span class="uk-form-icon" uk-icon="icon: mail"></span>
+                <input class="uk-input" type="email" class="form-control" name="login" placeholder="E-mail address" autofocus="autofocus"
+                    required="" id="id_login">
+            </div>
+        </div>
+        
+
+        <div class="uk-margin">
+            <div class="uk-inline">
+                <span class="uk-form-icon" uk-icon="icon: lock"></span>
+                <input class="uk-input" type="password" class="form-control" name="password" placeholder="Password" required=""
+                    id="id_password">
+            </div>
+        </div>
+
+
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+
+        <div class="container-fluid" style="text-align: center;">
+                     <button class="uk-button uk-button-default uk-border-pill" type="submit">{% trans "Sign In" %} <span uk-icon='icon:sign-in'></span></button>
+   <a class="uk-button uk-button-default" href="{% url 'account_reset_password' %}"
+                style="border-radius: 30px;">{% trans "Forgot Password?" %}</a>
+        </div>
+    </form>

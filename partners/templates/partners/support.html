@@ -1,0 +1,35 @@
+
+<div class="card uk-padding-small m-0 mt-1 uk-text-left shadow-sm border btn btn-white" onclick="requestContentModal('{% url 'partner_support_details' supportid=support.supportid %}','get')"
+style="width: 100%;display: inline-block;">
+    <div class="card-body" style="padding: 5px;">
+        <div class="col-csxx-x-14" style="font-size: 10px;">
+            <div class="col-csxx-x-14 uk-text-lead">
+                <p class=""><span>Subject:</span> {{support.subject}}
+                </p>
+            </div>           
+         <div class="col-csxx-x-14">
+                <p class="" style="font-weight: bold;font-size: 11px;"><span
+                        style="font-weight: bold;font-size: 11px;">Support ID:</span> #{{support.supportid}}
+                </p>
+            </div>
+
+            <div class="col-csxx-x-14">
+                <p class="card-text" style="font-size: 10px;"><span
+                        style="font-weight: bold;font-size: 10px;">Status:</span>
+                       <span class="pr-2 pl-2 text-darker rounded-sm"> {% if support.resolved %}  <span class="text-green uk-text-bold pr-2 pl-2 rounded-sm bg-white">RESOLVED</span> {% elif support.admin_resolved and not support.partner_resolved %}  <span class="text-danger uk-text-bold pr-2 pl-2 rounded-sm bg-white">UNRESOLVED</span>  {% elif support.admin_resolved %} <span class="text-white uk-text-bold pr-2 pl-2 rounded-sm bg-blue">ANSWERED</span>  {% else %} <span class="text-blue uk-text-bold pr-2 pl-2 rounded-sm bg-white">{% if request.user.is_superuser %} RECEIVED {% else %} SENT {% endif %}</span>  {% endif %}</span>
+            </div>
+            <div class="col-csxx-x-14">
+                <p class="card-text" style="font-size: 10px;"><span
+                        style="font-weight: bold;font-size: 10px;">Time created:</span>
+                    {{support.date_time_added}}
+                   
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+

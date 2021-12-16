@@ -1,0 +1,98 @@
+{% extends "base/ubase.html" %}
+{% load static %}
+{% block content %}
+<div class="mt-1 bg-white p-1 position-relative" style="min-height: 150px;" id="payments">
+    {% if partner.payment_synced %}
+    <div class="uk-position-center mt--5 p-3 text-center">
+        <div
+        class='ui active  loader loading m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+      </div>      
+      <p class="uk-text-bold mt-7 text-sm">Loading payments. Kindly wait</p>
+    
+        </div>
+            {% else %}
+    <div class="uk-position-center mt--5 p-3 text-center">
+    <div
+    class='ui active  loader loading m-0 uk-border-circle uk-box-shadow-small uk-padding-small'>
+  </div>      
+  <p class="uk-text-bold mt-7 text-sm">Updating payment records. This might take some minutes. Kindly wait</p>
+
+    </div>
+ 
+    {% endif %}
+</div>
+
+
+<script>
+    jQuery(document).ready(function () {
+             $.ajax({
+               beforeSend: function () {
+     
+               },
+               complete: function () {
+               },
+               type: 'get',
+               url: '{% url 'partner_all_payments' userid=partner.member_no %}',
+               data: {
+                 'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+               },
+               success: function (response) {
+
+                 if (response.content) {
+                   $('#payments').empty()
+   
+                   $('#payments').append(response.content);
+                 }
+       
+     
+               },
+               error: function (xhr, status, error) {
+               //   alert('there was an error')
+               }
+             });
+           })
+
+
+
+    </script> 
+
+<script>
+    $('body').on('scroll', function () {
+        // alert('{{payments.next_page_number}}')
+            $('#load-more').removeClass('hide')
+            if ($('#load-more').visible()) {
+        if ($('#load-more').attr('next-page')) {
+            
+            
+                $.ajax({
+                    beforeSend: function () {
+                            $('#load-more').remove()
+
+                    },
+                    complete: function () {
+
+                    },
+                    type: 'get',
+                    url: '{% url 'partner_recent_remittances' userid=partner.member_no %}',
+                    data: {
+                        'csrfmiddlewaretoken': window.CSRF_TOKEN,
+                        'page': $('#load-more').attr('next-page') // from index.html
+                    },
+                    success: function (response) {
+
+                        if (response.content) {
+                            $('#recent_remittances').append(response.content)
+
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        alert('there was an error')
+                    }
+                });
+            }
+
+      }
+    })
+
+</script>
+{% endblock content %}

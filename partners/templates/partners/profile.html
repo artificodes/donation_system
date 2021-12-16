@@ -1,0 +1,269 @@
+{% extends "base/ubase.html" %}
+{% load static %}
+{% block content %}
+
+<div class="p-0 mt-1 bg-white uk-animation-slide-top uk-display-inline-block col-csxx-14 uk-text-center position-relative" id=""
+    style="box-shadow: none;float: none;">
+
+    <div class="card-body pl-2 pr-2 pt-1 pb-1 text-center text-dark">
+        <div class="position-relative uk-display-inline-block" style="width: max-content;">
+           <div class="uk-border-circle bg-transparent uk-display-inline-block mt-1 overflow-hidden p-1 border position-relative"
+        style="height: 80px;width: 80px;border: 4px solid white;">
+        {% if partner.photo %}
+        <img src="{{partner.photo.url}}" alt="" style="width: 100%;display: inline-block;height: 100%;"
+          class="rounded-circle">
+        {% else %}
+        <span class="text-dark uk-position-center h1" style="font-size: 30px;">
+          {{partner.first_name.0}}
+        </span>
+        {% endif %}
+      </div>                 
+      <button  onclick="requestContentModal('{% url 'partner_change_photo' %}','get')"
+        class="btn btn-sm btn-white rounded-circle uk-position-bottom-right border shadow-none bg-white mb-3 mr--2"><i class="fa fa-camera"></i></button>
+
+        </div>
+       
+      <div class=" text-sm" style="font-weight: bold;">
+        {% if partner.account_type == 'I' %}
+        {% if partner.gender == 'M' %}
+        Mr.
+        {% elif partner.gender == 'F' %}
+        {% if partner.marital_status == 'S' %} Miss {% else %} Mrs. {% endif %}
+        {% endif %}
+        {{partner.first_name}} {{partner.last_name}}
+
+        {% elif partner.account_type == 'Cr' %}
+        {{partner.first_name}} {{partner.last_name}}
+
+        {% elif partner.account_type == 'S' %}
+        {{partner.first_name}} {{partner.last_name}}
+        {% elif partner.account_type == 'C' %}
+        Mr. & Mrs. {{partner.last_name}}
+        {% endif %}
+        <div class=" text-capitalize p-1 border rounded-pill pl-2 pr-2 bg-gradient-success text-white mt-1 uk-display-inline-block" 
+        style="width: max-content;font-size:9px;">                     
+            {% if partner.account_type == 'I' %} Individual {% elif partner.account_type == 'C' %} Couple 
+            {% elif partner.account_type == 'Cr' %} Corporate {% elif partner.account_type == 'S' %} Sponsor   {% endif %}
+         </div>
+      </div>
+</div>
+
+
+    <div class="" style="overflow: hidden;">
+        <div class="uk-margin-remove uk-animation-slide-top uk-text-left {{animation}}">
+          {% if partner.account_type == 'I' %}
+            {%  include 'partners/individual_profile.html' %}
+            {% elif partner.account_type == 'Cr'   %}
+            {%  include 'partners/corporate_profile.html' %}
+
+            {% elif partner.account_type == 'S'   %}
+            {%  include 'partners/sponsor_profile.html' %}
+            {% elif partner.account_type == 'C'   %}
+            {%  include 'partners/couple_profile.html' %}
+            {% endif %}
+            <div class="card m-2  elevation-0 " style="box-shadow: none;">
+
+                <div class=" uk-text-center">
+                    <a class="btn btn-info  rounded-pill  edit-profile-btn"
+                    href="{% url 'partner_update_profile' %}"
+                        style="position: relative; ">
+                        <li class="fa fa-user-edit"></li> Update
+                </a>
+            
+                </div>
+            
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- Modal -->
+<div id="pin-reset-modal" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
+        <h2 class="uk-modal-title">Transaction pin reset</h2>
+        <p class="modal-message">Why do you want to change your Transaction Pin?</p>
+        <p class="uk-text-center">
+            <button class="btn btn-primary  uk-border-pill " id="compromised-pin-btn" contenturl=""
+                type="button">Compromised</button>
+            <button class="btn btn-primary   uk-border-pill" type="button">Forgotten</button>
+
+        </p>
+    </div>
+</div>
+
+
+
+<script>
+
+    $('.ui.dropdown')
+        .dropdown()
+        ;
+
+
+    $(".edit-pin-btn").on('click', function (event) {
+        UIkit.modal($('#pin-reset-modal')).show();
+    });
+
+
+
+    $("#verify-bvn-btn").on('click', function (event) {
+        $('#main-content').empty()
+
+        var get_url = $(this).attr("contenturl"); //get form action url
+        $.ajax({
+            beforeSend: function () {
+
+                $('#main-content').append(inline_loader_small_center);
+
+
+            },
+            complete: function () {
+                $('#main-content').children('.loading').remove()
+            },
+            url: get_url,
+            success: function (response) {
+                $('#main-content').empty()
+
+
+                //UIkit.modal($('#edit-profile-modal')).show();
+                $('#main-content').append(response.content)
+
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+
+    $("#forgotten-pin-btn").on('click', function (event) {
+        $('#main-content').empty()
+
+        var get_url = $(this).attr("contenturl"); //get form action url
+        $.ajax({
+            beforeSend: function () {
+
+                $('#main-content').append(inline_loader_small_center);
+
+
+            },
+            complete: function () {
+                $('#main-content').children('.loading').remove()
+            },
+            url: get_url,
+            success: function (response) {
+                $('#main-content').empty()
+
+
+                //UIkit.modal($('#edit-profile-modal')).show();
+                $('#main-content').append(response.content)
+
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+
+
+
+
+    $("#compromised-pin-btn").on('click', function (event) {
+        $('#main-content').empty()
+
+        var get_url = $(this).attr("contenturl"); //get form action url
+        $.ajax({
+            beforeSend: function () {
+
+                $('#main-content').append(inline_loader_small_center);
+
+
+            },
+            complete: function () {
+                $('#main-content').children('.loading').remove()
+            },
+            url: get_url,
+            success: function (response) {
+                $('#main-content').empty()
+
+
+                //UIkit.modal($('#edit-profile-modal')).show();
+                $('#main-content').append(response.content)
+
+            },
+            error: function (xhr, status, error) {
+                UIkit.notification.closeAll()
+                UIkit.notification('Operation not successful. Check your internet connection',)
+            }
+        });
+    });
+
+
+</script>
+
+<script>
+
+    {
+        (function ($) { //Most read async
+            $('.edit-content-btn').on('click', function (event) {
+                event.preventDefault();
+                var link = $(this);
+                $.ajax({
+                    beforeSend: function () {
+                showLoadingBar()
+            },
+            complete: function () {
+                hideLoadingBar()
+
+            },
+                    type: 'get',
+                    url: link.attr('contenturl'),
+                    data: {
+                        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                    },
+                    success: function (response) {
+                        // if there are still more pages to load,
+                        // add 1 to the "Load More Posts" link's page data attribute
+                        // else hide the link
+                        // append html to the posts div
+                        //$('.uk-modal-header-title').empty()
+
+                        //$('.uk-modal-header-title').append(link.attr('inner-html'));
+                        if (response.content) {
+                            window.location = '#top'
+                            $('#tab-header').empty()
+                            $('#tab-header').append(response.header);
+                            $('#inner-container').empty();
+                            $('#inner-container').append(response.content);
+                            $('#loader-cover').hide()
+                        }
+
+                        if (response.message) {
+                            $('#notification-modal-inner').empty()
+                            $('#notification-modal-inner').append(response.message)
+                            $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+                            UIkit.modal($('#notification-modal')).show();
+                        }
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        alert('there was an error')
+                    }
+                });
+            });
+        }(jQuery))
+    };
+
+
+</script>
+
+{% endblock content %}

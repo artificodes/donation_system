@@ -1,0 +1,102 @@
+{% extends "base/ubase.html" %}
+{% load static %}
+{% block content %}
+<!-- 
+<div class="uk-border-circle bg-indigo uk-position-top-center" style="height: 70px;width: 70px;margin-top: -20px;border: 4px solid white;"  >     
+    <i class="material-icons uk-position-center"
+        style="color: white;">
+       note</i>
+    
+    </div> -->
+<div class="mt-0 m-0 overflow-hidden uk-text-center " id=""
+style="width:max-content ;max-width: 100%;">
+<!-- 
+    <div class="text-center" style="width:max-content ;max-width: 100%;">
+        <div class="p-0 mt-0 uk-animation-slide-top uk-display-inline-block uk-text-center" id="" style="width:max-content ;max-width: 100%;"> -->
+
+                {% for announcement in announcements %}
+                <div class="col-cmd-5-e col-csxx-14 col-csx-14 col-css-7 col-csm-7 card m-0 mt-1 rounded-0  shadow-none p-0"
+                    style="overflow: hidden;">
+                    <div class="overflow-hidden rounded-0 border-right">
+                        <div class="bg-white border-bottom p-2 text-left text-darker ">
+                            {{announcement.title|truncatechars:30}}
+                        </div>
+                        <div class="card-body uk-text-left p-1">
+                            <p class="card-text" style="">{{announcement.short_description|truncatechars:200}}</p>
+                      <div class="text-center">
+                          <button
+                                onclick="requestContentModal('{% url 'partner_announcement_details' announcementid=announcement.contentid %}')"
+                                class="btn btn-primary"
+                                style="width: max-content;display: inline-block;">
+                                <i class="fa fa-plus"></i> More
+                            </button>  
+                      </div>
+                           
+                        </div>
+                            
+                    </div>
+
+
+                </div>
+
+                {% endfor %}
+        <!-- </div> -->
+    </div>
+<!-- </div> -->
+<script>
+    {
+        (function ($) { //Most read async
+            $('.action-btn').on('click', function (event) {
+                event.preventDefault();
+                var link = $(this);
+                $.ajax({
+                    beforeSend: function () {
+                showLoadingBar()
+            },
+            complete: function () {
+                hideLoadingBar()
+
+            },
+                    type: 'get',
+                    url: link.attr('contenturl'),
+                    data: {
+                        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                    },
+                    success: function (response) {
+                        // if there are still more pages to load,
+                        // add 1 to the "Load More Posts" link's page data attribute
+                        // else hide the link
+                        // append html to the posts div
+                        //$('.uk-modal-header-title').empty()
+
+                        //$('.uk-modal-header-title').append(link.attr('inner-html'));
+                        if (response.content) {
+                            $('#tab-header').empty()
+                            $('#tab-header').append(response.header);
+                            $('#inner-container').empty();
+                            $('#inner-container').append(response.content);
+                            $('#loader-cover').hide()
+                        }
+
+                        if (response.message) {
+                            window.location = "#top"
+
+                            $('#notification-modal-inner').empty()
+                            $('#notification-modal-inner').append(response.message)
+                            $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+                            UIkit.modal($('#notification-modal')).show();
+                            $('#loader-cover').hide()
+                        }
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        alert('there was an error')
+                    }
+                });
+            });
+        }(jQuery))
+    };
+</script>
+
+{% endblock content %}

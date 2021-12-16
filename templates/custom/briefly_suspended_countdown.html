@@ -1,0 +1,261 @@
+{% if customer.briefly_suspended %}
+
+<div class="uk-text-lead uk-text-danger uk-text-center" id="briefly-suspended-message">
+
+</div>
+<div class="card uk-border-circle uk-position-center" style="height: 200px;width: 200px;">
+  <div class="uk-position-center">
+      <span id="{{server_timestamp}}" class=" uk-text-lead"></span>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+  function unsuspend() {
+    $.ajax({
+      beforeSend: function () {
+
+        $('body').append(inline_loader_small_center);
+
+
+      },
+      complete: function () {
+        $('body').children('.loading').remove()
+      },
+      type: 'get',
+      url: "{% url 'unsuspend' %}",
+      data: {
+        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+      },
+      success: function (response) {
+        if (response.unsuspended) {
+          if (response.customer) {
+            $.ajax({
+              beforeSend: function () {
+
+                $('body').append(inline_loader_small_center);
+
+              },
+              complete: function () {
+                $('body').children('.loading').remove()
+              },
+              type: 'get',
+              url: "{% url 'customer_home' %}",
+              data: {
+                'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+              },
+              success: function (response) {
+                $('body').empty()
+                $('body').append(response.content)
+                if (response.briefly_suspended) {
+                  UIkit.modal($('#response-modal')).hide()
+                  $('.modal-message').empty()
+                  $('.modal-message').append('Your account has been briefly suspended. Kindly wait')
+                  UIkit.modal($('#response-modal')).show();
+                  $.ajax({
+                    beforeSend: function () {
+
+                      $('body').append(inline_loader_small_center);
+
+
+                    },
+                    complete: function () {
+                      $('body').children('.loading').remove()
+                    },
+                    type: 'get',
+                    url: "{% url 'briefly_suspended' %}",
+                    data: {
+                      'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                    },
+                    success: function (response) {
+                      $('body').empty()
+                      $('body').append(response.content)
+
+                    },
+                    error: function (xhr, status, error) {
+                      alert('there was an error')
+                    }
+                  });
+
+                }
+
+
+                else if (response.profile_updated) {
+                  $('body').empty()
+                  $('body').append(response.content)
+                }
+                else {
+                  UIkit.modal($('#response-modal')).hide()
+                  $('.modal-message').empty()
+                  $('.modal-message').append('Kindly update your profile to enable your account for transactions.')
+                  UIkit.modal($('#response-modal')).show();
+                  $.ajax({
+                    beforeSend: function () {
+
+                      $('body').append(inline_loader_small_center);
+
+
+                    },
+                    complete: function () {
+                      $('body').children('.loading').remove()
+                    },
+                    type: 'get',
+                    url: "{% url 'customer_account_contents' %}",
+                    data: {
+                      'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                    },
+                    success: function (response) {
+                      $('.nav-link.active').css({ 'animation-name': 'slowscaledown', 'animation-duration': '0.5s' })
+                      $('#support').empty()
+                      $('#home').empty()
+                      $('#transact').empty()
+                      $('#transactions').empty()
+                      $('#account').empty()
+
+                      $('.tab-pane').removeClass('active show')
+                      $('#account').addClass('active show')
+
+                      $('.nav-link').removeClass('active show')
+                      $('.load-account-contents-box').addClass('active show')
+                      $('.load-account-contents-box').css({ 'animation-name': 'slowscaleup', 'animation-duration': '0.5s' })
+
+                      $('#account').empty()
+
+                      $('#account').append(response.content);
+
+
+                    },
+                    error: function (xhr, status, error) {
+                      alert('there was an error')
+                    }
+                  });
+
+                }
+
+
+              },
+              error: function (xhr, status, error) {
+                alert('there was an error')
+              }
+            });
+
+          }
+
+          else if (response.agent) {
+            $.ajax({
+              beforeSend: function () {
+
+                $('body').append(inline_loader_small_center);
+
+              },
+              complete: function () {
+                $('body').children('.loading').remove()
+              },
+              type: 'get',
+              url: "{% url 'agent_home' %}",
+              data: {
+                'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+              },
+              success: function (response) {
+                if (response.profile_updated) {
+                  $('body').empty()
+                  $('body').append(response.content)
+                }
+                else {
+                  UIkit.modal($('#response-modal')).hide()
+                  $('.modal-message').empty()
+                  $('.modal-message').append('Your account has been activated. Kindly update your profile to enable your account for transactions.')
+                  UIkit.modal($('#response-modal')).show();
+
+                  $('body').empty()
+                  $('body').append(response.content)
+                  $.ajax({
+                    beforeSend: function () {
+
+                      $('body').append(inline_loader_small_center);
+
+
+                    },
+                    complete: function () {
+                      $('body').children('.loading').remove()
+                    },
+                    type: 'get',
+                    url: "{% url 'customer_account_contents' %}",
+                    data: {
+                      'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                    },
+                    success: function (response) {
+                      $('.nav-link.active').css({ 'animation-name': 'slowscaledown', 'animation-duration': '0.5s' })
+                      $('#support').empty()
+                      $('#home').empty()
+                      $('#transact').empty()
+                      $('#transactions').empty()
+                      $('#account').empty()
+
+                      $('.tab-pane').removeClass('active show')
+                      $('#account').addClass('active show')
+
+                      $('.nav-link').removeClass('active show')
+                      $('.load-account-contents-box').addClass('active show')
+                      $('.load-account-contents-box').css({ 'animation-name': 'slowscaleup', 'animation-duration': '0.5s' })
+
+                      $('#account').empty()
+
+                      $('#account').append(response.content);
+
+
+                    },
+                    error: function (xhr, status, error) {
+                      alert('there was an error')
+                    }
+                  });
+
+                }
+
+
+              },
+              error: function (xhr, status, error) {
+                alert('there was an error')
+              }
+            });
+
+          }
+        }
+
+      },
+      error: function (xhr, status, error) {
+        alert('there was an error')
+      }
+    })
+
+}
+
+
+
+  $(function () {
+    suspension_days = (Number({{ server_timestamp }}) - Number({{ customer.time_suspended_timestamp }})) /(86400)
+  suspension_seconds = Math.round(suspension_days * 24 * 60*60)
+  suspension_minutes = suspension_seconds/60
+  remain_minutes = Math.floor(5 - suspension_seconds/60)
+  remain_seconds = (300 - suspension_seconds) % 60
+  if (remain_minutes<1){
+    $('#briefly-suspended-message').html('Your account is briefly suspended. Kindly wait for ' +remain_seconds +' seconds.')
+
+  }
+  else{
+      $('#briefly-suspended-message').html('Your account is briefly suspended. Kindly wait for '+remain_minutes +' minutes and ' +remain_seconds +' seconds.')
+
+  }
+  $('#{{server_timestamp}}').countdowntimer({
+    seconds: 300-suspension_seconds,
+    size: "lg",
+    displayFormat: 'MS',
+    timeUp: unsuspend,
+  });
+
+    });
+ 
+</script>
+{% endif %}

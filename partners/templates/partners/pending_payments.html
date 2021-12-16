@@ -1,0 +1,109 @@
+
+{% if pendingapprovals|length > 0 %}
+
+<div class="card p-1 pt-2 m-0 uk-animation-slide-top rounded-0" id=""
+    style="box-shadow: none;">
+    <div class=" card-header text-sm border-0 uk-margin-remove bg-warning uk-text-center text-white uk-text-bold 
+    rounded-pill pl-2 pr-2 pt-1 pb-1"
+        style="width: max-content;">
+        Incomplete Payments
+    </div>
+    <div class="card-body uk-margin-remove mt-3 p-0">
+        {% for pendingapproval in pendingapprovals %}
+        <div class="col-cmd-5-e col-csx-14 col-csxx-14 col-css-7 col-csm-5-e p-1">
+            <div class="card uk-padding-small m-0  uk-text-left shadow-sm border " style="">
+                <div class="card-body text-left" style="padding: 5px;">
+                    <div class="col-csxx-x-14" style="font-size: 11px;">
+                        <div class="col-csxx-x-14">
+                            <p class="" style="font-weight: bold;font-size: 13px"><span
+                                    style="font-weight: bold;font-size: 13px">Amount:</span> {{pendingapproval.currency}}
+                                {{pendingapproval.formatted_amount}}</p>
+                        </div>
+                        <div class="col-csxx-x-14">
+                            <p class="card-text" style="font-size: 11px;"><span
+                                    style="font-weight: bold;font-size: 11px;">Months covered:</span>
+                                    {% if pendingapproval.start_date.month == pendingapproval.end_date.month and pendingapproval.start_date.year == pendingapproval.end_date.year  %}
+                                    {{pendingapproval.start_date|date:'M, Y'}}
+                                    {% else %}
+                                    {{pendingapproval.start_date|date:'M, Y'}} - {{pendingapproval.end_date|date:'M, Y'}}
+                                    {% endif %}
+                            </p>
+
+                        </div>
+                        <div class="col-csxx-x-14">
+                            <p class="card-text" style="font-size: 11px;"><span
+                                    style="font-weight: bold;font-size: 11px;">Date/Time added:</span>
+                                {{pendingapproval.date_time_added}}
+                            </p>
+
+                        </div>
+
+                    </div>
+                    {% if pendingapproval.status != 'successful' %}
+                    <div class="text-center">
+                       <div>
+                        <button class="btn bg-white text-success mt-2 text-sm btn-sm rounded-pill mr-0 ml-0 shadow-none"
+                            onclick="makePayment({{pendingapproval.amount}},'{{pendingapproval.paymentid}}','{{pendingapproval.currency}}')">
+                            <i class="icon sync loading text-success"></i>Retry</button>
+                            <a class="btn bg-white text-danger remove mt-2 rounded-pill text-sm btn-sm mr-0 ml-0 shadow-none"
+                           id="" target="#pending_payments" contenturl="{% url 'partner_cancel_payment' paymentid=pendingapproval.paymentid %}">
+                            <i class="fa fa-times text-danger mr-1"></i>Cancel</a>
+                    </div> 
+                    </div>
+                    
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+<script>
+      {
+    (function ($) {
+      $('.remove').on('click', function () {
+
+        var link = $(this);
+
+        $.ajax({
+          beforeSend: function () {
+
+            showLoadingBar()
+          },
+          complete: function () {
+            hideLoadingBar()
+          },
+          type: 'get',
+          url: link.attr('contenturl'),
+          data: {
+            'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+          },
+          success: function (response) {
+
+
+            if (response.message) {
+              $('#confirm-modal-inner').empty()
+              $('#confirm-modal-inner').append(response.message)
+
+              UIkit.modal($('#confirm-modal')).show();
+            }
+            if (response.removeurl) {
+              $('#yes').attr('contenturl', response.removeurl)
+              $('#yes').attr('target', link.attr('target'))
+            }
+
+
+
+
+          },
+        });
+      });
+    }(jQuery))
+  };
+
+</script>

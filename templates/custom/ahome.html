@@ -1,0 +1,116 @@
+
+{% if request.user.is_authenticated %}
+<div class="col-csxx-x-14 uk-padding-remove fixed-top" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;z-index: 1;position: fixed;background-color: rgb(199, 231, 231);height: 50px;opacity: 0.95;">
+  <div class="card" style="position: relative;">
+    <div class="uk-inline uk-position-center-right">
+        <button class="uk-button uk-button-default" type="button"><i class="material-icons" style="color: gray;">notes</i></button>
+        <div uk-dropdown="mode: click" class="uk-border-rounded">
+            <a class="uk-link signout" style="color: black;text-decoration: none;"
+                contenturl="{% url 'account_logout' %}"><i class="material-icons"
+                    style="color: #7b1fa2;">exit_to_app</i> Log Out</div></a>
+
+    </div>
+  </div>
+</div>    
+{% endif %}
+
+{% if request.user.is_authenticated %}
+<div class="card card-nav-tabs card-plain">
+  <div class="card-body" style="padding-bottom: 70px;">
+    <div class="tab-content ">
+      <div class="tab-pane active " id="home">
+        
+    {% include 'agents/home_contents.html' %}
+
+
+      </div>
+      <div class="tab-pane" id="transact">
+
+      </div>
+      <div class="tab-pane" id="transactions">
+
+
+      </div>
+
+      <div class="tab-pane" id="support">
+     
+
+      </div>
+
+      
+      <div class="tab-pane" id="account">
+     
+
+      </div>
+    </div>
+  </div>
+  <div class="card-header card-header-primary fixed-bottom uk-padding-remove" style="border-radius: 0; border-top-right-radius: 10px;border-top-left-radius: 10px;height: 45px;box-shadow: none;opacity: 0.9;background:teal ;">
+    <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+    <div class="nav-tabs-navigation">
+      <div class="nav-tabs-wrapper ">
+        <ul class="nav nav-tabs uk-text-center" data-tabs="tabs" style="display: inline-block;width: 100%;margin-top: -10px;">
+          <li class="nav-item col-csxx-x-2 " >
+            <a class="nav-link active load-home-contents uk-padding-remove-horizontal" contenturl="{% url 'agent_home_contents' %}" data-toggle="tab" style="background-color: transparent;">
+              <div style="display: inline-block; font-size: 20px; height: 30px;width: 30px;background-color:teal;border-radius: 50%;position: relative;"><i class="material-icons uk-position-center" > home</i> </div><br> Home</a>
+          </li>
+         
+          <li class="nav-item col-csxx-x-4-e" >
+            <a class="nav-link load-transactions-contents uk-padding-remove-horizontal " contenturl="{% url 'agent_transactions_contents' %}"  data-toggle="tab" style="background-color: transparent;">
+              <div style="display: inline-block; font-size: 20px; height: 30px;width: 30px;background-color:teal;border-radius: 50%;position: relative;"><i class="material-icons uk-position-center" >history</i> </div><br> Transactions</a>
+          </li>
+<li class="nav-item col-csxx-x-3-e " >
+            <a class="nav-link load-transact-contents uk-padding-remove-horizontal" contenturl="{% url 'agent_transact_contents' %}" data-toggle="tab" style="background-color: transparent;">
+              <div style="display: inline-block; font-size: 20px; height: 45px;width: 45px;background-color:teal;border-radius: 50%;position: relative;"><i class="material-icons uk-position-center uk-text-lead" style="font-size: 35px;" >add_task</i></div></a>
+          </li>
+          <li class="nav-item col-csxx-x-3-e" >
+            <a class="nav-link load-support-contents-box uk-padding-remove-horizontal"  contenturl="{% url 'agent_support_contents' %}" data-toggle="tab" style="background-color: transparent;">
+              <div style="display: inline-block; font-size: 20px; height: 30px;width: 30px;background-color:teal;border-radius: 50%;position: relative;"> <i class="material-icons uk-position-center" > support</i> </div><br>Support</a>
+          </li>
+          <li class="nav-item col-csxx-x-3-e" >
+            <a class="nav-link load-account-contents-box uk-padding-remove-horizontal"  contenturl="{% url 'agent_account_contents' %}" data-toggle="tab" style="background-color: transparent;">
+              <div style="display: inline-block; font-size: 20px; height: 30px;width: 30px;background-color:teal;border-radius: 50%;position: relative;"> <i class="material-icons uk-position-center" > perm_identity</i> </div><br>Account</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- Modal -->
+<div id="response-modal" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
+    <h2 class="uk-modal-title">Message</h2>
+    <p class="modal-message"></p>
+    <p class="uk-text-right">
+      <button class="btn btn-primary uk-modal-close" type="button">Ok</button>
+
+    </p>
+  </div>
+</div>
+
+
+<div id="edit-profile-modal" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
+    <h2 class="uk-modal-title">Edit Profile</h2>
+    <p class="modal-message"></p>
+  </div>
+</div>
+
+
+<div id="pin-reset-modal" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
+    <h2 class="uk-modal-title">Transaction pin reset</h2>
+    <p class="modal-message">Why do you want to change your Transaction Pin?</p>
+    <p class="uk-text-center">
+      <button class="btn btn-primary uk-padding-small uk-border-pill " id="compromised-pin-btn" contenturl="{% url 'agent_compromised_pin' %}" type="button">Compromised</button>
+      <button class="btn btn-primary  uk-padding-small uk-border-pill" type="button">Forgotten</button>
+
+    </p>
+  </div>
+</div>
+
+
+{% endif %}

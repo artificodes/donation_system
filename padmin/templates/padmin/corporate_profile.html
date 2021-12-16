@@ -1,0 +1,121 @@
+<div class="card uk-margin-remove" style="box-shadow: none;border-radius: 0;">
+    <div class="card-body p-3">
+        <div class="card m-1 shadow-none">
+            <div class="card-body p-3">
+                <div class="uk-padding-small uk-text-lead uk-text-center">
+                    <span class="pr-2" style="font-weight: bold;">User ID </span> {{partner.profile.userid}}
+
+                </div>
+
+            </div>
+        </div>   
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" text-capitalize">
+                  <span class="pr-2" style="font-weight: bold;">Account:</span> {{partner.profile.account_type}}
+                </div>
+                </div>
+        </div>
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" ">
+                    <span class="pr-2" style="font-weight: bold;">Company Name:</span>
+                    {{partner.profile.company_name}}
+                </div>
+            </div>
+        </div>
+
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" ">
+                    <div> <span class="pr-2" style="font-weight: bold;"> Email:</span>{{partner.profile.user.email}}</div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" ">
+                    <div> <span class="pr-2" style="font-weight: bold;">Phone number:</span>{{partner.profile.phone_no}}
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" ">
+                    <span class="pr-2" style="font-weight: bold;">Contact person:</span>
+                    {{partner.profile.contact_person_full_name}}
+                </div>
+            </div>
+        </div>
+
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" ">
+                    <span class="pr-2" style="font-weight: bold;">Contact person Email:</span>
+                    {{partner.profile.contact_person_email}}
+                </div>
+            </div>
+        </div>
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" ">
+                    <span class="pr-2" style="font-weight: bold;">Contact person Number:</span>
+                    {{partner.profile.contact_person_phone_no}}
+                </div>
+            </div>
+        </div>
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" ">
+                    <div><span class="pr-2" style="font-weight: bold;"> Residential
+                            Address:</span>{{partner.profile.street_number}},
+                        {{partner.profile.street}}, {{partner.profile.city}}, {{partner.profile.state}}, {{partner.profile.country.name}}</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" ">
+                    <div><span class="pr-2" style="font-weight: bold;"> CGCC Membership Status:</span> 
+                        {% if partner.profile.is_cgcc_member %} Member {% else %} Not a member {% endif %}</div>
+                </div>
+
+            </div>
+        </div>
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" text-capitalize">
+                  <span class="pr-2" style="font-weight: bold;">Contribution Plan:</span> {{partner.profile.contribution_frequency}}
+                </div>
+               
+            </div>
+        </div>
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" text-capitalize">
+                  <span class="pr-2" style="font-weight: bold;">Contribution Amount:</span> {{partner.profile.contribution_amount}}
+                </div>
+               
+            </div>
+        </div>
+        <div class="card m-1 border">
+            <div class="card-body p-3">
+                <div class=" text-capitalize">
+                  <span class="pr-2" style="font-weight: bold;">Preferred Currency:</span> {{partner.profile.currency}}
+                </div>
+               
+            </div>
+        </div>
+       
+    </div>
+</div>

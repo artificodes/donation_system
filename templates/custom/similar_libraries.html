@@ -1,0 +1,57 @@
+<div class="col-md-10 col-csl-9 col-csm-9 uk-padding-remove uk-text-left" style='padding-top:0px;background-color: transparent;'>
+  <div class="col-md-12 " style="padding: 0;">
+    <h4 class="display-6 col-md-12 "
+      style=" padding: 5px;color: white;background-image: linear-gradient(to right, rgba({{color.primary_rgb}}),rgb({{color.primary_rgba}}));">
+      SIMILAR LIBRARIES</h4>
+    <div class='col-md-12 uk-padding-small' style='margin-top:20px'>
+      {% for library in similarlibraries %}
+      
+      <div class="col-md-3 col-xs-12 col-csm-4-e col-csx-6 col-csl-4-e uk-padding-remove uk-text-left"
+        style="margin: 0px;box-sizing: border-box;padding: 2px !important;margin-bottom: 20px; cursor: pointer;" onclick='window.location = "{% url 'viewlibrary' libid=library.library_id %}"'>
+        <a href="#" class="" style="font-weight: bold; position: absolute;left:40%;top: -15px; z-index: 2; ">
+          <img class="avatar" src="{{library.logo_64}}" alt="" style="border-radius: 50%;width: 50px;height: 50px;" />
+        </a>
+        <div
+          class="col-xs-12 col-sm-12 col-md-12 writer_profile-box  uk-box-shadow-small  uk-border-rounded uk-padding-small uk-padding-remove-horizontal"
+          style="padding-top: 30px !important;">
+          <div class="col-xs-12" style="text-align: center;">
+
+            <span class="author" style="font-weight:bold;text-transform: uppercase;">{{library.name}}</span>
+
+          </div>
+          <div class="uk-text-center col-xs-12 uk-padding-remove">
+            <div class="col-xs-4 uk-padding-remove"> <span class="fas fa-book " style=""></span>
+              <span>{{library.number_of_stories}}</span></div>
+            <div class="col-xs-4 uk-padding-remove"><span class="fas fa-book-open "></span> <span>
+                {{library.number_of_episodes}}</span></div>
+
+            <div class="col-xs-4 uk-padding-remove"><span class="fas fa-users"></span> <span>
+                {{library.number_of_subscribers}}</span></div>
+
+          </div>
+
+          <div class="blogpost-footer-author-section col-xs-12 " style="display: inline-block;padding: 5px !important;">
+            <div class="col-xs-12 uk-padding-remove" style="font-weight: bold;">
+              {{library.category.title}}
+              {% if currentuser in library.subscribers.all %}
+              <li class="fa fa-check-circle-o" style="display: inline-block;float: right;margin: 0;color: rgb({{color.primary_rgb}}) !important;"></li>
+
+              {% else %}
+              <a href="{% url 'library_subscribe' libid=library.library_id %}" class="hollow button success"
+                style="margin:5px;margin-bottom:0;margin-top: 0;float: right;">Subscribe</a>
+
+              {% endif %}
+            </div>
+          </div>
+
+
+
+        </div>
+  </div>
+      {% endfor %}
+      <div class="col-xs-12 uk-text-center"><span class="fa fa-plus"></span></div>
+
+    </div>
+
+  </div>
+  </div>

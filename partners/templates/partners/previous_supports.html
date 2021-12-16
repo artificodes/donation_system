@@ -1,0 +1,47 @@
+<div class="p-1">
+ {% for support in supports %}
+<div class="card uk-padding-small m-0 mt-1 uk-text-left shadow-sm border btn btn-white" onclick="requestContentModal('{% url 'partner_event_details' eventid=event.eventid %}','get')"
+style="width: 100%;display: inline-block;">
+
+    <div class="card-body" style="padding: 5px;">
+        <div class="col-csxx-x-14" style="font-size: 10px;">
+            <div class="col-csxx-x-14 uk-text-lead ">
+                <p class="h3 text-dark"><span>Subject:</span> {{support.subject}}
+                </p>
+            </div>           
+         <div class="col-csxx-x-14">
+                <p class="" style="font-weight: bold;font-size: 11px;"><span
+                        style="font-weight: bold;font-size: 11px;">Support ID:</span> #{{support.supportid}}
+                </p>
+            </div>
+
+            <div class="col-csxx-x-14">
+                <p class="card-text" style="font-size: 10px;"><span
+                        style="font-weight: bold;font-size: 10px;">Status:</span>
+                       <span class="pr-2 pl-2 text-darker rounded-sm bg-secondary"> {% if support.admin_resolved and support.partner_resolved %} RESOLVED {% elif support.admin_resolved %} ANSWERED {% else %} SENT {% endif %}</span>
+            </div>
+            <div class="col-csxx-x-14">
+                <p class="card-text" style="font-size: 10px;"><span
+                        style="font-weight: bold;font-size: 10px;">Time created:</span>
+                    {{support.date_time_added}}
+                   
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endfor %}   
+</div>
+
+
+
+{% if supports.has_next %}
+<div id='load-more' style="" class="text-light text-center hide" next-page="{{supports.next_page_number}}"> <span
+        class="text-sm rounded-pill p-1 border pl-3 pr-3"> <b>Loading more ... </b></span> </div>
+{% endif %}
+
+

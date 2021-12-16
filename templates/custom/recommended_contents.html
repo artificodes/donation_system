@@ -1,0 +1,118 @@
+{% for content in randomrecommendedcontents %}
+{% if content.content_type == 'story'%}
+<div id="{{content.story_id}}recommended"
+      class="trendingstory col-cmd-7 col-csl-7 col-csm-14 col-csx-5-e col-csxx-7 col-csxx-xx-7 col-csxx-x-14 col-css-4-e uk-text-left "
+      style='margin-top:0px !important;padding: 5px;height: 200px;margin-bottom: 20px;'>
+    
+      <div class="uk-box-shadow-small uk-padding-remove uk-text-center"
+        style='border:1px solid silver;height: 200px; padding-bottom:10px;padding-bottom: 0;border-radius: 5px !important;overflow: hidden;'>
+    
+        <div class="card col-xs-12 uk-padding-remove uk-margin-remove {{content.story_id}}recommendedrandomstory" style="height: 150px;">
+          <script>
+          
+            $.fn.readerStoryContent('{{content.story_id}}recommendedrandomstory','{{content.story_id}}','{% url "reader_story_contents" storyid=content.story_id %}')
+          </script>
+         
+        </div>
+    
+        <div class=" col-csxx-xx-14" style="padding: 2px;border-radius: 0;padding: 0;">
+          <div class="uk-padding-remove  col-csxx-14 uk-text-left" style="margin: 0px;box-sizing: border-box;">
+            <div class="uk-text-center col-csxx-14 uk-padding-remove" style="position: relative;">
+              <div class="col-csxx-5-e uk-padding-remove"><span class="fas fa-book-open fas-c-small"></span> <span class="text-sm">
+                  {{content.number_of_episodes}}</span></div>
+              <div class="col-csxx-5-e uk-padding-remove"><span class="fas fa-book-reader fas-c-small"></span> <span class="text-sm">
+                  {{content.number_of_views}}</span>
+              </div>
+    
+              <div class="col-csxx-5-e uk-padding-remove"><span class="fas fa-heart fas-c-small"></span> <span class="text-sm">
+                {{content.hearts}}</span>
+            </div>
+    
+            </div>
+            <div class="col-xs-12 d-inline-block text-truncate uk-text-center uk-padding-remove-vertical dark-mode"
+              style="max-width: 100%;;padding: 5px;font-weight: bold;font-size: 11px;">{{content.title}}</div>
+          </div>
+    
+        </div>
+    
+      </div>
+    
+    </div>
+{% elif content.content_type == 'library' %}
+
+<div id="{{content.library_id}}"
+  class=" randomrecommended uk-padding-remove uk-text-left col-cmd-7 col-csm-14 col-csxx-x-9 col-csx-4-e col-css-4-e col-csl-7 col-csxx-7 col-csxx-xx-7"
+  style="margin: 0px;box-sizing: border-box;padding: 5px !important;margin-top:0px; cursor: pointer;height: 200px;margin-bottom: 20px;"
+  onclick='window.location = "{% url 'viewlibrary' libid=content.library_id %}"'>
+  <div class="col-xs-14 col-sm-14 col-cmd-14 rounded-lg  uk-box-shadow-small uk-padding-small uk-padding-remove-horizontal"
+    style="padding-top: 0px !important;position: relative;height: 200px;border:1px solid silver;">
+
+
+    <div uk-slider='autoplay:true' class="uk-align-center trending recent trending uk-text-center" id="activity"
+      style="margin: 0;width: 100%;display: inline-block; position: relative;">
+      <ul class="uk-slider-items uk-grid-small" style="text-align:center;">
+        {% for story in allstories %}
+        {% if story.library_id == content.library_id %}
+        <li class="col-cmd-7 col-csx-7 col-csxx-5-e col-csl-7 col-csm-7 col-css-7 col-csxx-x-5-e col-csxx-xx-7"
+          style="padding: 2px;">
+
+          <a href="{% url 'readstory' storyid=story.story_id %}">
+
+            <img class="card-img-top " src="{{story.image.url}}" alt="" style="height: 100px;border-radius: 10px;"> </a>
+        </li>
+
+        {% endif %}
+        {% endfor %}
+      </ul>
+
+    </div>
+
+    <div class="uk-text-center col-xs-12 uk-padding-remove">
+      <div class="col-xs-4 uk-padding-remove"> <span class="fas fa-book " style=""></span>
+        <span style="font-size: 12px;" class="dark-mode">{{content.number_of_stories}}</span>
+      </div>
+      <div class="col-xs-4 uk-padding-remove"><span class="fas fa-book-open "></span> 
+        <span style="font-size: 12px;" class="dark-mode">          {{content.number_of_episodes}}</span>
+      </div>
+      <div class="col-xs-4 uk-padding-remove"><span class="fas fa-users"></span>
+        <span style="font-size: 12px;" class="dark-mode">{{content.number_of_subscribers}}</span>
+      </div>
+
+    </div>
+
+    <div class="blogpost-footer-author-section col-xs-12 uk-padding-small uk-padding-remove-vertical"
+      style="display: inline-block;">
+      <div class="col-csxx-x-14 uk-padding-remove uk-text-center dark-mode" style="font-weight: bold;">
+        <span class="text-truncate d-inline-block" style="max-width: 70%;">{{content.name}}</span>
+        {% if currentuser in content.subscribers.all %}
+        <li class="fa fa-check-circle-o"
+          style="display: inline-block;float: right;margin: 0;color: rgb({{color.primary_rgb}}) !important;"></li>
+        <!--<a contenturl="{% url 'library_unsubscribe' libid=content.library_id %}" class="fa fa-plus-circle subscribe"
+          style="margin:5px;margin-bottom:0;margin-top: 0;float: right;color: black;"></a>-->
+
+        {% endif %}
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+
+{% elif content.content_type == 'adimage' %}
+<div class="col-cmd-7 col-csm-14 col-csl-7 col-csx-5-e col-csxx-7 col-csxx-xx-7 col-csxx-x-14 col-css-4-e"
+          style='margin-top:0px !important;padding: 5px;height: 200px;margin-bottom: 20px;position: relative;'>
+      
+                <span class="fas fa-ad medium uk-position-top-right" style="color: white;">
+                 
+                </span>
+              <a href="{{content.link}} ">
+      
+                <img class="card-img-top " src="{{content.mobile_image.url}}" alt="" style="height: 200px;"> </a>
+              </div> 
+
+
+
+{% endif %}
+{% endfor %}

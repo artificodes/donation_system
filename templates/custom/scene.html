@@ -1,0 +1,16 @@
+{% for scene in scenes %}
+
+<div class="col-cmd-14 ">
+    <div class="jumbotron uk-margin-remove uk-padding-remove" style="margin-top: 0;background-color:transparent;position: relative;">
+      <div class="uk-padding-small "> 
+        <em class="display-6">{{scene.scene}}</em>
+      <h3 class="display-6" style='text-align:center;font-weight:bold'>{{scene.title}}</h3>
+     
+      <p>{{scene.content}}</p>
+     
+    </div>
+   </div>
+    </div>
+
+
+    {% endfor %}

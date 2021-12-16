@@ -1,0 +1,96 @@
+<!-- Tab panes -->
+{% load i18n %}
+<div class="col-md-6 col-md-offset-3 col-sm-offset-2 col-sm-8" style="margin-top: 100px;">
+<form role="form" class="form-horizontal" class="signup " id="signup_form" method="post"
+  action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  {% if form.errors %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Ooops!</strong>
+    {{form.errors}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+
+  <div class="col-md-12 content-us ">
+    <div class="contact-form shadow-sm uk-border-rounded" id="contact" style="margin-top: 0;">
+      <h3 class="text-uppercase uk-text-center">Sign Up</h3>
+
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        
+          <input class="form-control" id="id_first_name" placeholder="First Name" type="text" name="first_name"
+            required >
+      </div>
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        
+          <input class="form-control" id="id_last_name" placeholder="Last Name" type="text" name="last_name" required>
+        </div>
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        
+          <input class="form-control" id="id_email" placeholder="Your email adress" type="email" name="email" required>
+      </div>
+
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <label for="id_category">Select Gender</label>
+          <select name="gender" id="id_gender" style="" class="form-control">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+
+      </div>
+
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        
+          <input class="form-control" id="id_username" placeholder="Username" type="text" name="username" required>
+
+      </div>
+
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        <label for="id_country">Select Country</label>
+
+          <select class="form-control selectpicker countrypicker" id='id_country' name="country" data-flag="true" data-live-search="true"></select>
+      </div>
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        
+          <input class="form-control" placeholder="Password" type="password" name="password1"
+            autocomplete="new-password" required="" id="id_password1">
+      </div>
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        
+          <input class="form-control" placeholder="Confirm Password" type="password" name="password2"
+            autocomplete="new-password" required="" id="id_password2">
+      </div>
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        
+          <input class="form-control success" id="id_writer_id" placeholder="Writer id" type="hidden" name="writer_id" required>
+      </div>
+
+      <div class="form-group col-md-12 col-sm-12 col-xs-12">
+        
+          <input class="form-control" id="id_client_id" placeholder="client id" type="hidden" name="client_id" required>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-10">
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button type="submit" class="btn btn-light btn-radius btn-brd grd1">{% trans "Sign Up" %} &raquo;</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+</div>

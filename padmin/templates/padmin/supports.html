@@ -1,0 +1,24 @@
+{% extends "base/abase.html" %}
+{% load static %}
+{% block content %}
+<div class="position-relative mt-1">
+
+    <div id="main-container" class=" overflow-hidden">
+        <div class="card m-0 uk-padding-small m-0-top uk-animation-slide-top rounded-0" id=""
+            style="box-shadow: none;">
+            <div class="text-sm m-0 bg-secondary uk-text-center text-darker uk-text-bold 
+rounded-pill p-2 border-0 pl-3 pr-3 pt-1 pb-1" style="width:max-content">
+                Requests
+            </div>
+            <div class="card-body m-0 uk-padding-small pt-2" id="supports">
+                {% for support in supports %}
+
+                {% include 'partners/support.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}

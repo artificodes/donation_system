@@ -1,0 +1,63 @@
+
+            <div class="card-body p-0">
+                <div class="uk-text-bold p-2">
+                    SPONSOR PROFILE
+                </div>
+                <div class="card m-0 shadow-none">
+
+                    <div class="card-body p-0">
+                    {% include 'partners/personal_data.html' %}
+                    {% include 'partners/gender.html' %}
+
+                    {% include 'partners/marital_status.html' %}
+                    <div class="p-1">
+                        <div class="uk-inline mt-4" style="width: 100%;">
+                            <div class="position-relative">
+                                 <input class="uk-input previewimage form-control p-3 password  rounded-md position-relative "
+                           name="photo" data-jpreview-container="#preview-container" style="z-index: 2;"
+                                 type="file">
+                            <span class=" uk-position-center-left rounded-sm pl-1 pr-1 ml-2 mt--4 bg-white text-dark" style="z-index: 3;font-size: 12px;">
+                                Profile picture
+                            </span>
+                            </div>
+                           
+                      
+                            <div id="preview-container" 
+                                class="jpreview-container uk-padding-small rounded-circle"
+                                style="background-position: center; height: 100px;width: 100px; float: none;
+                                background-image: url('{% if partner.photo %} {{partner.photo.url}} {% endif  %}');background-repeat: no-repeat; background-size: contain;">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {% include 'partners/contact_details.html' %}
+
+                {% include 'partners/other_details.html' %}
+
+                   
+                      <div class="form-group mb-3">
+                        <div
+                            class="input-group input-group-merge input-group-alternative border rounded-md p-1 shadow-sm border rounded-md p-1 shadow-sm">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                            SELECT TV STATION TO SPONSOR:
+                            </div>
+                        
+                        <div class="col-csxx-x-14">
+                            <select class="ui fluid dropdown" data-style="btn btn-link" name="tv_station" id="tv_station"
+                                class="form-control">
+                                <option value="{{partner.tv_station}}" selected="selected">
+                                    {% if partner.tv_station %} {{partner.tv_station}} {% else %} select {% endif %}
+                                </option>
+                                {% for tvstation in tvstations %}
+                                <option value='{{tvstation.title}}'>{{tvstation.title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    </div>
+                    
+            </div>
+        </div>
+        </div>

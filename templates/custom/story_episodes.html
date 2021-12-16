@@ -1,0 +1,21 @@
+ <div class="col-md-10 col-md-offset-1 fh5co-recent-work" style='padding-top:0'>
+    <div class="container-fluid ">
+  <div class="container-fluid recent" id="activity">
+        <div class="row">
+          <h2>Episodes of this story</h2>
+          <div class='container-fluid' style = 'padding:0;margin-top:40px'> 
+            {% for storyepisode in storyepisodes %}
+              <div class="card story "> <img class="card-img story" src="{{storyepisode.image_64}}" alt="">
+                <div class="card-img-overlay story" onclick='window.location = "{% url 'readepisode' slug=storyepisode.story.slug episodeid=storyepisode.episode_id %}"' > <a href="#"><span class='fa fa-heart heart'></span></a>
+                  <div class="bottom-text">
+                    <h5 class="card-title">{{storyepisode.title}}</h5>
+                    <p class="card-text">{{storyepisode.story.title}} {{storyepisode.episode}}</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+         </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,267 @@
+{% extends "base/base2.html" %}
+{% load static %}
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+{% get_providers as socialaccount_providers %}
+<div class="uk-height-viewport page-header header-filter uk-padding-small"
+  style=" background-position: top center;width: 100%;">
+
+  <div class="container uk-text-center position-relative" style="z-index:3">
+    <img src="{{settings.logo.url}}" class="card-img-top m-3" alt="" style="width:100px;display: inline-block;">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+        <div class="card card-login m-0 bg-white" style="border-radius:20px">
+          <div class="card-body p-1">
+
+
+            <form class="form" id="loginform" method="POST" action="{% url 'account_login' %}">
+
+              {% csrf_token %}
+
+
+              {% if form.errors %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Ooops!</strong>
+                {{form.errors}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              {% endif %}
+              <div class="card-body ">
+
+                <div class="input-group m-1">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">perm_identity</i>
+                    </span>
+                  </div>
+                  <input type="text" class="form-control" name="login" id="id_login" placeholder="username/Email"
+                    autofocus="autofocus">
+                </div>
+                <div class="input-group m-1">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">
+                      <i class="material-icons">lock_outline</i>
+                    </span>
+                  </div>
+                  <input type="password" class="form-control" name="password" placeholder="Password" required=""
+                    id="id_password">
+                </div>
+                <input type="hidden" name="next" value="{{redirect_url}}" />
+
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+              </div>
+              <div class="footer text-center bg-white">
+                <button class="btn btn-primary uk-padding-medium" type="submit"
+                  style="border-radius: 50px; width: 90%;">{% trans "Sign In" %} </button>
+              </div>
+
+              {% if socialaccount_providers %}
+              <p>{% blocktrans with site.name as site_name %} <a href="{{ signup_url }}">sign up</a>
+                {% endblocktrans %}</p>
+
+              <div class="socialaccount_ballot">
+
+                <ul class="socialaccount_providers">
+                  {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                </ul>
+
+                <div class="login-or">{% trans 'or' %}</div>
+
+              </div>
+
+              {% include "socialaccount/snippets/login_extra.html" %}
+
+              {% else %}
+
+              <div class="col-csxx-x-14 uk-margin-top">
+                Don't have an account? <br><a href="{% url 'account_signup' %}" class="btn btn-rose uk-padding-medium"
+                  type="submit" style="border-radius: 50px; width: 90%;">sign up</a>
+
+              </div>
+              {% endif %}
+              <a class="uk-button uk-button-default uk-margin" href="{% url 'account_reset_password' %}"
+                style="border-radius: 30px;">{% trans "Forgot Password?" %}</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 800" class="fixed-bottom" style="min-width: 100%;z-index:1">
+    <path fill="#0099ff" fill-opacity="0.5" style="transform:scaleY(2.5)"
+      d="M0,128L60,122.7C120,117,240,107,360,96C480,85,600,75,720,112C840,149,960,235,1080,229.3C1200,224,1320,128,1380,80L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+    </path>
+
+  </svg>
+  <div class="fixed-bottom text-center">
+    <p class="text-lighter">Dominion Partners Global</p>
+  </div>
+</div>
+
+
+<script>
+
+  $("#loginform").submit(function (event) {
+    event.preventDefault(); //prevent default action 
+    var post_url = $(this).attr("action"); //get form action url
+    var request_method = $(this).attr("method"); //get form GET/POST method
+    var form_data = new FormData(this); //Creates new FormData object
+    $.ajax({
+      beforeSend: function () {
+
+        $('#loader-cover').show()
+      },
+      complete: function () {
+        $('#loader-cover').hide()
+
+      },
+      url: post_url,
+      type: request_method,
+      data: form_data,
+      contentType: false,
+      cache: false,
+      processData: false,
+
+      success: function (response) {
+        $('#loader-cover').hide()
+        if (response.url) {
+          window.location = response.url
+
+        }
+        if (response.modal_message) {
+          messageModal(response.modal_message, response.heading)
+
+        }
+        if (response.modal_notification) {
+          notificationModal(response.modal_notification)
+
+        }
+
+        if (response.modal_content) {
+          contentModal(response.modal_content, response.heading)
+
+        }
+        if (response.message) {
+          UIkit.notification.closeAll()
+          UIkit.notification(response.message)
+        }
+      },
+
+      error: function (xhr, status, error) {
+        UIkit.notification.closeAll()
+        UIkit.notification('Operation not successful. Check your internet connection',)
+      }
+    });
+  });
+
+
+
+
+</script>
+
+
+<script>
+
+  {
+    (function ($) {
+      var pageStatus = null;
+      var progress = null;
+      var animationInterval = 33;
+
+      window.document.addEventListener("readystatechange", function () {
+        if (document.readyState == "complete") {
+          pageStatus = "complete";
+        }
+        else {
+          progress++
+
+          $('#progress').progress({
+            percent: progress
+          });
+        }
+      }, false);
+
+
+      function updateProgress() {
+        if (pageStatus == "complete") {
+          $('#progress').progress({
+            percent: 100
+          });
+          setTimeout(function () {
+            $('#page-ready-cover').addClass('uk-transition-fade uk-transition-slow')
+            $('#page-ready-cover').transition('fade')
+          }, 700);
+        }
+        else {
+          if (progress == null) {
+            progress = 1;
+          }
+
+          progress = progress + 1;
+          if (progress >= 0 && progress <= 30) {
+            animationInterval += 1;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 30 && progress <= 60) {
+            animationInterval += 2;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 60 && progress <= 80) {
+            animationInterval += 3;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 80 && progress <= 90) {
+            animationInterval += 4;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 90 && progress <= 95) {
+            animationInterval += 80;
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          else if (progress > 95 && progress <= 99) {
+            animationInterval += 150;
+            document.getElementById("pageLoader").innerHTML = progress;
+          }
+          else if (progress >= 100) {
+            $('#progress').progress({
+              percent: progress
+            });
+          }
+          setTimeout(updateProgress, animationInterval);
+        }
+      }
+
+      var intervalObject_1 = setInterval(function () {
+        var element = document.querySelector("body");
+
+        if (element != undefined) {
+          clearInterval(intervalObject_1);
+
+          updateProgress();
+        }
+      }, 50);
+
+    }(jQuery))
+  }
+
+</script>
+{% endblock %}

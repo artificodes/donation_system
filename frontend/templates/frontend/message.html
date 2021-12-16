@@ -1,0 +1,31 @@
+<div class="page-header header-filter header-small" data-parallax="true"
+    style="background-image: url('{{settings.primary_image.url}}');">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 ml-auto mr-auto text-center">
+                <h1 class="uk-text-large">PASTOR'S DESK</h1>
+                <h4>A message from the heart of a father and leader</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="main main-raised" style="">
+        <div class="card">
+        <div class="text-center uk-padding-medium card-header col-cmd-2 uk-box-shadow-small" style="box-shadow: none;">
+            <img src="{{pastorsdesk.thumbnail.url}}">
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-8 ml-auto mr-auto ">
+
+                    {% autoescape off %} <h5 class="description" style="color: black;">{{pastorsdesk.full_description}}</h5> 
+                    {% endautoescape %}
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+    </div>
+</div>

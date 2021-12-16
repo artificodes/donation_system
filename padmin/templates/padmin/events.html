@@ -1,0 +1,514 @@
+{% extends "base/ubase.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="uk-border-circle bg-indigo uk-position-top-center" style="height: 70px;width: 70px;margin-top: -20px;border: 4px solid white;"  >     
+    <i class="material-icons uk-position-center"
+        style="color: white;">
+       event</i>
+    
+    </div>
+    
+    <div class="p-2 mt-6 uk-animation-slide-top uk-display-inline-block col-csxx-14 uk-text-center" id="" style="box-shadow: none;float: none;">
+  
+{% if todaysevent %}
+<button class="uk-border-circle  btn {% if eventongoing %} btn-success {% else %} btn-info {% endif %}  uk-padding-remove uk-text-center qr-scan"  qreventid='{{todaysevent.eventid}}'
+    style="margin-top: -140px;height:100px;width: 100px;border: 5px solid white;" >
+    <i class="icon qrcode huge uk-margin-remove" style=" color: white;">
+    </i>
+</button>
+
+{% endif %}
+
+{% if eventongoing %}
+<div class="container-fluid uk-margin-xlarge-bottom">
+
+    <div class="col-cmd-14  uk-text-center">
+        <div class="input-group">
+            <p class="input-group bg-rose uk-margin-remove uk-padding-small" style="width: max-content;color: white;">
+                <span class="">LIVE</span> <i class="material-icons "
+                    style="color: white;">videocam</i></p>
+           <p class="bg-primary uk-margin-remove uk-padding-small" style="width: max-content;color: white;">
+            {{todaysevent.title}}</p>            
+        </div>
+        
+        <div class="uk-divider-small uk-margin-remove-top"></div>
+        <iframe height="480" uk-video="autoplay: true,automute:false" style="width: 100%;"
+            src="https://www.youtube.com/embed/{{latestvideo.video_id}}" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+           
+    </div>
+    <!-- <div class="col-cmd-9 col-csm-7 col-csxx-14 uk-text-right">
+        <p class="bg-dark input-group uk-margin-remove uk-padding-small " style="width: max-content;color: white;display: inline-block;">
+            <span class="uk-padding-small">OTHER VIDEOS </span>
+        </p>
+        <div class="uk-divider-small uk-margin-remove-top uk-padding-small uk-padding-remove-top"></div>
+
+        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" id="othervideos"
+            uk-slider="clsActivated: uk-transition-active; center: true;ratio: false;animation:scale;autoplay:true;autoplay-interval: 6000;pause-on-hover: true">
+
+            <ul class="uk-slider-items">
+                {% for video in videos %}
+                <li class="uk-padding-small video col-csxx-12 col-csx-10 col-css-7 col-csm-7 col-cmd-6" style="">
+
+                    <div class="demo" data-ytb-video="{{video.video_id}}" data-video-id='{{video.video_id}}'></div>
+
+                    <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom uk-padding-small"
+                        style="max-height: 50px;">
+                        <h5 class="uk-margin-remove">{{video.title}}</h5>
+                    </div>
+
+                </li>
+                {% endfor %}
+
+            </ul>
+
+            <a class=" uk-position-center-left uk-position-small uk-hidden-hover uk-border-circle btn-rose btn" href="#"
+                uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-border-circle bg-primary" href="#"
+                uk-slidenav-next uk-slider-item="next"></a>
+
+        </div>
+        <a href="{{cardarticle.video_id}}" class="btn btn-primary uk-border-pill uk-margin-small-top">More Videos <i
+                class="material-icons uk-padding-small" style="color:orangered">play_arrow</i></a>
+    </div> -->
+
+</div>
+
+{% endif %}
+<div class="card card-nav-tabs card-plain uk-margin-large-top">
+    <div class="card-header uk-padding-remove-horizontal" style="background: white !important; box-shadow: none;">
+        <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+        <div class="nav-tabs-navigation">
+            <div class="nav-tabs-wrapper uk-text-center">
+                <ul class="nav nav-pills nav-pills-info uk-padding-remove-horizontal" style="display: inline-block;">
+                    <li class="nav-item " style="display: inline-block;"><a class="nav-link active" href="#upcoming"
+                            data-toggle="tab" style="min-width: max-content;">UPCOMING</a></li>
+                    <li class="nav-item" style="display: inline-block;"><a class="nav-link" href="#past"
+                            data-toggle="tab" style="min-width: max-content;">PAST</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card-body ">
+
+        <div class="tab-content tab-space">
+            <div class="tab-pane active" id="upcoming">
+                {% if upcomingevents %}
+
+                {% for event in upcomingevents %}
+                <div
+                    class="col-cmd-4-e col-csxx-14 col-csx-14 col-css-7 col-csm-7 card uk-padding-small box-shadow-remove ">
+                    <div class="uk-padding-small input-group uk-position-top-center uk-text-primary card-header {% cycle 'card-header-primary' 'card-header-rose' %} uk-padding-small"
+                        style="opacity: 0.8;font-size: 12px;font-weight: bold;z-index: 2;cursor:default;color: white !important;">
+
+                        <div class=" uk-padding-small " style="width: max-content;">
+                            <div id="days{{event.eventid}}">
+
+                            </div>
+
+                            <div>
+                                DAY(S)
+                            </div>
+                        </div>
+                        <div class="uk-divider-vertical uk-margin-remove" style="height: 40px;"></div>
+                        <div class=" uk-padding-small " style="width: max-content;">
+                            <div id="hours{{event.eventid}}">
+
+                            </div>
+
+                            <div>
+                                HOUR(S)
+                            </div>
+                        </div>
+                        <div class="uk-divider-vertical uk-margin-remove" style="height: 40px;"></div>
+
+                        <div class=" uk-padding-small" style=" width: max-content;">
+                            <div id="minutes{{event.eventid}}">
+
+                            </div>
+
+                            <div>
+                                MIN(S)
+                            </div>
+                        </div>
+                        <div class="uk-divider-vertical uk-margin-remove" style="height: 40px;"></div>
+                        <div class=" uk-padding-small" style=" width: max-content;">
+                            <div id="seconds{{event.eventid}}">
+
+                            </div>
+
+                            <div>
+                                SEC(S)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card uk-box-shadow-medium uk-margin-remove-left uk-margin-remove-right"
+                        style="overflow: hidden;">
+
+                        <img src="http://localhost:8000{{event.thumbnail.url}}" alt="" class="card-image scale-up-card "
+                            style="min-height: 150px;max-height:150px;">
+
+
+                        <div class="bg-primary uk-padding-medium uk-text-center"
+                            style="color: white;font-weight: bold;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                            {{event.title|truncatechars:30}}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text" style="">{{event.short_description|truncatechars:100}}</p>
+                        </div>
+                        <div class="card-footer uk-text-center container-fluid" style="display: inline-block;">
+                            <button contenturl="{% url 'admin_event_details' eventid=event.eventid %}"
+                                class="btn btn-outline-primary btn-round btn-block action-btn"
+                                style="width: max-content;display: inline-block;border-radius: 0;">
+                                <i class="material-icons">add</i> More
+                                <!-- on {{event.title|truncatechars:10}} -->
+                            </button>
+                            {% if event.registration_required %}
+                            {% if partner in event.registrations.all %}
+                            <button class="btn btn-success uk-disabled btn-round btn-block"
+                                style="width: max-content;display: inline-block;border-radius: 0;"
+                                uk-tooltip="To attend this event, attendees are required to be registered">
+                                <i class="material-icons">check_circle</i> REGISTERED
+                                <!-- on {{event.title|truncatechars:10}} -->
+                            </button>
+
+                            <!-- <button class="uk-border-circle  btn btn-info uk-padding-remove uk-text-center qr-scan" qreventid='{{event.eventid}}'
+                                style="height:50px;width: 50px;border: 5px solid white;"
+                                contenturl="{% url 'admin_verify_event' %}">
+                                <i class="icon qrcode big uk-margin-remove" style=" color: white;">
+                                </i>
+                            </button> -->
+                            {% else %}
+                            <button contenturl="{% url 'admin_event_registration' eventid=event.eventid %}" target="_blank"
+                                class="btn {% cycle 'btn-rose' 'bg-primary' %} btn-round btn-block action-btn"
+                                style="width: max-content;display: inline-block;border-radius: 0;"
+                                uk-tooltip="To attend this event, attendees are required to be registered">
+                                <i class="material-icons">app_registration</i> REGISTER
+                                <!-- on {{event.title|truncatechars:10}} -->
+                            </button>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+
+                {% endfor %}
+
+
+
+                {% else %}
+
+                <p class="uk-text-bold uk-text-danger">
+                    No upcoming Events
+                </p>
+                {% endif %}
+            </div>
+            <div class="tab-pane" id="past">
+                {% for event in pastevents %}
+
+                <div
+                    class="col-cmd-4-e col-csxx-14 col-csx-14 col-css-7 col-csm-5-e uk-padding-small card uk-box-shadow-medium uk-margin-remove-left uk-margin-remove-right ">
+
+
+
+                    <img src="http://localhost:8000{{event.thumbnail.url}}" alt="" class="card-image scale-up-card"
+                        style="min-height: 150px;max-height:150px;">
+                    <div class="bg-primary uk-padding-medium uk-text-center"
+                        style="color: white;font-weight: bold;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">
+                        {{event.title}}
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" style="">{{event.short_description|truncatechars:100}}</p>
+                    </div>
+                    <div class="card-footer uk-text-center container-fluid" style="display: inline-block;">
+                        <a href="https://www.creative-tim.com/product/material-kit-pro?ref=presentation" target="_blank"
+                            class="btn btn-outline-primary btn-round btn-block"
+                            style="width: max-content;display: inline-block;border-radius: 0;">
+                            <i class="material-icons">add</i> More
+                            <!-- on {{event.title|truncatechars:10}} -->
+                        </a>
+                    </div>
+
+                </div>
+
+
+
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="qr-modal" uk-modal>
+    <div class="uk-modal-dialog qr-body uk-modal-body uk-border-rounded uk-padding-small">
+        <div class="card card-login uk-text-center" style="box-shadow: none;padding-bottom: 70px;">
+            <div class="card-body uk-padding-small" id="qr-modal-inner">
+
+                <div class="pageWrapper">
+
+                    <div class="boxWrapper uk-text-center" style="border: none;">
+                        <div id="example" class="uk-position-center" style="max-width:100%; height:auto;width:100%"></div>
+                    </div>
+
+                </div>
+            </div>
+            <div id='qr-data' class="uk-text-lead">
+
+            </div>
+        </div>
+        <button class="btn btn-danger uk-padding-small uk-modal-close uk-position-top-right uk-border-circle qr-close"
+            type="button"><i class="material-icons">close</i></button>
+    </div>
+
+</div>
+</div>
+
+<script>
+
+    {% for event in upcomingevents %}
+
+
+    $(function () {
+        var suspension_days = (Number({{ event.start_time_timestamp }}) - Number({{ server_timestamp }})) /(86400)
+    var suspension_seconds = Math.ceil(suspension_days * 24 * 60 * 60)
+    var suspension_minutes = Math.ceil(suspension_seconds / 60)
+    var total_remaining_days = suspension_minutes / 60 / 24
+    var remain_days = total_remaining_days | 0
+    var total_remaining_hours = (suspension_minutes / 60) % 24
+    var remain_hours = (total_remaining_hours | 0)
+    var total_remaining_minutes = (total_remaining_hours - remain_hours) * 60
+    var remain_minutes = (total_remaining_minutes) | 0
+    var remain_seconds = Math.round((total_remaining_minutes - remain_minutes) * 60)
+    // if (remain_minutes < 1) {
+    //     $('#briefly-suspended-message{{event.eventid}}').html('Your account is briefly suspended. Kindly wait for ' + remain_seconds + ' seconds.')
+
+    // }
+    // else {
+    //     $('#briefly-suspended-message{{event.eventid}}').html('Your account is briefly suspended. Kindly wait for ' + remain_days + ' days ' + remain_hours + ' hours ' + remain_minutes + ' minutes and ' + remain_seconds + ' seconds.')
+
+    // }
+
+    function updateTime() {
+
+        if (remain_seconds >= 1) {
+            remain_seconds--
+            $('#days{{event.eventid}}').html(remain_days)
+            $('#hours{{event.eventid}}').html(remain_hours)
+            $('#minutes{{event.eventid}}').html(remain_minutes)
+            $('#seconds{{event.eventid}}').html(remain_seconds)
+
+        }
+        else {
+            remain_seconds = 60
+            remain_minutes--
+            $('#days{{event.eventid}}').html(remain_days)
+            $('#hours{{event.eventid}}').html(remain_hours)
+            $('#minutes{{event.eventid}}').html(remain_minutes)
+            $('#seconds{{event.eventid}}').html(remain_seconds)
+            if (remain_minutes >= 1) { }
+            else {
+                remain_hours--
+                remain_minutes = 60
+
+                $('#days{{event.eventid}}').html(remain_days)
+                $('#hours{{event.eventid}}').html(remain_hours)
+                $('#minutes{{event.eventid}}').html(remain_minutes)
+                $('#seconds{{event.eventid}}').html(remain_seconds)
+                if (remain_hours >= 1) {
+                    $('#days{{event.eventid}}').html(remain_days)
+                    $('#hours{{event.eventid}}').html(remain_hours)
+                    $('#minutes{{event.eventid}}').html(remain_minutes)
+                    $('#seconds{{event.eventid}}').html(remain_seconds)
+                }
+                else {
+                    if (remain_days < 1) {
+                        $('#days{{event.eventid}}').html(remain_days)
+                        $('#hours{{event.eventid}}').html(remain_hours)
+                        $('#minutes{{event.eventid}}').html(remain_minutes)
+                        $('#seconds{{event.eventid}}').html(remain_seconds)
+                    }
+                    else {
+                        remain_days--
+                        remain_hours = 23
+                    }
+
+                    $('#days{{event.eventid}}').html(remain_days)
+                    $('#hours{{event.eventid}}').html(remain_hours)
+                    $('#minutes{{event.eventid}}').html(remain_minutes)
+                    $('#seconds{{event.eventid}}').html(remain_seconds)
+                }
+            }
+        }
+        // else{
+        //     $('#days{{event.eventid}}').html(remain_days)
+        // $('#hours{{event.eventid}}').html(remain_hours)
+        // $('#minutes{{event.eventid}}').html(remain_minutes)
+        // $('#seconds{{event.eventid}}').html(remain_seconds)
+        // }
+
+    }
+
+
+    function removeInterval() {
+
+        try {
+            if (event{{event.eventid}}) {
+                clearInterval(event{{ event.eventid }})
+            event{{event.eventid}} = setInterval(updateTime, 1000)
+        }
+            else {
+            event{{event.eventid}} = setInterval(updateTime, 1000)
+        }
+    }
+        catch (ReferenceError) {
+        event{{event.eventid}} = setInterval(updateTime, 1000)
+    }
+    
+
+    }
+    removeInterval()
+
+    // $('#{{event.eventid}}').countdowntimer({
+    //     seconds: 300 - suspension_seconds,
+    //     size: "lg",
+    //     displayFormat: 'DHMS',
+
+    // });
+
+});
+    {% endfor %}
+
+    {
+        (function ($) { //Most read async
+            $('.scale-up-card').on('mouseout', function () {
+
+                var card = $(this)
+                card.removeClass('uk-animation-kenburns')
+
+            })
+        }(jQuery))
+    };
+
+    {
+        (function ($) { //Most read async
+            $('.scale-up-card').on('mouseover', function () {
+
+                var card = $(this)
+                card.addClass('uk-animation-kenburns')
+
+            })
+        }(jQuery))
+    };
+</script>
+
+<script>
+
+var eventid = ''
+var eventVerificationUrl ="{% url 'admin_verify_event' %}"
+    {
+        (function ($) { //Most read async
+            $('.action-btn').on('click', function (event) {
+                event.preventDefault();
+                var link = $(this);
+                $.ajax({
+                    beforeSend: function () {
+
+                        $('#loader-cover').show()
+                    },
+                    complete: function () {
+                    },
+                    type: 'get',
+                    url: link.attr('contenturl'),
+                    data: {
+                        'csrfmiddlewaretoken': window.CSRF_TOKEN, // from index.html
+                    },
+                    success: function (response) {
+                        // if there are still more pages to load,
+                        // add 1 to the "Load More Posts" link's page data attribute
+                        // else hide the link
+                        // append html to the posts div
+                        //$('.uk-modal-header-title').empty()
+
+                        //$('.uk-modal-header-title').append(link.attr('inner-html'));
+                        if (response.content) {
+                            $('#tab-header').empty()
+                            $('#tab-header').append(response.header);
+                            $('#inner-container').empty();
+                            $('#inner-container').append(response.content);
+                            $('#loader-cover').hide()
+                        }
+
+                        if (response.message) {
+                            window.location = "#top"
+
+                            $('#notification-modal-inner').empty()
+                            $('#notification-modal-inner').append(response.message)
+                            $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'black' })
+                            UIkit.modal($('#notification-modal')).show();
+                            $('#loader-cover').hide()
+                        }
+
+
+                    },
+                    error: function (xhr, status, error) {
+                        alert('there was an error')
+                    }
+                });
+            });
+        }(jQuery))
+    };
+
+
+    {
+        (function ($) { //Most read async
+            $('.qr-scan').on('click', function (event) {
+                var eventButton = $(this)
+                eventid = eventButton.attr('qreventid')
+                $('.uk-modal-body.qr-body').css({ 'background-color': 'white', 'color': 'black' })
+                UIkit.modal($('#qr-modal')).show();
+                Webcam.set({
+                    width: 160,
+                    height: 120,
+                    image_format: 'jpeg',
+                    jpeg_quality: 90
+                });
+                Webcam.attach('#example');
+
+
+                // $('#button').click(function () {
+                // 	take_snapshot();
+                // });
+                Webcam.on('load', function () {
+                   qrCodeInterval = setInterval(take_snapshot, 100)
+                    qrcode.callback = showInfo;
+                });
+
+
+
+            });
+        }(jQuery))
+    };
+
+
+    {
+        (function ($) { //Most read async
+            $('.qr-close').on('click', function (event) {
+
+            
+            clearInterval(qrCodeInterval)
+            Webcam.reset()
+
+            });
+        }(jQuery))
+    };
+
+</script>
+
+{% endblock content %}

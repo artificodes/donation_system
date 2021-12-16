@@ -1,0 +1,20 @@
+{% autoescape off %}
+
+<div class="text-left">
+            <p class="h1 text-darker border-bottom">{{event.title}}</p>
+   <div class="p-2 rounded-md bg-secondary">
+    <p class="uk-text-bold h1 text-darker">Dates</p> 
+    <p class="uk-text-lead"> Start Date & Time: <br><span class="h1 text-darker">{{event.start_date_time}}</span></p> 
+    <p class="uk-text-lead">End Date & Time: <br> <span class="h1 text-darker">{{event.end_date_time}}</span></p>  
+    </div>
+
+    <div class="card shadow-none">
+        
+<div class="card-body p-0">
+<img src="{{event.thumbnail.url}}" alt="" class="rounded-sm mt-4" style="max-width: 500px;width: 100%;">
+   {{event.full_description}}
+</div>
+ </div>
+
+</div>
+{% endautoescape %}

@@ -1,0 +1,44 @@
+{% if recentepisodes %}
+<div class="col-md-12 col-csl-12 col-csm-12 uk-padding-remove uk-text-left"
+  style='padding-top:0px;background-color: transparent;'>
+  <div class="col-md-12 " style="padding: 0;">
+    <h4 class="display-6 uk-border-rounded col-md-12 uk-text-center "
+      style=" padding: 10px;color: white;background-image: linear-gradient(to right, rgb({{color.primary_rgb}}),rgb({{color.primary_rgba}}));">
+      RECENT EPISODES</h4>
+    <div class="recent" id="activity">
+      <div class='col-md-12 uk-text-center uk-padding-remove'
+        style='margin-top:0px;max-height: 420px; overflow-y: auto;'>
+
+        {% for episode in recentepisodes %}
+        <div class="col-xs-12 col-csm-3 col-csl-3 col-md-2 col-css-4-e col-csx-6" style="margin: 0px;padding: 10px;">
+          {% if episode in newepisodes %}
+          <a href="#" class="badge badge-pill badge-success"
+            style="font-weight: bold; position: absolute;right: 0;z-index: 2;background-color: rgb({{color.primary_rgb}});padding: 5px;padding-top: 10px; border-radius: 50%;width: 30px;height: 30px;">new</a>
+          {% endif %}
+          <div
+            class=" fh5co-recent-work uk-box-shadow-small uk-padding-remove-horizontal uk-text-center uk-border-rounded"
+            style='padding-top:0px;background-color: white;padding-bottom: 0;'>
+            <div class=" col-md-12 col-xs-12 trending" style="text-align: center;padding: 0px;">
+              <div class="card story trending col-xs-12" style="padding: 0;height: 180px;">
+                <img class="card-img story" src="{{episode.story.image_64}}" alt="">
+                <div class="card-img-overlay story"
+                  onclick='window.location = "{% url 'readstory' slug=episode.slug %}"'> <a href="#"><span
+                      class='fa fa-heart heart'></span></a>
+                  <div class="bottom-text uk-position-center">
+                    <h5 class="card-title">{{episode.title}}</h5>
+                    <p class="card-text">{{episode.story.title}} <br> Episode {{episode.episode}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        {% endfor %}
+        <div class="col-xs-12 uk-text-center"><span class="fa fa-plus"></span></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -1,0 +1,61 @@
+
+
+
+      {% for content in relatedstories %}
+      {% if content.content_type == 'story' %}
+      <div id="{{content.story_id}}"
+      class="relatedstory col-cmd-3-e col-csl-4-e col-csm-4-e col-csx-5-e col-csxx-7 col-csxx-xx-7 col-csxx-x-14 col-css-4-e uk-text-left "
+      style='margin-top:0px !important;padding: 5px;height: 200px;margin-bottom: 20px;'>
+    
+      <div class="uk-box-shadow-small uk-padding-remove uk-text-center"
+        style='height: 200px; padding-bottom:10px;border:1px solid silver;padding-bottom: 0;border-radius: 5px !important;overflow: hidden;'>
+    
+        <div class="card col-xs-12 uk-padding-remove uk-margin-remove {{content.story_id}}related" style="height: 150px;">
+          <script>
+          
+            $.fn.readerStoryContent('{{content.story_id}}related','{{content.story_id}}','{% url "reader_story_contents" storyid=content.story_id %}')
+          </script>
+         
+        </div>
+    
+        <div class=" col-csxx-xx-14" style="padding: 2px;border-radius: 0;padding: 0;">
+          <div class="uk-padding-remove  col-csxx-14 col-csxx-x-14  uk-text-left" style="margin: 0px;box-sizing: border-box;">
+            <div class="uk-text-center col-csxx-14 col-csxx-x-14  uk-padding-remove" style="position: relative;">
+              <div class="col-csxx-5-e col-csxx-x-5-e uk-padding-remove"><span class="fas fa-book-open fas-c-small"></span> <span class="text-sm">
+                  {{content.number_of_episodes}}</span></div>
+              <div class="col-csxx-5-e col-csxx-x-5-e uk-padding-remove"><span class="fas fa-book-reader fas-c-small"></span> <span class="text-sm">
+                  {{content.number_of_views}}</span>
+              </div>
+    
+              <div class="col-csxx-5-e col-csxx-x-5-e uk-padding-remove"><span class="fas fa-heart fas-c-small"></span> <span class="text-sm">
+                {{content.hearts}}</span>
+            </div>
+    
+            </div>
+            <div class="col-xs-12 d-inline-block text-truncate uk-text-center uk-padding-remove-vertical "
+              style="max-width: 100%;padding: 5px;font-weight: bold;font-size: 11px;">{{content.title}}</div>
+          </div>
+    
+        </div>
+    
+      </div>
+    
+    </div>
+          {% elif content.content_type == 'adimage' %}
+          <div class=" relatedstory col-cmd-3-e col-csl-4-e   col-csm-4-e col-csx-5-e col-csxx-7 col-csxx-xx-7 col-csxx-x-14 col-css-4-e"
+          style='margin-top:0px !important;padding: 5px;height: 200px;margin-bottom: 20px;position: relative;'>
+      
+                <span class="fas fa-ad medium uk-position-top-right" style="color: white;">
+                 
+                </span>
+              <a href="{{content.link}} ">
+      
+                <img class="card-img-top " src="{{content.mobile_image.url}}" alt="" style="height: 200px;"> </a>
+              </div> 
+      
+      
+        </div>
+      
+          {% endif %}
+            {% endfor %}
+      
