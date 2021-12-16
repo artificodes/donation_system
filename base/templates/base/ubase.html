@@ -100,15 +100,25 @@
 
 
 
-  <div class="text-center">
-    <div class="uk-display-inline-block col-csxx-x-14" style="width: 100%;max-width: 1500px;">
+  <div class="text-center col-lg-offset-3 col-cmd-offset-4 col-csm-offset-4 " >
+    <div class="uk-display-inline-block col-csxx-x-14" style="width: 100%;">
       <div id="major"
-        class="position-relative uk-display-inline-block col-cmd-8 float-none p-0 pb-1 bg-transparent col-csxx-x-14"
+        class="position-relative uk-display-inline-block float-none p-1 bg-transparent col-csxx-x-14"
         style="">
-        <div class=" text-left p-1" style="position: sticky;top: -57px;z-index: 5;">
+        <div class=" text-left p-1 fixed-top" style="position: sticky;top: 0px;z-index: 4;">
+          <div class="float-left navbar navbar-expand-lg p-0">
+            <button class="navbar-toggler btn bg-transparent m-0 shadow-none" data-bs-toggle="collapse"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" uk-toggle="target: #offcanvas-nav-primary">
+            <span class="navbar-toggler-icon text-light material-icons">segment</span>
+          </button> 
+          </div>
+ 
           {% include 'base/pnavbar2.html' %}
-          <div class="float-right mt--5" style="position: sticky;top:10px">
-            <a class="btn btn-light rounded-circle uk-margin-small-right uk-margin-remove-top bg-lighter border-0 shadow-none"
+          <div class="float-right" style="position: sticky;top:10px">
+
+
+
+   <a class="btn btn-light rounded-circle uk-margin-small-right uk-margin-remove-top bg-lighter border-0 shadow-none"
               style="width: 35px !important;height: 35px !important;" uk-toggle="target: #offcanvas-nav-secondary"
               style="" uk-tooltip='Notifications'>
 
@@ -177,7 +187,7 @@
                     {% endif %}
                     <div class="uk-position-top-right mt--3">
                        <div
-                      class=" text-capitalize p-1 rounded-pill pl-2 pr-2 bg-primary text-white mt-1 uk-display-inline-block"
+                      class=" text-capitalize p-1 rounded-pill pl-2 pr-2 bg-primary text-dark mt-1 uk-display-inline-block"
                       style="width: max-content;font-size:8px;">
                       {% if partner.account_type == 'I' %} Individual {% elif partner.account_type == 'C' %} Couple
                       {% elif partner.account_type == 'Cr' %} Corporate {% elif partner.account_type == 'S' %} Sponsor
@@ -226,9 +236,9 @@
             </div>
 
           </div>
-          <div class=" h1 pl-2 bg-white rounded-sm uk-width-1-1 mb-2 p-2 mt-1"><b>{{page}}</b></div>
 
         </div>
+        <div class=" h1 pl-2 bg-white rounded-sm uk-width-1-1 mb-2 p-2 mt-5"  style="position: sticky;top: 0px;z-index: 3;"><b>{{page}}</b></div>
 
         <div id="" class="position-relative bg-transparent p-1 rounded-sm overflow-hidden" style="z-index: 2;">
           {% block content%}
@@ -241,9 +251,9 @@
 
   </div>
 
-  <div id="offcanvas-nav-primary" class="uk-offcanvas" uk-offcanvas="overlay: false;mode:slide;bg-close:false">
+  <div id="offcanvas-nav-primary" class="uk-offcanvas" uk-offcanvas="overlay: true;mode:slide;">
     <div class="uk-height-viewport uk-offcanvas-bar p-0 uk-flex uk-flex-column border-0
-      bg-gradient-success uk-offcanvas-bar-animation">
+      bg-white uk-offcanvas-bar-animation">
       <div class="card m-1 mt-0 bg-transparent" style="box-shadow: none;">
         <div class="card-body p-0">
 
@@ -252,7 +262,7 @@
           </div> -->
           <button
             class="uk-offcanvas-close uk-button uk-button-default uk-position-top-right uk-margin-small uk-padding-small"><i
-              class="fa fa-arrow-left  uk-padding-small" style="font-size:medium;"></i></button>
+              class="fa fa-arrow-left  uk-padding-small text-dark"  style="font-size:medium;"></i></button>
         </div>
       </div>
       <div class="card mt-2 bg-transparent mb-0 shadow-none text-left uk-display-inline-block" style="width: 100%;">
@@ -278,7 +288,7 @@
             <!-- <button  onclick="requestContentModal('{% url 'partner_change_photo' %}','get')"
           class="btn btn-sm btn-white rounded-circle uk-position-bottom-right border shadow-none bg-white mb-3 mr--2"><i class="fa fa-camera"></i></button> -->
           <div class="uk-padding-small">
-            <p class="text-center uk-text-bold">  {% if partner.account_type == 'I' %}
+            <p class="text-center uk-text-bold text-dark">  {% if partner.account_type == 'I' %}
               {% if partner.gender == 'M' %}
               Mr.
               {% elif partner.gender == 'F' %}
@@ -314,44 +324,44 @@
 
       </div>
 
-      <ul class="uk-nav uk-nav-primary uk-nav-left border-top  bg-transparent mt-2">
-        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_dashboard' %}"
+      <ul class="uk-nav uk-nav-primary uk-nav-left border-top  bg-transparent mt-2 text-dark">
+        <li class="dropdown-item  pt-2 pb-2 pl-1 text-dark"><a href="{% url 'partner_dashboard' %}"
             style="font-size: 14px;"
             class="main-content-redirect uk-padding-small  ">
-            <span class="p-3 pl-4 pr-4  position-relative rounded-sm default text-white">
+            <span class="p-3 pl-4 pr-4  position-relative rounded-sm default text-dark">
               <i class="fa fa-th-large uk-position-center "></i></span>
-            <span class="p-1">Dashboard</span></a></li>
-        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_my_payments' %}"
+            <span class="p-1 text-dark">Dashboard</span></a></li>
+        <li class="dropdown-item  pt-2 pb-2 pl-1 text-dark"><a href="{% url 'partner_my_payments' %}"
             style="font-size: 14px;"
             class="main-content-redirect  uk-padding-small ">
-            <span class="p-3 pl-4 pr-4 position-relative rounded-sm indigo text-white">
+            <span class="p-3 pl-4 pr-4 position-relative rounded-sm indigo text-dark">
               <i class="fa fa-history uk-position-center "></i></span>
-            <span class="p-1"> My Payments</span></a>
+            <span class="p-1 text-dark"> My Payments</span></a>
         </li>
-        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_announcements' %}"
+        <li class="dropdown-item  pt-2 pb-2 pl-1 text-dark"><a href="{% url 'partner_announcements' %}"
             style="font-size: 14px;"
             class="main-content-redirect  uk-padding-small ">
-            <span class="p-3 pl-4 pr-4 position-relative rounded-sm teal text-white"><i
+            <span class="p-3 pl-4 pr-4 position-relative rounded-sm teal text-dark"><i
                 class="fa fa-bullhorn uk-position-center "></i></span>
-            <span class="p-1">Annoucements</span></a></li>
+            <span class="p-1 text-dark">Annoucements</span></a></li>
 
-        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_events' %}"
+        <li class="dropdown-item  pt-2 pb-2 pl-1 text-dark"><a href="{% url 'partner_events' %}"
             style="font-size: 14px;"
             class="main-content-redirect  uk-padding-small">
-            <span class="p-3 pl-4 pr-4  rounded-sm cyan text-white position-relative"><i
+            <span class="p-3 pl-4 pr-4  rounded-sm cyan text-dark position-relative"><i
                 class="fa fa-calendar-day uk-position-center"></i></span>
-            <span class="p-1"> Events</span></a></li>
-        <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_support' %}"
+            <span class="p-1 text-dark"> Events</span></a></li>
+        <li class="dropdown-item  pt-2 pb-2 pl-1 text-dark"><a href="{% url 'partner_support' %}"
             style="font-size: 14px;"
             class="main-content-redirect  uk-padding-small ">
-            <span class="p-3 pl-4 pr-4 rounded-sm danger text-white position-relative"><i
+            <span class="p-3 pl-4 pr-4 rounded-sm danger text-dark position-relative"><i
                 class="ni ni-support-16 uk-position-center" style=""></i></span>
-            <span class="p-1">Support</span> </a></li>
+            <span class="p-1 text-dark">Support</span> </a></li>
       </ul>
 
     </div>
   </div>
-
+{% include 'base/side_navbar.html' %}
   {% include 'partners/information_desk.html' %}
 
   <div id="response-modal" uk-modal>
