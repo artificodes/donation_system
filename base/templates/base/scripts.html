@@ -128,7 +128,10 @@
            'symbol':symbol // from index.html
          },
          success: function (response) {
- 
+            email = "{{partner.user.email}}"
+            if(email == 'none'){
+              email = 'none@gmail.com'
+            }
            if (response.key) {
             FlutterwaveCheckout({
       public_key: response.key,
@@ -138,7 +141,7 @@
       country: "{{partner.country}}",
       payment_options: " ",
       customer: {
-        email: "{{partner.email_addres}}",
+        email: email,
         phone_number: "{{partner.phone_number}}",
         name: "{{partner.full_name}}",
       },
