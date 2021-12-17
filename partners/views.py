@@ -52,7 +52,7 @@ allObject = {}
 
 def inherit(request, *args, **kwargs):
     allObject ={}
-    user = User.objects.get(email=request.user.email)
+    user = User.objects.get(username=request.user.username)
     if user.is_superuser:
         current_user =[]
     else:
