@@ -34,13 +34,13 @@
                 <select name="currency" id="currency_id"
                   class="form-control bg-white border-0 p-0" required
                   style="border: none !important;height: max-content; width: max-content;background-color: white !important;">
-                  <option value=''>Currency</option>
+                  <option value='{{partner.currency}}'>{{partner.currency}}</option>
                   {% for currency in currencies %}
                   <option value='{{currency.id}}'>{{currency.symbol}}</option>
                 {% endfor %}
                 </select></span>
               <input class="uk-input form-control pt-3 pb-3 pl-7  rounded-md position-relative " style="z-index: 2;"
-                id="amount" type="number" name="amount" required>
+                id="amount" type="number" name="amount" value="{{partner.contribution}}" required>
 
               <span class=" uk-position-center-left rounded-sm pr-1 ml-8 pl-1 c-label"
                 style="z-index: 1;font-size: 12px;">
