@@ -359,7 +359,7 @@ def kingdomstrategies(request, *args, **kwargs):
 
 @login_required
 def unsuspend(request, *args, **kwargs):
-    user = User.objects.get(email=request.user.email)
+    user = User.objects.get(username = request.user.username)
     try:
         partner = pmodels.DpMembers.objects.get(user=user)
         partner.briefly_suspended = False
@@ -385,7 +385,7 @@ def unsuspend(request, *args, **kwargs):
 
 # @login_required
 # def home(request, *args, **kwargs):
-#     user = User.objects.get(email=request.user.email).pk
+#     user = User.objects.get(username = request.user.username).pk
 #     try:
 #         partner = pmodels.DpMembers.objects.get(user=user)
 #         partner = True
@@ -399,7 +399,7 @@ def unsuspend(request, *args, **kwargs):
 @login_required
 def accept_privacy_terms(request, *args, **kwargs):
     allObject = inherit(request, *args, **kwargs)
-    user = User.objects.get(email=request.user.email)
+    user = User.objects.get(username = request.user.username)
     partner = pmodels.DpMembers.objects.get(user=user)
     allObject['title']='DPG | Privacy, Terms and Conditions'
     if request.method == 'POST':
@@ -864,7 +864,7 @@ def account_activation_sent(request,*args, **kwargs):
 @login_required
 def activate(request,*args, **kwargs):
     if request.method=='POST':
-        user = User.objects.get(email=request.user.email)
+        user = User.objects.get(username = request.user.username)
         activation_code = request.POST.copy().get('activation_code')
         try:
                 partner = pmodels.DpMembers.objects.get(user=user,)
@@ -904,7 +904,7 @@ def resendactivationcode(request,*args, **kwargs):
         token = token +chars[round((random()-0.5)*len(chars))]
     token = token[0:6] 
     user = request.user
-    # user=User.objects.get(email=request.user.email)
+    # user=User.objects.get(username = request.user.username)
     partner = pmodels.DpMembers.objects.get(user=user)
     partner.last_token=make_password(token)
     partner.save()
