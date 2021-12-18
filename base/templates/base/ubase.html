@@ -143,7 +143,7 @@
               <i class="fa fa-user m-0 uk-position-center" style="font-size: medium;"></i></a>
             <div uk-dropdown="mode:click;pos:bottom-right"
               class="rounded-0 p-0 shadow-none bg-transparent border-0 uk-text-left"
-              style="min-width: max-content; max-width: max-content;">
+              style=" max-width: max-content;">
               <div
                 class="card rounded-0 mt-3 bg-white mb-0 uk-box-shadow-medium border-0 ml-3 text-center uk-display-inline-block"
                 style="width: 100%;">
@@ -187,7 +187,7 @@
                     {% endif %}
                     <div class="uk-position-top-right mt--3">
                        <div
-                      class=" text-capitalize p-1 rounded-pill pl-2 pr-2 bg-primary text-dark mt-1 uk-display-inline-block"
+                      class=" text-capitalize p-1 rounded-pill pl-2 pr-2 bg-secondary text-darker mt-1 uk-display-inline-block"
                       style="width: max-content;font-size:8px;">
                       {% if partner.account_type == 'I' %} Individual {% elif partner.account_type == 'C' %} Couple
                       {% elif partner.account_type == 'Cr' %} Corporate {% elif partner.account_type == 'S' %} Sponsor
@@ -240,7 +240,7 @@
         </div>
         <div class=" h1 pl-2 bg-white rounded-sm uk-width-1-1 mb-2 p-2 mt-5"  style="position: sticky;top: 0px;z-index: 3;"><b>{{page}}</b></div>
 
-        <div id="" class="position-relative bg-transparent p-1 rounded-sm overflow-hidden" style="z-index: 2;">
+        <div id="" class="position-relative bg-transparent p-0 rounded-sm overflow-hidden" style="z-index: 2;">
           {% block content%}
 
 

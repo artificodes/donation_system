@@ -2,38 +2,43 @@
 {% load static %}
 {% block content %}
 <div class="position-relative mt-1 text-left">
-<div class="bg-white p-2">
-    <p class="h1 text-darker">Contact Details</p>
+    <div class="card">
+        <div class="card-body">
+            <p class="h1 text-darker">To reach out to us, we are available via the following channels</p>
 
-    <span class="rounded-md bg-success text-white p-1 pl-2 pr-2 h3">Whatsapp</span>
-      <p class="p-2 m-0"> <i class="icon whatsapp text-success" ></i> 0805 9470 959 </p>
-      <span class="rounded-md bg-primary text-white p-1 pl-2 pr-2 h3">Email</span>
-      <p class="p-2 m-0"> <i class="fa fa-envelope text-primary" ></i> info@dominionpartnersglobal.com</p>
-</div>
+            <span class="rounded-md bg-success text-white p-1 pl-2 pr-2 h3">Whatsapp</span>
+            <p class="p-2 m-0"> <i class="icon whatsapp text-success"></i> 0805 9470 959 </p>
+            <span class="rounded-md bg-primary text-white p-1 pl-2 pr-2 h3">Email</span>
+            <p class="p-2 m-0"> <i class="fa fa-envelope text-primary"></i> info@dominionpartnersglobal.com</p>
+        </div>
+
+    </div>
 
 
 
     <div id="main-container" class=" overflow-hidden mt-1">
-        <div class="card m-0 uk-padding-small m-0-top uk-animation-slide-top rounded-0" id=""
-            style="box-shadow: none;">
-            <div class="mt--2 container-fluid p-1 uk-position-top-right" style="z-index: 2;">
-                <div class=" p-2 text-right float-none">
-                    <a class="uk-icon-button text-white bg-primary position-relative " uk-tooltip="Add request"
-                        onclick="requestContentModal('{% url 'partner_create_support' %}','get')">
-                        <i class="fa fa-plus uk-position-center text-white"></i></a>
-                </div>
-        
-            </div>
-            <div class="text-sm m-0 bg-secondary uk-text-center text-darker uk-text-bold 
-rounded-pill p-2 border-0 pl-3 pr-3 pt-1 pb-1" style="width:max-content">
-                Requests
-            </div>
-            <div class="card-body m-0 uk-padding-small pt-2" id="supports">
-                {% for support in supports %}
+        <div class="card m-0 uk-padding-small m-0-top overflow-hidden" id="" style="box-shadow: none;">
+            <div class="card-body p-2 uk-animation-slide-top">
+                <div class="mt--2 container-fluid p-1 uk-position-top-right" style="z-index: 2;">
+                    <div class=" p-2 text-right float-none">
+                        <a class="uk-icon-button text-white bg-primary position-relative " uk-tooltip="Add request"
+                            onclick="requestContentModal('{% url 'partner_create_support' %}','get')">
+                            <i class="fa fa-plus uk-position-center text-white"></i></a>
+                    </div>
 
-                {% include 'partners/support.html' %}
-                {% endfor %}
+                </div>
+                <div class="text-sm m-0 bg-secondary uk-text-center text-darker uk-text-bold 
+rounded-pill p-2 border-0 pl-3 pr-3 pt-1 pb-1" style="width:max-content">
+                    Requests
+                </div>
+                <div class="card-body m-0 uk-padding-small pt-2" id="supports">
+                    {% for support in supports %}
+
+                    {% include 'partners/support.html' %}
+                    {% endfor %}
+                </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -30,41 +30,48 @@
         style="box-shadow: none;">
         <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-4-e   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
   
-          <a class="btn-white mt-2 btn shadow-none border-0 bg-white  main-content-redirect rounded-lg  col-csxx-14"
+          <a class="btn-white mt-2 btn  border-0 bg-white  main-content-redirect rounded-md  col-csxx-14"
             onclick="requestContentModal('{% url 'partner_make_payment' %}','get')">
-            <span class=" mb-2">
-              <i class="fa fa-credit-card text-darker" style=""></i>
+            <span class="row">
+              <span class="mb-2 col-12 text-left" style="">
+                <i class="fa fa-credit-card text-orange" style="font-size: medium;"></i>
+              </span>
+              <span style="" class="text-darker col-12 text-right">Pay</span>
             </span>
-            <br>
-            <span style="" class="text-darker text-sm">Pay</span>
           </a>
         </div>
         <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-4-e   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
   
           <a href="{% url 'partner_my_payments' %}"
-            class="btn-white mt-2 text-darker btn-lighter btn shadow-none border-0 bg-white main-content-redirect rounded-lg  col-csxx-14"
+            class="btn-white mt-2 text-darker btn-lighter btn  border-0 bg-white main-content-redirect rounded-md  col-csxx-14"
             contenturl="">
-            <span class=" mb-2">
-              <i class="fa fa-history text-darker" style=""></i>
+            <span class="row">
+              <span class="mb-2 col-12 text-left" style="">
+                <i class="fa fa-history text-indigo" style="font-size: medium;"></i>
+              </span>
+              <span style="" class="text-darker col-12 text-right">History</span>
             </span>
-            <br>
-            <span style="" class="text-darker text-sm">History</span>
+             
           </a>
   
         </div>
         <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-4-e   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
   
-          <a class=" btn btn-white mt-2 shadow-none border-0 bg-white main-content-redirect rounded-lg  col-csxx-14"
+          <a class=" btn btn-white mt-2  border-0 bg-white main-content-redirect rounded-md  col-csxx-14"
             href="{% url 'partner_events' %}">
-            <span class=" mb-2">
-              <i class="fa fa-calendar text-darker" style=""></i>
-            </span> <br>
-            <span style="" class="text-darker text-sm">Events</span>
+            <span class="row">
+              <span class="mb-2 col-12 text-left" style="">
+                <i class="fa fa-calendar-check text-blue" style="font-size: medium;"></i>
+              </span>
+              <span style="" class="text-darker col-12 text-right">Events</span>
+            </span>
+             
+         
           </a>
         </div>
         <!-- <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-4-e   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
   
-          <a class="btn-white mt-2 text-darker btn   main-content-redirect rounded-lg  col-csxx-14 p-1"
+          <a class="btn-white mt-2 text-darker btn   main-content-redirect rounded-md  col-csxx-14 p-1"
             href="{% url 'partner_announcements' %}" >
             <i class="icon bullhorn text-info large" style=""></i><br>
             <span style="" class="text-darker">Memo</span>
@@ -72,7 +79,7 @@
         </div>
         <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-4-e   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
   
-          <a class="btn-white mt-2 btn   main-content-redirect rounded-lg  col-csxx-14 p-1" href="{% url 'partner_videos' %}"
+          <a class="btn-white mt-2 btn   main-content-redirect rounded-md  col-csxx-14 p-1" href="{% url 'partner_videos' %}"
             >
             <i class="icon video text-red large" style=""></i> <br>
             <span style="" class="text-darker">Videos</span>
@@ -82,7 +89,7 @@
   
         <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-4-e   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
   
-          <a class="btn-white mt-2 text-darker btn    main-content-redirect rounded-lg  col-csxx-14 p-1" contenturl=""
+          <a class="btn-white mt-2 text-darker btn    main-content-redirect rounded-md  col-csxx-14 p-1" contenturl=""
             href="{% url 'partner_articles' %}" >
             <i class="icon newspaper text-default  large" style=""></i><br>
             <span style="" class="text-darker">Articles</span>
@@ -91,13 +98,16 @@
         <div class="col-csx-5-e  col-css-4-e col-csm-3-e  col-cmd-4-e   col-csxx-5-e col-csxx-x-7  uk-text-center p-1">
   
   
-          <a class=" mt-2 btn shadow-none border-0 bg-white position-relative  rounded-lg main-content-redirect col-csxx-14"
+          <a class=" mt-2 btn  border-0 bg-white position-relative  rounded-md main-content-redirect col-csxx-14"
             contenturl="" href="{% url 'partner_support' %}" style="">
-            
-              <span class="mb-2" style="">
-                <i class="fa fa-question text-darker" style=""></i>
-              </span><br>
-              <span style="" class="text-darker text-sm">Support</span>
+            <span class="row">
+              <span class="mb-2 col-12 text-left" style="">
+                <i class="fa fa-question text-green" style="font-size: medium;"></i>
+              </span>
+              <span style="" class="text-darker col-12 text-right">Support</span>
+            </span>
+             
+             
 
             
           </a>
@@ -110,7 +120,7 @@
 </div>
 
 
-<div class="card shadow-none m-0 rounded-0 p-1 bg-white border-top">
+<div class="card shadow-none m-0 overflow-hidden p-1 bg-white border-top">
   <!-- <div
     class="bg-gradient-secondary uk-text-center text-darker uk-text-bold rounded-sm p-2 border-0"
     style="">

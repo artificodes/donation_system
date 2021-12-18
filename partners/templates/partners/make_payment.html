@@ -32,8 +32,8 @@
 
               <span class="uk-position-center-left ml-2" style="z-index: 3;width: max-content;">
                 <select name="currency" id="currency_id"
-                  class="form-control bg-white border-0 p-0" required
-                  style="border: none !important;height: max-content; width: max-content;background-color: white !important;">
+                  class="form-control bg-transparent border-0 p-0" required
+                  style="border: none !important;height: max-content; width: max-content;">
                   <option value='{{partner.currency}}'>{{partner.currency}}</option>
                   {% for currency in currencies %}
                   <option value='{{currency.id}}'>{{currency.symbol}}</option>

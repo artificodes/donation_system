@@ -28,7 +28,7 @@
   </div>
 </div>
 
-<div id="content-modal" class="uk-flex-top top-0 uk-modal content-modal" uk-modal>
+<div id="content-modal" class="uk-flex-top top-0 uk-modal content-modal p-2" uk-modal>
 <div class="fixed-top bg-white border-bottom mobile-el hide">
       <div class="uk-modal-header  text-darker rounded-pill text-darker pr-3 pl-3 p-1 h3 m-1 
       text-capitalize text-left border-0 h2 content-modal-header" style="width: max-content;max-width: 100%;">
@@ -36,7 +36,7 @@
       <a class="modal-close uk-text-bold uk-position-center-right mr-2 mt-0
      bg-transparent border-0"><i class="material-icons">close</i></a>
     </div>      
-    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical rounded-lg overflow-hidden  p-0" style=" max-width: 100% !important;">
+    <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical rounded-sm overflow-hidden  p-0" style=" max-width: 100% !important;">
       <div class="fixed-top bg-white border-bottom desktop-el">
         <div class="uk-modal-header  text-darker rounded-pill text-darker pr-3 pl-3 p-1 h3 m-1 
         text-capitalize text-left border-0 h2 content-modal-header" style="width: max-content;max-width: 100%;">
@@ -72,8 +72,30 @@
   </div>
 </div>
 
+<div id="confirm-modal" class="uk-flex-top top-0 " uk-modal=''>
+  <div class="uk-modal-dialog uk-margin-auto-vertical rounded-md overflow-hidden text-center pb-0 pl-0 pr-0 pt-3">
+    <div id="confirm-modal-inner" class="p-3 text-sm">
 
-<div id="confirm-modal" class="uk-flex-top top-0" uk-modal=''>
+    </div>
+    <div class="mt-4 position-relative">
+      <div class="text-center border-top mt-4">
+        <a class="p-2 col-csxx-x-7 m-0 bg-white shadow-none h4 text-primary" id="yes" contenturl=''>Yes</a>
+        <a
+          class="p-2 col-csxx-x-7 m-0 bg-white shadow-none border-left uk-modal-close-default position-relative top-0 right-0 h4 text-danger">Cancle</a>
+      </div>
+
+
+      <!-- <button class="btn bg-white text-blue mt-2  rounded-pill pl-3 pr-3 mr-0 ml-0 shadow-none uk-display-inline-block"
+        id="yes" contenturl=''><i class="fa fa-check-circle mr-1"></i> Yes</button>
+      <a class="btn bg-white text-danger mt-2 rounded-pill pl-3 pr-3  mr-0 ml-0 shadow-none uk-modal-close-default uk-display-inline-block"
+        style="top: auto;right: auto;"><i class="fa fa-times-circle mr-1"></i>
+        No</a> -->
+    </div>
+  </div>
+
+</div>
+
+<!-- <div id="confirm-modal" class="uk-flex-top top-0" uk-modal=''>
   <div class="uk-modal-dialog uk-margin-auto-vertical rounded-md text-center p-5">
     <div id="confirm-modal-inner">
 
@@ -86,7 +108,7 @@
     </div>
   </div>
 
-</div>
+</div> -->
 
 
 <script>

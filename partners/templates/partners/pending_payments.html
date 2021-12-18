@@ -1,7 +1,7 @@
 
 {% if pendingapprovals|length > 0 %}
 
-<div class="card p-1 pt-2 m-0 uk-animation-slide-top rounded-0" id=""
+<div class="card p-1 pt-2 m-0 uk-animation-slide-top" id=""
     style="box-shadow: none;">
     <div class=" card-header text-sm border-0 uk-margin-remove bg-warning uk-text-center text-white uk-text-bold 
     rounded-pill pl-2 pr-2 pt-1 pb-1"
@@ -11,9 +11,9 @@
     <div class="card-body uk-margin-remove mt-3 p-0">
         {% for pendingapproval in pendingapprovals %}
         <div class="col-cmd-5-e col-csx-14 col-csxx-14 col-css-7 col-csm-5-e p-1">
-            <div class="card uk-padding-small m-0  uk-text-left shadow-sm border " style="">
-                <div class="card-body text-left" style="padding: 5px;">
-                    <div class="col-csxx-x-14" style="font-size: 11px;">
+            <div class="card p-0 m-0  uk-text-left shadow-sm border " style="">
+                <div class="card-body text-left p-1" style="">
+                    <div class="col-csxx-x-14 p-1" style="font-size: 11px;">
                         <div class="col-csxx-x-14">
                             <p class="" style="font-weight: bold;font-size: 13px"><span
                                     style="font-weight: bold;font-size: 13px">Amount:</span> {{pendingapproval.currency}}
@@ -42,10 +42,10 @@
                     {% if pendingapproval.status != 'successful' %}
                     <div class="text-center">
                        <div>
-                        <button class="btn bg-white text-success mt-2 text-sm btn-sm rounded-pill mr-0 ml-0 shadow-none"
+                        <button class="btn bg-white text-success mt-2 text-sm  col-csxx-x-7  mr-0 ml-0 shadow-none"
                             onclick="makePayment({{pendingapproval.amount}},'{{pendingapproval.paymentid}}','{{pendingapproval.currency}}')">
                             <i class="icon sync loading text-success"></i>Retry</button>
-                            <a class="btn bg-white text-danger remove mt-2 rounded-pill text-sm btn-sm mr-0 ml-0 shadow-none"
+                            <a class="btn bg-white text-danger col-csxx-x-7 remove mt-2 text-sm  mr-0 ml-0 shadow-none"
                            id="" target="#pending_payments" contenturl="{% url 'partner_cancel_payment' paymentid=pendingapproval.paymentid %}">
                             <i class="fa fa-times text-danger mr-1"></i>Cancel</a>
                     </div> 
