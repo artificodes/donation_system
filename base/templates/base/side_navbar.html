@@ -1,18 +1,18 @@
-<div class="navbar navbar-expand-lg fixed-top p-0" style="width: max-content;display: inline-block !important;">
-<nav class=" navbar navbar-expand-lg bg-translucent-darker p-0 uk-height-viewport collapse navbar-collapse uk-animation-fade uk-animation-slide-left-medium" 
+<div class="navbar navbar-expand-lg fixed-top p-0 mt-6 p-2" style="width: max-content;display: inline-block !important;">
+<nav class=" navbar navbar-expand-lg  p-0 uk-height-viewport collapse navbar-collapse uk-animation-fade uk-animation-slide-left-medium" 
 style="z-index: 5;width: 290px;align-items: unset;">
     <div class="uk-width-1-1">
 
       <div class="card mt-2 bg-transparent mb-0 shadow-none text-left uk-display-inline-block" style="width: 100%;">
 
-        <div class="card-body pl-2 pr-2 pt-1 pb-1 text-left">
-          <div class="uk-text-left uk-padding-remove" style="">
+        <div class="card-body p-0 text-left">
+          <!-- <div class="uk-text-left uk-padding-remove" style="">
             <a href="https://dominionpartnersglobal.com" target="_blank"><img src="{{settings.white_logo.url}}" alt="" 
               style="width: 100px"></a>   
-             </div>
-          <div class="position-relative text-center mt-4" style="">
+             </div> -->
+          <div class="position-relative text-center mt-4 bg-translucent-darker rounded-md uk-animation-slide-top-medium" style="">
             <div
-              class="uk-border-circle  bg-transparent uk-display-inline-block mt-1 overflow-hidden p-1 border position-relative"
+              class="uk-border-circle  bg-transparent uk-display-inline-block mt--4 bg-white overflow-hidden p-1 border position-relative"
               style="height: 80px;width: 80px;border: 4px solid white;">
               {% if partner.photo %}
               <img src="{{partner.photo.url}}" alt="" style="width: 100%;display: inline-block;height: 100%;"
@@ -26,7 +26,7 @@ style="z-index: 5;width: 290px;align-items: unset;">
             <!-- <button  onclick="requestContentModal('{% url 'partner_change_photo' %}','get')"
           class="btn btn-sm btn-white rounded-circle uk-position-bottom-right border shadow-none bg-white mb-3 mr--2"><i class="fa fa-camera"></i></button> -->
           <div class="uk-padding-small">
-            <p class="text-center uk-text-bold text-light">  {% if partner.account_type == 'I' %}
+            <p class="text-center uk-text-bold text-light m-0">  {% if partner.account_type == 'I' %}
               {% if partner.gender == 'M' %}
               Mr.
               {% elif partner.gender == 'F' %}
@@ -43,28 +43,24 @@ style="z-index: 5;width: 290px;align-items: unset;">
               {{partner.first_name}} and {{partner.spouse_name}}
               {% endif %}</p>
           
-            <!-- <div class=" text-capitalize p-1 border rounded-pill pl-2 pr-2 bg-gradient-success text-white mt-1 uk-display-inline-block" 
-            style="width: max-content;font-size:9px;">                     
-                {% if partner.account_type == 'I' %} Individual {% elif partner.account_type == 'C' %} Couple 
-                {% elif partner.account_type == 'Cr' %} Corporate {% elif partner.account_type == 'S' %} Sponsor   {% endif %}
-             </div> -->
+                <div
+               class=" text-capitalize p-1 pl-2 pr-2 text-sm text-lighter mt-1 uk-display-inline-block"
+               style="width: max-content;">
+               {% if partner.account_type == 'I' %} Individual {% elif partner.account_type == 'C' %} Couple
+               {% elif partner.account_type == 'Cr' %} Corporate {% elif partner.account_type == 'S' %} Sponsor
+               {% endif %} account
+             </div>
           </div>
           </div>
 
         </div>
-        <!-- <div class="uk-text-center mt-0 p-2 border-top border-bottom">
-          <a href="{% url 'partner_my_profile' %}"
-            class="main-content-redirect btn btn-outline-light bg-white rounded-pill m-0 pl-4 pr-4 mt-2 shadow-none">View profile</a>
-       <br>
-        <button class="btn btn-secondary rounded-pill signout m-0 shadow-none pr-4 pl-4 mt-2"
-            contenturl="{% url 'partner_account_logout' %}">Sign out</button> 
-          </div> -->
+
 
       </div>
-      <div class="collapse navbar-collapse " id="navbarNav">
+      <div class="collapse navbar-collapse bg-gradient-default mt-1 rounded-md overflow-hidden uk-animation-slide-bottom-medium" id="navbarNav">
         
           <div class="col-12 p-0">
-            <ul class="uk-nav uk-nav-primary uk-nav-left border-top  bg-transparent mt-2 ">
+            <ul class="uk-nav uk-nav-primary uk-nav-left bg-transparent ">
               <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_dashboard' %}"
                   style="font-size: 14px;"
                   class="main-content-redirect uk-padding-small  ">
@@ -101,7 +97,30 @@ style="z-index: 5;width: 290px;align-items: unset;">
           </div>
       </div>
 
+      <div class="collapse navbar-collapse bg-gradient-default mt-1 rounded-md overflow-hidden uk-animation-slide-bottom-medium" id="navbarNav">
+        
+        <div class="col-12 p-0">
 
+
+          <ul class="uk-nav uk-nav-primary uk-nav-left bg-transparent ">
+            <li class="dropdown-item  pt-2 pb-2 pl-1"><a href="{% url 'partner_my_profile' %}"
+                style="font-size: 14px;"
+                class="main-content-redirect uk-padding-small  ">
+                <span class="p-3 pl-4 pr-4  position-relative rounded-sm default text-white">
+                  <i class="fa fa-user uk-position-center "></i></span>
+                <span class="p-1 text-lighter">My profile</span></a></li>
+            <li class="dropdown-item  pt-2 pb-2 pl-1">
+              <a href="{% url 'partner_account_logout' %}"
+                style="font-size: 14px;"
+                class="main-content-redirect  uk-padding-small ">
+                <span class="p-3 pl-4 pr-4 position-relative rounded-sm indigo text-white">
+                  <i class="fa fa-power-off uk-position-center "></i></span>
+                <span class="p-1  text-lighter">Logout</span></a>
+            </li>
+
+          </ul>
+        </div>
+    </div>
     </div>
 
   </nav>

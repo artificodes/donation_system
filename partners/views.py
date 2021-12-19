@@ -566,6 +566,7 @@ def updateprofile(request, *args, **kwargs):
         elif partner.account_type == 'C':
             partnerinstance = pforms.updatecoupleprofile(request.POST,request.FILES,instance=partner)
 
+        success_template_name = 'general/success.html'
 
         if partnerinstance.is_valid():
             partnerinstance.save()
@@ -611,18 +612,17 @@ def updateprofile(request, *args, **kwargs):
                 content = loader.render_to_string(template_name,allObject,request)
                 message = 'Your profile was updated successfully'
                 allObject['message'] = message
-                successcontent = loader.render_to_string(template_name,allObject,request)
+                successcontent = loader.render_to_string(success_template_name,allObject,request)
                 allObject['message'] = message
                 output_data = {
                     'heading':'Action Required',
                     'modal_content':content,
-                    'message':message
                                 }        
                                 
                 return JsonResponse(output_data)
             profile_updated = True
             subject = 'Profile Updated'
-            mail_body = 'Your profile has been updated'
+            mail_body = 'Your profile  has been updated'
             message = render_to_string('partners/update_profile_email.html', {
                 'message':mail_body,
                 'user':request.user
@@ -630,15 +630,14 @@ def updateprofile(request, *args, **kwargs):
             email_from = settings.EMAIL_HOST_USER
             recipient_list = [request.user.email, ] 
             # send_mail( subject, message, email_from, recipient_list ) 
-            template_name = 'general/success.html'
-            content = loader.render_to_string(template_name,allObject,request)
+            # content = loader.render_to_string(template_name,allObject,request)
             message = 'Your profile was updated successfully'
             allObject['message'] = message
-            successcontent = loader.render_to_string(template_name,allObject,request)
+            successcontent = loader.render_to_string(success_template_name,allObject,request)
             allObject['message'] = message
             output_data = {
                 'done':True,
-                'content':content,
+                # 'content':content,
                 'next_url':request.POST.copy().get('next'),
                 'modal_message':successcontent,
                             }        

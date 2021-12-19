@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="p-0 mt-1 bg-white uk-animation-slide-top uk-display-inline-block col-csxx-14 uk-text-center position-relative" id=""
+<div class="p-0 mt-1 card uk-animation-slide-top uk-display-inline-block col-csxx-14 uk-text-center position-relative" id=""
     style="box-shadow: none;float: none;">
 
     <div class="card-body pl-2 pr-2 pt-1 pb-1 text-center text-dark">
@@ -64,7 +64,7 @@
             <div class="card m-2  elevation-0 " style="box-shadow: none;">
 
                 <div class=" uk-text-center">
-                    <a class="btn btn-info  rounded-pill  edit-profile-btn"
+                    <a class="btn btn-primary edit-profile-btn"
                     href="{% url 'partner_update_profile' %}"
                         style="position: relative; ">
                         <li class="fa fa-user-edit"></li> Update
@@ -78,21 +78,6 @@
 
 </div>
 
-
-
-<!-- Modal -->
-<div id="pin-reset-modal" uk-modal>
-    <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
-        <h2 class="uk-modal-title">Transaction pin reset</h2>
-        <p class="modal-message">Why do you want to change your Transaction Pin?</p>
-        <p class="uk-text-center">
-            <button class="btn btn-primary  uk-border-pill " id="compromised-pin-btn" contenturl=""
-                type="button">Compromised</button>
-            <button class="btn btn-primary   uk-border-pill" type="button">Forgotten</button>
-
-        </p>
-    </div>
-</div>
 
 
 

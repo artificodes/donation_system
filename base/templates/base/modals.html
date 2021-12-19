@@ -19,12 +19,12 @@
 </div>
 
 <div id="notification-box" class="top-0 bg-transparent uk-modal" uk-modal>
-  <div class="uk-modal-dialog uk-modal-body  uk-animation-slide-top-small overflow-hidden rounded-sm shadow-sm border"
-    style="width: max-content;">
+  <div class="uk-modal-dialog uk-modal-body  uk-animation-slide-top-small overflow-hidden rounded-md shadow-lg"
+    style="width: 100%; max-width: 500px !important;">
     <a class="uk-modal-close-default uk-icon-button uk-position-top-right mr-1 mt-1 border-0">
       <i class="material-icons text-dark" style="font-size: 18px;">close</i></a>
 
-    <div id="notification-box-body" class="card shadow-none text-center p-1" style="width: max-content;"></div>
+    <div id="notification-box-body" class="card shadow-none text-center h3 p-1" style=""></div>
   </div>
 </div>
 
@@ -724,10 +724,11 @@
 
         $('.content-modal').addClass('custom-modal-slide-bottom')
         showLoadingBar()
-
+        $('#body-loader').show()
       },
       complete: function () {
         hideLoadingBar()
+        $('#body-loader').hide()
 
       },
       type: action,

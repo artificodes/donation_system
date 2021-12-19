@@ -2,10 +2,10 @@
 {% load static %}
 {% block content %}
 
-<div class="mt-1  uk-display-inline-block col-csxx-14 uk-text-center overflow-hidden" id=""
+<div class="mt-1  uk-display-inline-block col-csxx-14 uk-text-center overflow-hidden rounded-md" id=""
     style="box-shadow: none;float: none;">
 
-    <div class="card card-login uk-animation-slide-top shadow-none rounded-0 m-0" id="other_support">
+    <div class="card card-login uk-animation-slide-top shadow-none rounded-0 m-0">
         <form id="profileform" class="form" method="POST" enctype="multipart/form-data"
             action="{% url 'partner_update_profile' %}" style=" min-height: max-content; max-height: max-content;">
 
@@ -65,7 +65,9 @@
                     UIkit.notification.closeAll()
                     UIkit.notification(response.message)
                 }
+                if(response.next_url){
                 window.location = response.next_url
+                }
 
             },
             error: function (xhr, status, error) {

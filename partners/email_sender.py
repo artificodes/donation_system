@@ -58,7 +58,7 @@ def sendmail(RECIPIENT,BODY_TEXT,BODY_HTML,SUBJECT,customize = None,**kwargs):
         settings = list(gmodels.General.objects.all())[0]
     except IndexError:
         settings =[]
-    fp = open(settings.full_logo.path, 'rb')
+    fp = open(settings.logo.path, 'rb')
     msgImage = MIMEImage(fp.read())
     fp.close()
 
