@@ -108,7 +108,7 @@ class DpMembers(models.Model):
     address2 = models.CharField(max_length=200, blank=True, null=True, default='')
     city_code = models.CharField(max_length=45, blank=True, null=True, default='')
     country_code = models.CharField(max_length=45, blank=True, null=True, default='')
-    contribution = models.DecimalField(max_digits=20, decimal_places=0, blank=True,default='',)
+    contribution = models.DecimalField(max_digits=20, decimal_places=0, blank=True,)
     start_month = models.CharField(max_length=45, blank=True, null=True, default='')
     start_year = models.CharField(max_length=45, blank=True, null=True, default='')
     start_date = models.DateField(blank=True, null=True,default=now)

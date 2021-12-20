@@ -644,7 +644,40 @@ def updateprofile(request, *args, **kwargs):
                                     }        
                                     
                     return JsonResponse(output_data)
-                
+            if not partner.email_confirmed:
+                user = partner.user
+
+                subject = 'Email Confirmation - Dominion Partners'
+                chars = '0123456789' 
+                token = ''
+                for num in range(0,len(chars)):
+                    token = token +chars[round((random()-0.5)*len(chars))]
+                token = token[0:6] 
+                partner.last_token=make_password(token)
+                partner.save()
+                subject = 'DPG - Activation Code'
+                message = render_to_string('allauth/account/email_confirm.html', {
+                        'token':token,
+                        'user':user,
+                        'title':'ACCOUNT ACTIVATION',
+                        'request':request,
+                        'socials':gmodels.SocialLink.objects.all()
+                    })
+
+                recipient_list = [user.email, ] 
+                sendmail(recipient_list,message,message,subject)
+                template_name = 'partners/email_confirmation_form.html'
+                content = loader.render_to_string(template_name,allObject,request)
+                message = 'Your profile was updated successfully'
+                allObject['message'] = message
+                successcontent = loader.render_to_string(success_template_name,allObject,request)
+                allObject['message'] = message
+                output_data = {
+                    'heading':'Action Required',
+                    'modal_content':content,
+                                }        
+                                
+                return JsonResponse(output_data)
             profile_updated = True
             subject = 'Profile Updated'
             mail_body = 'Your profile  has been updated'
