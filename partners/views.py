@@ -585,41 +585,66 @@ def updateprofile(request, *args, **kwargs):
             message = "Your profile has been successfully updated. If you didn't perform this action, kindly contact Dominion Partners to report this action. Thank you"
             partner.profile_updated = True
             partner.save()
-            if str(request.POST.copy().get('email')) != request.user.email:
-                partner.previous_email = request.user.email
-                request.user.email=str(request.POST.copy().get('email'))
-                partner.email_confirmed= False
-                request.user.save()
-                subject = 'Email Confirmation - Dominion Partners'
-                current_site = Site.objects.get_current()
-                chars = '0123456789' 
-                token = ''
-                for num in range(0,len(chars)):
-                    token = token +chars[round((random()-0.5)*len(chars))]
-                token = token[0:6] 
-                partner.last_token=make_password(token)
-                partner.save()
-                message = render_to_string('allauth/account/email_confirm.html', {
-                        'token': token,
-                    })
-                email_from = settings.EMAIL_HOST_USER 
-                recipient_list = [request.user.email, ]
-                try:
-                    send_mail( subject, message, email_from, recipient_list )
-                except socket.gaierror:
-                    pass
-                template_name = 'partners/email_confirmation_form.html'
-                content = loader.render_to_string(template_name,allObject,request)
-                message = 'Your profile was updated successfully'
-                allObject['message'] = message
-                successcontent = loader.render_to_string(success_template_name,allObject,request)
-                allObject['message'] = message
-                output_data = {
-                    'heading':'Action Required',
-                    'modal_content':content,
-                                }        
+            email =  str(request.POST.copy().get('email'))
+            if email:
+                if email != request.user.email:
+                    try:
+                        User.objects.get(email=email)
+                        output_data = {
+                            
+                            'modal_message':'Email already in use',
+                                        }        
+                        return JsonResponse(output_data)
+                    except ObjectDoesNotExist:
+                        try:
+                            pmodels.DpMembers.objects.get(email_addres=email)
+                            output_data = {
                                 
-                return JsonResponse(output_data)
+                                'modal_message':'Email already in use',
+                                            }        
+                            return JsonResponse(output_data)
+                        except ObjectDoesNotExist:
+                            pass
+                    partner.previous_email = request.user.email
+                    request.user.email=email
+                    partner.email_confirmed= False
+                    partner.email_addres = email
+                    request.user.save()
+                    partner.save()
+                    user = partner.user
+
+                    subject = 'Email Confirmation - Dominion Partners'
+                    chars = '0123456789' 
+                    token = ''
+                    for num in range(0,len(chars)):
+                        token = token +chars[round((random()-0.5)*len(chars))]
+                    token = token[0:6] 
+                    partner.last_token=make_password(token)
+                    partner.save()
+                    subject = 'DPG - Activation Code'
+                    message = render_to_string('allauth/account/email_confirm.html', {
+                            'token':token,
+                            'user':user,
+                            'title':'ACCOUNT ACTIVATION',
+                            'request':request,
+                            'socials':gmodels.SocialLink.objects.all()
+                        })
+
+                    recipient_list = [user.email, ] 
+                    sendmail(recipient_list,message,message,subject)
+                    template_name = 'partners/email_confirmation_form.html'
+                    content = loader.render_to_string(template_name,allObject,request)
+                    message = 'Your profile was updated successfully'
+                    allObject['message'] = message
+                    successcontent = loader.render_to_string(success_template_name,allObject,request)
+                    allObject['message'] = message
+                    output_data = {
+                        'heading':'Action Required',
+                        'modal_content':content,
+                                    }        
+                                    
+                    return JsonResponse(output_data)
+                
             profile_updated = True
             subject = 'Profile Updated'
             mail_body = 'Your profile  has been updated'
@@ -923,7 +948,7 @@ def checkpartnerstatus(request, partner):
 
     if partner.email_confirmed:
         pass
-    elif not partner.email_confirmed and (partner.email_addres =='' or partner.email_addres =='none'):
+    elif not partner.email_confirmed and (partner.email_addres ==''):
         pass
     elif not partner.email_confirmed:
         return redirect(redirect('partner_confirm_email_page').url +'?next='+url)

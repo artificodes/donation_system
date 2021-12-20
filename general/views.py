@@ -746,7 +746,7 @@ def signup(request, *args, **kwargs):
                         }
             return JsonResponse(output_data)
         user = User.objects.create(password=harshed_password, username=username, 
-        first_name =first_name,last_name= last_name, email= email or 'none')
+        first_name =first_name,last_name= last_name, email= email or '')
         user.refresh_from_db()
         user.is_active = True
         user.save()
@@ -780,7 +780,7 @@ def signup(request, *args, **kwargs):
 
             except ObjectDoesNotExist:
                 pmodels.DpMembers.objects.create(user=user,userid=user_id,last_token=make_password(token),
-                last_name=last_name,email_addres=email or 'none', first_name=first_name,member_no=userid)
+                last_name=last_name,email_addres=email or '', first_name=first_name,member_no=userid)
                 exist = False
                 break
         if email:

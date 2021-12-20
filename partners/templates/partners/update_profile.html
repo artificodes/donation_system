@@ -2,11 +2,12 @@
 {% load static %}
 {% block content %}
 
-<div class="mt-1  uk-display-inline-block col-csxx-14 uk-text-center overflow-hidden rounded-md" id=""
+<div class="mt-1  uk-display-inline-block col-csxx-14 uk-text-center overflow-hidden rounded-md text-center" id=""
     style="box-shadow: none;float: none;">
 
-    <div class="card card-login uk-animation-slide-top shadow-none rounded-0 m-0">
-        <form id="profileform" class="form" method="POST" enctype="multipart/form-data"
+    <div class="card card-login uk-animation-slide-top shadow-none uk-display-inline-block m-0" style="max-width: 500px;">
+      <div class="card-body">
+       <form id="profileform" class="form" method="POST" enctype="multipart/form-data"
             action="{% url 'partner_update_profile' %}" style=" min-height: max-content; max-height: max-content;">
 
             {% csrf_token %}
@@ -26,6 +27,8 @@
                 <button class="btn btn-primary uk-border-pill" type="submit">Save</button>
             </div>
         </form>
+      </div>
+ 
     </div>
 </div>
 

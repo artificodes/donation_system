@@ -23,6 +23,7 @@
     </div>
     <form class="form" id="account-activate-form" method="POST" action="{% url 'activate_account' %}">
 
+
         {% csrf_token %}
 
         <div class="activate-form-inner">
@@ -55,10 +56,10 @@
         var form_data = new FormData(this); //Creates new FormData object
         $.ajax({
             beforeSend: function () {
+
                 showLoadingBar()
             },
             complete: function () {
-                hideLoadingBar()
 
             },
             url: post_url,
@@ -72,20 +73,22 @@
                 if (response.invalid_code) {
 
                     $('.code-alert').remove()
-                    $('.activate-form-inner').append('<div class="uk-text-danger code-alert  uk-animation-fade uk-padding-large uk-text-center">Invalid Code entered</div>')
-                    $('#loader-cover').hide()
+                    $('.activate-form-inner').append('<div class="uk-text-danger code-alert  uk-animation-fade p-1 uk-text-center text-sm uk-text-bold">Invalid Code entered</div>')
+                    hideLoadingBar()
 
                 }
 
                 else if (response.activated) {
-                    $('#loader-cover').hide()
+                    hideLoadingBar()
+                    if (response.modal_message) {
+                        messageModal(response.modal_message)
 
+                    }
+                    if (response.modal_notification) {
+                        notificationModal(response.modal_notification)
 
-                    $('#notification-modal-inner').empty()
-                    $('#notification-modal-inner').append('Account activated')
-                    $('.uk-modal-body').css({ 'background-color': 'white', 'color': 'green' })
-                    UIkit.modal($('#notification-modal')).show();
-                    window.location = "{% url 'partner_dashboard' %}"
+                    }
+                    window.location = response.next_url
                 }
 
 

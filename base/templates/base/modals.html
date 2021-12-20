@@ -260,6 +260,7 @@
   };
 
   function showLoadingBar() {
+    $('#body-loader').show()
     try {
       clearInterval(intervalObject_1);
 
@@ -342,6 +343,8 @@
   }
 
   function hideLoadingBar() {
+    $('#body-loader').hide()
+
     clearInterval(intervalObject_1);
     progress = 100
     $('#progress').progress({
