@@ -225,7 +225,7 @@ def home(request, *args, **kwargs):
     if request.user.is_superuser:
         redirecturl = redirect('admin_dashboard')
     else:
-        partner = pmodels.DpMembers.objects.get(user=user)
+        partner = pmodels.DpMembers.objects.get(userid=user.pk)
         logrequest(request,partner.member_no or '')
         redirecturl = redirect('partner_dashboard')
     return redirecturl
@@ -365,7 +365,7 @@ def kingdomstrategies(request, *args, **kwargs):
 def unsuspend(request, *args, **kwargs):
     user = User.objects.get(username = request.user.username)
     try:
-        partner = pmodels.DpMembers.objects.get(user=user)
+        partner = pmodels.DpMembers.objects.get(userid=user.pk)
         partner.briefly_suspended = False
         partner.suspension_count =0
         partner.save()
@@ -375,7 +375,7 @@ def unsuspend(request, *args, **kwargs):
                             }
         return JsonResponse(output_data)
     except ObjectDoesNotExist:
-        partner = pmodels.DpMembers.objects.get(user=user)
+        partner = pmodels.DpMembers.objects.get(userid=user.pk)
         partner.briefly_suspended = False
         partner.suspension_count = 0
         partner.save()
@@ -391,11 +391,11 @@ def unsuspend(request, *args, **kwargs):
 # def home(request, *args, **kwargs):
 #     user = User.objects.get(username = request.user.username).pk
 #     try:
-#         partner = pmodels.DpMembers.objects.get(user=user)
+#         partner = pmodels.DpMembers.objects.get(userid=user.pk)
 #         partner = True
 #         return cviews.home(request, *args, **kwargs)
 #     except ObjectDoesNotExist:
-#         partner = pmodels.DpMembers.objects.get(user=user)
+#         partner = pmodels.DpMembers.objects.get(userid=user.pk)
 #         partner=True 
 #         return cviews.home(request, *args, **kwargs)    
 
@@ -404,7 +404,7 @@ def unsuspend(request, *args, **kwargs):
 def accept_privacy_terms(request, *args, **kwargs):
     allObject = inherit(request, *args, **kwargs)
     user = User.objects.get(username = request.user.username)
-    partner = pmodels.DpMembers.objects.get(user=user)
+    partner = pmodels.DpMembers.objects.get(userid=user.pk)
     allObject['title']='DPG | Privacy, Terms and Conditions'
     if request.method == 'POST':
         partner.privacy_terms_accepted = True
@@ -456,9 +456,8 @@ def memberlookup(request, *args, **kwargs):
                         return JsonResponse(output_data)
         if not admin:
             try:
-                profile.user
                 try:
-                    user = User.objects.get(username=profile.user.username)
+                    user = User.objects.get(pk=profile.userid)
                 except ObjectDoesNotExist:
                     allObject['identifier']=uniqueidentifier
                     allObject['profile']=profile
@@ -471,6 +470,7 @@ def memberlookup(request, *args, **kwargs):
                             }
                     return JsonResponse(output_data)
             except Exception:
+                print('error')
                 allObject['identifier']=uniqueidentifier
                 allObject['profile']=profile
 
@@ -582,8 +582,7 @@ def membersignup(request, *args, **kwargs):
             token = token +chars[round((random()-0.5)*len(chars))]
         token = token[0:6]
         profile.last_token = make_password(token)
-        profile.userid = profile.member_no
-        profile.user = user
+        profile.userid = user.pk
         profile.save()
         # exist = True
         # while exist:
@@ -702,7 +701,7 @@ def loginuser(request, *args, **kwargs):
                 if user.is_superuser:
                     redirecturl = redirect('admin_dashboard').url
                 else:
-                    partner = pmodels.DpMembers.objects.get(user=user)
+                    partner = pmodels.DpMembers.objects.get(userid=user.pk)
                     logrequest(request,partner.member_no or '')
                     redirecturl = redirect('partner_dashboard').url
 
@@ -713,7 +712,7 @@ def loginuser(request, *args, **kwargs):
             if user.is_superuser:
                 redirecturl = redirect('admin_dashboard').url
             else:
-                partner = pmodels.DpMembers.objects.get(user=user)
+                partner = pmodels.DpMembers.objects.get(userid=user.pk)
                 logrequest(request,partner.member_no or '')
 
                 redirecturl = redirect('partner_dashboard').url
@@ -827,7 +826,7 @@ def signup(request, *args, **kwargs):
                 pmodels.DpMembers.objects.get(member_no=userid)
 
             except ObjectDoesNotExist:
-                pmodels.DpMembers.objects.create(user=user,userid=user_id,last_token=make_password(token),
+                pmodels.DpMembers.objects.create(userid=user.pk,last_token=make_password(token),
                 last_name=last_name,email_addres=email or '', first_name=first_name,member_no=userid)
                 exist = False
                 break
@@ -953,7 +952,7 @@ def resendactivationcode(request,*args, **kwargs):
     token = token[0:6] 
     user = request.user
     # user=User.objects.get(username = request.user.username)
-    partner = pmodels.DpMembers.objects.get(user=user)
+    partner = pmodels.DpMembers.objects.get(userid=user.pk)
     partner.last_token=make_password(token)
     partner.save()
     subject = 'DPG - Activation Code'

@@ -56,7 +56,7 @@ def inherit(request, *args, **kwargs):
     if user.is_superuser:
         current_user =[]
     else:
-        current_user = pmodels.DpMembers.objects.get(user=user)
+        current_user = pmodels.DpMembers.objects.get(userid=user.pk)
         try:
             settings = list(gmodels.General.objects.all())[0]
         except IndexError:

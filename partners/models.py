@@ -113,7 +113,6 @@ class DpMembers(models.Model):
     privacy_terms_accepted = models.BooleanField(default=False)
     account_type_selected = models.BooleanField(default=False)
     call_code = models.CharField(max_length=5, blank=True, null=True, default='')
-    user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL, blank=True,editable=False)
     full_name = models.CharField(max_length=550,default='',blank=True)
     account_type =  models.CharField(default='I',choices=(('I','Individual'), ('Cr','Corporate'), ('S','Sponsor'), ('C','Couple')), blank=True,max_length=500)
     contact_person_phone_number = models.CharField(max_length=15, default='', blank=True,verbose_name='Contact Person Number')
@@ -122,8 +121,7 @@ class DpMembers(models.Model):
     photo = models.ImageField(upload_to="media/partners/", blank=True)
     sector = models.CharField(max_length=225, default='',blank=True)
     street_number = models.CharField(max_length=225, default='',blank=False)
-
-    userid = models.CharField(max_length=255, default='',blank=True,editable=False)
+    userid = models.IntegerField(default=0,blank=True)
     tv_station = models.CharField(max_length=225, default='',blank=True)
     signup_date = models.DateField(default=now)
     profile_edit_date = models.DateField(auto_now=True)
