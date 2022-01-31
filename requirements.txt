@@ -40,3 +40,12 @@ pillow
 django-cuser
 whitenoise
 wkhtmltopdf
+django-adminlte3
+python-dateutil
+django-allauth
+django-ipware
+mysqlclient
+geoip2
+django==3.2.10
+apscheduler
+django-excel_response

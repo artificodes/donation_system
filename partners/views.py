@@ -823,10 +823,10 @@ def regularizepayments(request,*args, **kwargs):
             for year,yearspaymentslist in other_payments_obj_by_year.items():
                 for payment in yearspaymentslist:
                     try:
-                        batchpayment = pmodels.Payment.objects.get(partner=partner, start_date__lt=datetime.datetime.now(),start_date__year=int(year),
+                        batchpayment = pmodels.Payment.objects.get(member_no=partner.member_no, start_date__lt=datetime.datetime.now(),start_date__year=int(year),
                         end_date__lt =datetime.datetime.now(),end_date__year=int(year))
                     except ObjectDoesNotExist:
-                        batchpayment = pmodels.Payment.objects.create(partner=partner, approved=True,currency=payment.currency,
+                        batchpayment = pmodels.Payment.objects.create(member_no=partner.member_no, approved=True,currency=payment.currency,
                         start_date=str(yearspaymentslist[0].payment_year)+'-'+str(months.index(payment.payment_month)+1)+'-'+'1'
                         ,end_date=str(yearspaymentslist[len(yearspaymentslist)-1].payment_year)+'-'+str(months.index(yearspaymentslist[len(yearspaymentslist)-1].payment_month)+1)+'-'+'1')
                     batchpayment.refresh_from_db()
@@ -872,10 +872,10 @@ def allpayments(request,userid=None,*args, **kwargs):
         for year,yearspaymentslist in other_payments_obj_by_year.items():
             for payment in yearspaymentslist:
                 try:
-                    batchpayment = pmodels.Payment.objects.get(partner=partner, start_date__lt=datetime.datetime.now(),start_date__year=int(year),
+                    batchpayment = pmodels.Payment.objects.get(member_no=partner.member_no, start_date__lt=datetime.datetime.now(),start_date__year=int(year),
                     end_date__lt =datetime.datetime.now(),end_date__year=int(year))
                 except ObjectDoesNotExist:
-                    batchpayment = pmodels.Payment.objects.create(partner=partner, approved=True,currency=payment.currency,
+                    batchpayment = pmodels.Payment.objects.create(member_no=partner.member_no, approved=True,currency=payment.currency,
                     start_date=str(yearspaymentslist[0].payment_year)+'-'+str(months.index(payment.payment_month)+1)+'-'+'1'
                     ,end_date=str(yearspaymentslist[len(yearspaymentslist)-1].payment_year)+'-'+str(months.index(yearspaymentslist[len(yearspaymentslist)-1].payment_month)+1)+'-'+'1')
                 batchpayment.refresh_from_db()

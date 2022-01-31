@@ -12,7 +12,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from general import models as gmodels
 from random import random
 from excel_response import ExcelResponse
-import xlwt
 from django.contrib import auth
 from django.contrib.auth.models import User
 from django.utils.encoding import force_text
@@ -24,7 +23,6 @@ from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from general.tokens import account_activation_token
 import partners
-import pdfkit
 from django.template import loader
 import os
 import base64
@@ -33,8 +31,8 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.contrib.staticfiles import finders
 from django.views.generic.base import View
-from wkhtmltopdf.views import PDFTemplateResponse
-from wkhtmltopdf.views import PDFTemplateView
+# from wkhtmltopdf.views import PDFTemplateResponse
+# from wkhtmltopdf.views import PDFTemplateView
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import FormView
 from django.contrib import messages
@@ -316,7 +314,7 @@ def members_payment_analysis(request,userid=None, *args, **kwargs):
         # for payment in recentpayments:
         #     payment.delete()
     else:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__member_no=userid,approved=True))
+        recentpayments = list(pmodels.Payment.objects.filter(member_no=userid,approved=True))
         monthlypayments=[]
         for payment in recentpayments:
             for monthpayment in payment.months.all():
@@ -409,7 +407,7 @@ def members_analysis(request, *args, **kwargs):
             pass
         else:
             join_date = datetime.datetime(2005,1,1)
-        payments = list(pmodels.Payment.objects.filter(partner = member))
+        payments = list(pmodels.Payment.objects.filter(member_no= member.member_no))
         if len(payments) == 0:
             if join_date < sixmonthsago:
                 domantmembers.append(member)
@@ -553,7 +551,7 @@ def filtermembers(request,partners,allObject):
             pass
         else:
             join_date = datetime.datetime(2005,1,1)
-        payments = list(pmodels.Payment.objects.filter(partner = member))
+        payments = list(pmodels.Payment.objects.filter(member_no= member.member_no))
         if len(payments) == 0:
             if join_date < sixmonthsago:
                 domantmembers.append(member)
@@ -823,27 +821,34 @@ def searchpayment(request,param=None, *args, **kwargs):
     template_name = 'padmin/payment_search_results.html'
     query = request.POST.copy().get('query')
     admin = allObject['admin']
-    recentpayments = list(pmodels.Payment.objects.filter(partner__first_name=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__last_name=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__first_name__contains=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__last_name__contains=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__phone_no__contains=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__phone_no=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__phone_no_alt__contains=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__phone_no_alt=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__email_addres__contains=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__email_addres=query))
-    if len(recentpayments)<1:
-        recentpayments = list(pmodels.Payment.objects.filter(partner__member_no=query))
+    # partners = pmodels.DpMembers.objects.filter(first_name__contains = query)
+    # payments = []
+    recentpayments = []
+    members = list(pmodels.DpMembers.objects.filter(first_name=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(last_name=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(first_name__contains=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(last_name__contains=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(phone_no__contains=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(phone_no=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(phone_no_alt__contains=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(phone_no_alt=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(email_addres__contains=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(email_addres=query))
+    if len(members)<1:
+        members = list(pmodels.DpMembers.objects.filter(member_no=query))
+    for member in members:
+        payments = list(pmodels.Payment.objects.filter(member_no = member.member_no))
+        for payment in payments:
+            recentpayments.append(payment)
     recentpayments.sort(key=lambda x:x.end_date,reverse=True)
 
     allObject['payments'] = recentpayments

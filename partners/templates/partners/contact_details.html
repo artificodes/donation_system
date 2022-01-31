@@ -69,7 +69,7 @@
 
     <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
     <input class="uk-input form-control p-3 password  rounded-sm position-relative "
-        style="z-index: 2;" id="city" type="text" name="city"  value="{{partner.city}}" required>
+        style="z-index: 2;" id="city" type="text" name="city" value="{% if partner.city %} {{partner.city}} {% endif %}" required>
     <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label"
         style="z-index: 1;font-size: 12px;">
        City
@@ -79,7 +79,7 @@
 
     <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
     <input class="uk-input form-control p-3 password  rounded-sm position-relative "
-        style="z-index: 2;" id="city" type="text" name="city_code"  value="{{partner.city_code}}" required>
+        style="z-index: 2;" id="city" type="text" name="city_code"  value="{% if partner.city_code %} {{partner.city_code}} {% endif %}" required>
     <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label"
         style="z-index: 1;font-size: 12px;">
        Postal code
@@ -90,7 +90,7 @@
 
     <!-- <span class="uk-position-center-left ml-2"> <i class="fa fa-envelope"></i></span> -->
     <input class="uk-input form-control p-3 password  rounded-sm position-relative "
-        style="z-index: 2;" id="state" type="text" name="state"  value="{{partner.state}}" required>
+        style="z-index: 2;" id="state" type="text" name="state"  value="{% if partner.state %} {{partner.state}} {% endif %}" required>
     <span class=" uk-position-center-left rounded-sm pl-2 pr-2 ml-2 c-label"
         style="z-index: 1;font-size: 12px;">
         State

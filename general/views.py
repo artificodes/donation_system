@@ -222,9 +222,13 @@ def videoscontent(request, *args, **kwargs):
 
 
 def home(request, *args, **kwargs):
-    allObject = inherit(request, *args, **kwargs)
-    template_name = 'frontend/home.html'
-    return render(request,template_name,allObject)
+    if request.user.is_superuser:
+        redirecturl = redirect('admin_dashboard')
+    else:
+        partner = pmodels.DpMembers.objects.get(user=user)
+        logrequest(request,partner.member_no or '')
+        redirecturl = redirect('partner_dashboard')
+    return redirecturl
 
 def slideshow(request, *args, **kwargs):
     allObject = inherit(request, *args, **kwargs)
@@ -466,7 +470,7 @@ def memberlookup(request, *args, **kwargs):
                                 'form_content':content,
                             }
                     return JsonResponse(output_data)
-            except AttributeError:
+            except Exception:
                 allObject['identifier']=uniqueidentifier
                 allObject['profile']=profile
 
@@ -523,6 +527,7 @@ def memberlookup(request, *args, **kwargs):
 
 
 
+
 def membersignup(request, *args, **kwargs):
     allObject = inherit(request, *args, **kwargs)
 
@@ -569,6 +574,7 @@ def membersignup(request, *args, **kwargs):
         user.refresh_from_db()
         user.is_active = True
         user.save()
+        
         # form.user_id = user_id
         chars = '0123456789' 
         token = ''
@@ -576,8 +582,41 @@ def membersignup(request, *args, **kwargs):
             token = token +chars[round((random()-0.5)*len(chars))]
         token = token[0:6]
         profile.last_token = make_password(token)
+        profile.userid = profile.member_no
         profile.user = user
         profile.save()
+        # exist = True
+        # while exist:
+        #     nums = '0123456789'
+        #     tempnums = ''
+        #     lalph = 'abcdefghijklmnopqrstuvwxyz'
+        #     templalph=''
+        #     ualph = lalph.upper()
+        #     tempualph = ''
+
+        #     for num in range(0,len(nums)):
+        #         tempnums +=nums[round((random()-0.5)*len(nums))]
+        #     for num in range(0,len(lalph)):
+        #         templalph +=lalph[round((random()-0.5)*len(lalph))]
+        #     for num in range(0,len(ualph)):
+        #         tempualph +=ualph[round((random()-0.5)*len(ualph))]
+        #     firstletter= user.first_name[0].upper()
+        #     lastletter =user.last_name[0].upper()
+        #     temporary_userid = tempnums[0:3] + templalph[0:3]+tempualph[0:3]+firstletter+lastletter
+        #     userid= []
+        #     for char in temporary_userid:
+        #         userid.insert(round(random()*5),char)
+        #     userid = ''.join(userid)
+        #     userid = 'D'+userid
+        #     try:                
+        #         pmodels.DpMembers.objects.get(member_no=userid)
+
+        #     except ObjectDoesNotExist:
+        #         profile.userid = profile.member_no
+        #         profile.member_no = userid
+        #         profile.save()
+        #         exist = False
+        #         break
         if profile.email_addres != '' and profile.email_addres !='none@gmail.com':
             subject = 'Account Activation - Dominion Partners Global'
             current_site = Site.objects.get_current()
@@ -620,8 +659,8 @@ def membersignup(request, *args, **kwargs):
         allObject = inherit(request)
         # member = pmodels.Member.objects.get(user=user)
         # member = True
-        template_name = 'partners/dashboard.html'
-        content = loader.render_to_string(template_name,allObject,request)
+        # template_name = 'partners/dashboard.html'
+        # content = loader.render_to_string(template_name,allObject,request)
         output_data = {
                             'url':redirect('accept_privacy_terms').url,
                         }
@@ -659,6 +698,15 @@ def loginuser(request, *args, **kwargs):
         # template_name = 'partners/dashboard.html'
         # content = loader.render_to_string(template_name,allObject,request)
         if request.POST.copy().get('next'):
+            if request.POST.copy().get('next') == '/':
+                if user.is_superuser:
+                    redirecturl = redirect('admin_dashboard').url
+                else:
+                    partner = pmodels.DpMembers.objects.get(user=user)
+                    logrequest(request,partner.member_no or '')
+                    redirecturl = redirect('partner_dashboard').url
+
+            else:
                 redirectinstance= redirect(request.POST.copy().get('next'))
                 redirecturl = redirectinstance.url
         else:

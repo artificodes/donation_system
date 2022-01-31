@@ -44,53 +44,24 @@ class VisitorsLog(models.Model):
     # def save(self,*args,*kwargs):
 
 
+
 class DpMembers(models.Model):
-    user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL, blank=True,editable=False)
-    full_name = models.CharField(max_length=550,default='',blank=True)
+
     company_name = models.CharField(max_length=550,default='',blank=True)
-    spouse_name = models.CharField(max_length=550,default='',blank=True)
     spouse_email = models.EmailField(default='',blank=True)
     marital_status = models.CharField(max_length =225, choices=(('S','Single'), ('M','Married'),('D','Divorced'), ('W','Widowed'),('P','Private')), default='',blank=False)
     gender = models.CharField(max_length =225, choices=(('M','Male'), ('F','Female')), default='',blank=False)
     date_of_birth = models.DateField(auto_now=False,default=now)
     spouse_dob = models.DateField(auto_now=False,default=now)
     spouse_phone= models.CharField(max_length=15, default='', blank=True,verbose_name='Phone Number 2')
-    contact_person_phone_number = models.CharField(max_length=15, default='', blank=True,verbose_name='Contact Person Number')
-    contact_person_email = models.EmailField(default='',blank=True)
-    contact_person_full_name = models.CharField(max_length=225,blank=True,default='')
-    photo = models.ImageField(upload_to="media/partners/", blank=True)
-    sector = models.CharField(max_length=225, default='',blank=True)
-    userid = models.CharField(max_length=255, default='',blank=True,editable=False)
-    tv_station = models.CharField(max_length=225, default='',blank=True)
-    signup_date = models.DateField(default=now)
-    profile_edit_date = models.DateField(auto_now=True)
-    email_confirmed = models.BooleanField(default=False)
-    date_time_added = models.DateTimeField(default=now)
-    secret_question = models.CharField(max_length=225,blank=True,default='')
-    secret_answer = models.CharField(max_length=225,blank=True,default='')
-    previous_email = models.CharField(max_length=225,blank=True,default='')
-    last_token = models.CharField(max_length=225,blank=True,default='')
-    profile_updated = models.BooleanField(default=False)
-    suspension_count = models.IntegerField(default=0)
-    briefly_suspended = models.BooleanField(default=False)
-    time_suspended = models.DateTimeField(auto_now_add=False,default=now, blank=True)
-    time_suspended_timestamp = models.IntegerField(default=0,blank=True)
-    # reference_code = models.CharField(max_length=225,default='',blank=True)
-    street_number = models.CharField(max_length=225, default='',blank=False)
-    street = models.CharField(max_length=225, default='',blank=False)
+
     # landmark = models.CharField(max_length=225, default='',blank=False)
     # nearest_bus_stop = models.CharField(max_length=225, default='',blank=False)
     city = models.CharField(max_length=225, default='',blank=False)
     # lga = models.CharField(max_length=225, default='',blank=False)
     country = CountryField(default='',blank_label='(select country)')
     state = models.CharField(max_length=225, default='',blank=False)
-    full_address = models.CharField(default='',blank=True,max_length=500)
-    is_cgcc_member = models.BooleanField(default=False)
-    contribution_frequency =  models.CharField(default='',choices=(('monthly','Monthly'), ('quarterly','Quarterly'), ('yearly','Yearly'),), blank=True,max_length=500)
     currency =  models.CharField(default='',choices=(('NGN','Naira'), ('USD','Dollar'),('GBP','Pounds'), ('EUR','Euro')), blank=True,max_length=500)
-    account_type =  models.CharField(default='I',choices=(('I','Individual'), ('Cr','Corporate'), ('S','Sponsor'), ('C','Couple')), blank=True,max_length=500)
-    account_type_selected = models.BooleanField(default=False)
-    call_code = models.CharField(max_length=5, blank=True, null=True, default='')
     member_no = models.CharField(max_length=45)
     title = models.CharField(max_length=5, blank=True, null=True, default='')
     middle_name = models.CharField(max_length=45, blank=True, null=True, default='')
@@ -136,7 +107,42 @@ class DpMembers(models.Model):
     approval_date = models.DateTimeField(blank=True, null=True, default=now)
     approved_by = models.IntegerField(blank=True, null=True,)
     payment_synced = models.BooleanField(default=False)
+    spouse_name = models.CharField(max_length=550,default='',blank=True)
+    reference_code = models.CharField(max_length=225,default='',blank=True)
+    street = models.CharField(max_length=225, default='',blank=False)
     privacy_terms_accepted = models.BooleanField(default=False)
+    account_type_selected = models.BooleanField(default=False)
+    call_code = models.CharField(max_length=5, blank=True, null=True, default='')
+    user = models.ForeignKey(User,null=True,on_delete=models.SET_NULL, blank=True,editable=False)
+    full_name = models.CharField(max_length=550,default='',blank=True)
+    account_type =  models.CharField(default='I',choices=(('I','Individual'), ('Cr','Corporate'), ('S','Sponsor'), ('C','Couple')), blank=True,max_length=500)
+    contact_person_phone_number = models.CharField(max_length=15, default='', blank=True,verbose_name='Contact Person Number')
+    contact_person_email = models.EmailField(default='',blank=True)
+    contact_person_full_name = models.CharField(max_length=225,blank=True,default='')
+    photo = models.ImageField(upload_to="media/partners/", blank=True)
+    sector = models.CharField(max_length=225, default='',blank=True)
+    street_number = models.CharField(max_length=225, default='',blank=False)
+
+    userid = models.CharField(max_length=255, default='',blank=True,editable=False)
+    tv_station = models.CharField(max_length=225, default='',blank=True)
+    signup_date = models.DateField(default=now)
+    profile_edit_date = models.DateField(auto_now=True)
+    email_confirmed = models.BooleanField(default=False)
+    date_time_added = models.DateTimeField(default=now)
+    secret_question = models.CharField(max_length=225,blank=True,default='')
+    secret_answer = models.CharField(max_length=225,blank=True,default='')
+    previous_email = models.CharField(max_length=225,blank=True,default='')
+    last_token = models.CharField(max_length=225,blank=True,default='')
+    profile_updated = models.BooleanField(default=False)
+    suspension_count = models.IntegerField(default=0)
+    briefly_suspended = models.BooleanField(default=False)
+    time_suspended = models.DateTimeField(auto_now_add=False,default=now, blank=True)
+    time_suspended_timestamp = models.IntegerField(default=0,blank=True)
+    full_address = models.CharField(default='',blank=True,max_length=500)
+    is_cgcc_member = models.BooleanField(default=False)
+    contribution_frequency =  models.CharField(default='',choices=(('monthly','Monthly'), ('quarterly','Quarterly'), ('yearly','Yearly'),), blank=True,max_length=500)
+    
+    
     class Meta:
         managed = True
         db_table = 'dp_members'
@@ -220,18 +226,20 @@ class Currency(models.Model):
 
 class DpPayments(models.Model):
     months_choices = [('JAN','JAN'),('FEB','FEB'),('MAR','MAR'),('APR','APR'),('MAY','MAY'),('JUN','JUN'),('JUL','JUL'),('AUG','AUG'),('SEP','SEP'),('OCT','OCT'),('NOV','NOV'),('DEC','DEC')]
-    partner = models.ForeignKey(DpMembers,null=True,blank=True, on_delete=models.CASCADE,default='')
+    # partner = models.ForeignKey(DpMembers,null=True,blank=True, on_delete=models.CASCADE,default='')
 
     pay_id = models.AutoField(primary_key=True)
     amount = models.IntegerField(default=0,blank=True)    
     paymentid =  models.CharField(default='',max_length=100,blank=True,)
     formatted_amount =models.CharField(default='',max_length=100,blank=True,)
     date_time_added = models.DateTimeField(auto_now=False,default=now, editable=True)
+    month_covered = models.DateField(default=now)
+    synced = models.BooleanField(default=False)
+    fixed = models.BooleanField(default=False)
     pay_date = models.DateField(blank=True, null=True,default=now)
     payment_month = models.CharField(max_length=45, blank=True,default='')
     payment_year = models.CharField(max_length=45, blank=True, null=True, default='')
 
-    month_covered = models.DateField(default=now)
     pay_reference = HTMLField(blank=True, null=True, default='')
     description = models.CharField(max_length=2000, blank=True, null=True, default='')
     pay_source = models.CharField(max_length=45, blank=True, null=True, default='')
@@ -249,8 +257,7 @@ class DpPayments(models.Model):
     cheque_no = models.CharField(max_length=45, blank=True, null=True, default='')
     bank = models.CharField(max_length=45, blank=True, null=True, default='')
     comment = models.CharField(max_length=700, blank=True, null=True, default='')
-    synced = models.BooleanField(default=False)
-    fixed = models.BooleanField(default=False)
+
     def __str__(self):
         return  str(self.member_id) + ' ' +str(self.payment_month) +' ' +str(self.payment_year)
 
@@ -271,7 +278,9 @@ class DpPayments(models.Model):
 
 class Payment(models.Model):
     content_type = models.CharField(default='payment',max_length=10,blank=False,editable=False,)
-    partner = models.ForeignKey(DpMembers,default='',null=True, blank=True, on_delete=models.CASCADE)
+    # partner = models.ForeignKey(DpMembers,default='',null=True, blank=True, on_delete=models.CASCADE)
+    member_id = models.IntegerField(blank=True,default=-1)
+    member_no = models.CharField(max_length=45, blank=True, null=True, default='')
     amount = models.IntegerField(default=0,blank=True)
     screenshot = models.ImageField(blank=True,default='')
     start_date = models.DateField( default=now)

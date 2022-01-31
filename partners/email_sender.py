@@ -58,13 +58,16 @@ def sendmail(RECIPIENT,BODY_TEXT,BODY_HTML,SUBJECT,customize = None,**kwargs):
         settings = list(gmodels.General.objects.all())[0]
     except IndexError:
         settings =[]
-    fp = open(settings.logo.path, 'rb')
-    msgImage = MIMEImage(fp.read())
-    fp.close()
+    try:
+        fp = open(settings.logo.path, 'rb')
+        msgImage = MIMEImage(fp.read())
+        fp.close()
 
-    # Define the image's ID as referenced above
-    msgImage.add_header('Content-ID', '<logo>')
-    msg.attach(msgImage)
+        # Define the image's ID as referenced above
+        msgImage.add_header('Content-ID', '<logo>')
+        msg.attach(msgImage)
+    except Exception:
+        pass
 
     socials = gmodels.SocialLink.objects.all()
     for social in socials:
